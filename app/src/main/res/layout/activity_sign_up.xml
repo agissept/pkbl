@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.forgotpasssword.ForgotPasswordActivity"
+        android:background="@drawable/bg_gradient"
+        android:fitsSystemWindows="true">
+
+    <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                <androidx.appcompat.widget.Toolbar
+                        android:layout_marginTop="30dp"
+                        android:id="@+id/toolbar"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:minHeight="?attr/actionBarSize">
+
+                </androidx.appcompat.widget.Toolbar>
+
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Need Account ?"
+                        android:textColor="@android:color/background_light"
+                        android:textSize="34dp"
+                        android:fontFamily="@font/raleway"
+                        android:textStyle="bold"
+                        android:id="@+id/textView2"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_below="@+id/toolbar"/>
+
+                <TextView
+                        android:layout_above="@id/email_layout"
+                        android:layout_marginTop="64dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Fill this form and we will send email verification"
+                        android:fontFamily="@font/raleway"
+                        android:textSize="18dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginStart="16dp"
+                        android:textColor="@android:color/background_light"
+                        android:gravity="center"
+                        android:layout_marginBottom="8dp"
+                        android:id="@+id/tv_subtitle"
+                        />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="32dp"
+                        android:id="@+id/email_layout"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_above="@id/name_layout">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Email"
+                            android:fontFamily="@font/raleway"
+                            android:inputType="textEmailAddress"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="32dp"
+                        android:id="@+id/name_layout"
+                        android:layout_marginStart="32dp"
+                        android:layout_centerInParent="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Name"
+                            android:fontFamily="@font/raleway"
+                            android:singleLine="true"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="32dp"
+                        android:id="@+id/password_layout"
+                        android:layout_marginStart="32dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Password"
+                            android:fontFamily="@font/raleway"
+                            android:inputType="textPassword"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.button.MaterialButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Register"
+                        android:layout_marginTop="16dp"
+                        android:paddingLeft="64dp"
+                        android:paddingRight="64dp"
+                        android:fontFamily="@font/noto"
+                        android:id="@+id/materialButton"
+                        android:layout_gravity="center_horizontal"/>
+
+            </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</RelativeLayout>
+
