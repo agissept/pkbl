@@ -1,16 +1,22 @@
 package id.agis.pkbl.ui.dashboard
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProviders
+import androidx.viewpager.widget.ViewPager.SimpleOnPageChangeListener
 import id.agis.pkbl.R
 import id.agis.pkbl.ui.dashboard.kemitraan.DashboardKemitraanFragment
+import id.agis.pkbl.ui.login.LoginActivity
 import id.agis.pkbl.util.TabAdapter
 import kotlinx.android.synthetic.main.activity_dashboard.*
-import androidx.viewpager.widget.ViewPager.SimpleOnPageChangeListener
+import org.jetbrains.anko.startActivity
 
 
 class DashboardActivity : AppCompatActivity() {
 
+    lateinit var viewModel: DashboardViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +39,23 @@ class DashboardActivity : AppCompatActivity() {
         tab_layout.setupWithViewPager(view_pager)
         view_pager.adapter = adapter
 
+        viewModel = ViewModelProviders.of(this).get(DashboardViewModel::class.java)
+    }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_dashboard, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId){
+            R.id.logout ->{
+                viewModel.deleteToken(this)
+                startActivity<LoginActivity>()
+                finish()
+            }
+        }
+
+        return true
     }
 }

@@ -15,7 +15,7 @@ android {
     }
     compileSdkVersion 28
     defaultConfig {
-        buildConfigField("String", "BASE_URL", '"https://jsonplaceholder.typicode.com/"')
+        buildConfigField("String", "BASE_URL", '"https://api-pkbl-v1.herokuapp.com/api/"')
         applicationId "id.agis.pkbl"
         minSdkVersion 21
         targetSdkVersion 28
@@ -73,5 +73,8 @@ dependencies {
     //maps
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.google.android.libraries.places:places:2.0.0'
+
+    implementation 'com.vincent.filepicker:MultiTypeFilePicker:1.0.7'
+    implementation 'pub.devrel:easypermissions:1.2.0'
 
 }

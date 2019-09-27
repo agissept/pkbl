@@ -10,7 +10,10 @@ import com.bumptech.glide.Glide
 import id.agis.pkbl.R
 import kotlinx.android.synthetic.main.image_list.view.*
 
-class DetailBinaLingkunganAdapter(val context: Context): RecyclerView.Adapter<DetailBinaLingkunganAdapter.ViewHolder>() {
+class DetailBinaLingkunganAdapter(
+    val context: Context,
+    private val listImage: List<String?>
+) : RecyclerView.Adapter<DetailBinaLingkunganAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.image_list, parent, false)
         return ViewHolder(view)
@@ -21,10 +24,14 @@ class DetailBinaLingkunganAdapter(val context: Context): RecyclerView.Adapter<De
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Glide.with(context).load("https://via.placeholder.com/100").into(holder.image)
+        if (listImage.isNotEmpty() && position <= listImage.size-1 && listImage[position] != null) {
+            Glide.with(context).load(listImage[position]).into(holder.image)
+        } else {
+            Glide.with(context).load("https://via.placeholder.com/100").into(holder.image)
+        }
     }
 
-    inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val image: ImageView = itemView.image
     }
 }

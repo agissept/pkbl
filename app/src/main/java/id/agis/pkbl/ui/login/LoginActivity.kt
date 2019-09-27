@@ -4,8 +4,11 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import id.agis.pkbl.R
 import id.agis.pkbl.ui.dashboard.DashboardActivity
 import id.agis.pkbl.ui.forgotpasssword.ForgotPasswordActivity
@@ -15,6 +18,8 @@ import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.startActivity
 
 class LoginActivity : AppCompatActivity() {
+
+    private lateinit var viewModel: LoginViewModel
 
     @SuppressLint("ObsoleteSdkInt")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +33,11 @@ class LoginActivity : AppCompatActivity() {
             window.statusBarColor = Color.TRANSPARENT
         }
 
+        viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
+
+
         btn_login.setOnClickListener {
+//            requestLogin(ed_username.text.toString(), ed_password.text.toString())
             startActivity<DashboardActivity>()
         }
 
@@ -43,5 +52,26 @@ class LoginActivity : AppCompatActivity() {
         tv_sign_up.setOnClickListener {
             startActivity<SignUpActivity>()
         }
+    }
+
+    private fun requestLogin(username: String, password: String) {
+        tv_error.visibility = View.INVISIBLE
+        progress_circular.visibility = View.VISIBLE
+
+        viewModel.requestLogin(username, password).observe(this, Observer {
+            if (it != null) {
+                viewModel.saveToken(applicationContext, it.id, it.access.id)
+                if (it.access.id == 1) {
+                    startActivity<DashboardActivity>()
+                } else if (it.access.id == 2) {
+                    startActivity<MainActivity>()
+                }
+                finish()
+            }
+            if (it == null) {
+                tv_error.visibility = View.VISIBLE
+                progress_circular.visibility = View.INVISIBLE
+            }
+        })
     }
 }
