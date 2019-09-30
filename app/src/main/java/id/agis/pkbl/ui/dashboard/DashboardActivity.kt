@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager.SimpleOnPageChangeListener
 import id.agis.pkbl.R
+import id.agis.pkbl.ui.dashboard.binalingkungan.DashboardBinaLingkunganFragment
 import id.agis.pkbl.ui.dashboard.kemitraan.DashboardKemitraanFragment
 import id.agis.pkbl.ui.login.LoginActivity
 import id.agis.pkbl.util.TabAdapter
@@ -16,7 +17,7 @@ import org.jetbrains.anko.startActivity
 
 class DashboardActivity : AppCompatActivity() {
 
-    lateinit var viewModel: DashboardViewModel
+    private lateinit var viewModel: DashboardViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +35,7 @@ class DashboardActivity : AppCompatActivity() {
         })
 
         val adapter = TabAdapter(supportFragmentManager)
-        adapter.addFragment(DashboardKemitraanFragment(), "Bina Lingkungan")
+        adapter.addFragment(DashboardBinaLingkunganFragment(), "Bina Lingkungan")
         adapter.addFragment(DashboardKemitraanFragment(), "Kemitraan")
         tab_layout.setupWithViewPager(view_pager)
         view_pager.adapter = adapter

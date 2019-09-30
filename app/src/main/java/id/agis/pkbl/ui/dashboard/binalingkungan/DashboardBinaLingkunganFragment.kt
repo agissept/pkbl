@@ -1,4 +1,4 @@
-package id.agis.pkbl.ui.dashboard.kemitraan
+package id.agis.pkbl.ui.dashboard.binalingkungan
 
 
 import android.graphics.Color
@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_dashboard_kemitraan.*
 import java.util.*
 
 
-class DashboardKemitraanFragment : Fragment() {
+class DashboardBinaLingkunganFragment : Fragment() {
     val judul = arrayListOf(
         "industri",
         "perdagangan",
