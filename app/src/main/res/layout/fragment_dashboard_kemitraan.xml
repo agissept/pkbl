@@ -28,19 +28,19 @@
                 <TextView
                         android:textColor="#ffffff"
                         android:layout_weight="1"
-                        android:text=" Sektor "
+                        android:text="@string/sektor"
                         android:gravity="center"/>
 
                 <TextView
                         android:textColor="#ffffff"
                         android:layout_weight="1"
-                        android:text="RKA"
+                        android:text="@string/rka"
                         android:gravity="center"/>
 
                 <TextView
                         android:textColor="#ffffff"
                         android:layout_weight="1"
-                        android:text="Realisasi"
+                        android:text="@string/realisasi"
                         android:gravity="center"/>
             </TableRow>
 
@@ -48,18 +48,18 @@
 
                 <TextView
                         android:layout_weight="1"
-                        android:text="Industri"
+                        android:text="@string/industri"
                         android:gravity="center"/>
 
                 <TextView
                         android:layout_weight="1"
-                        android:text="Text"
+                        android:text="@string/text"
                         android:gravity="center"
                         />
 
                 <TextView
                         android:layout_weight="1"
-                        android:text="Text"
+                        android:text="@string/text"
                         android:gravity="center"/>
             </TableRow>
 
@@ -68,35 +68,17 @@
 
                 <TextView
                         android:layout_weight="1"
-                        android:text="Perdagangan"
+                        android:text="@string/perdagangan"
                         android:gravity="center"/>
 
                 <TextView
                         android:layout_weight="1"
-                        android:text="Text"
+                        android:text="@string/text"
                         android:gravity="center"/>
 
                 <TextView
                         android:layout_weight="1"
-                        android:text="Text"
-                        android:gravity="center"/>
-            </TableRow>
-
-            <TableRow>
-
-                <TextView
-                        android:layout_weight="1"
-                        android:text="Pertanian"
-                        android:gravity="center"/>
-
-                <TextView
-                        android:layout_weight="1"
-                        android:text="Text"
-                        android:gravity="center"/>
-
-                <TextView
-                        android:layout_weight="1"
-                        android:text="Text"
+                        android:text="@string/text"
                         android:gravity="center"/>
             </TableRow>
 
@@ -104,35 +86,17 @@
 
                 <TextView
                         android:layout_weight="1"
-                        android:text="Peternakan"
+                        android:text="@string/pertanian"
                         android:gravity="center"/>
 
                 <TextView
                         android:layout_weight="1"
-                        android:text="Text"
+                        android:text="@string/text"
                         android:gravity="center"/>
 
                 <TextView
                         android:layout_weight="1"
-                        android:text="Text"
-                        android:gravity="center"/>
-            </TableRow>
-
-            <TableRow>
-
-                <TextView
-                        android:layout_weight="1"
-                        android:text="Perkebunan"
-                        android:gravity="center"/>
-
-                <TextView
-                        android:layout_weight="1"
-                        android:text="Text"
-                        android:gravity="center"/>
-
-                <TextView
-                        android:layout_weight="1"
-                        android:text="Text"
+                        android:text="@string/text"
                         android:gravity="center"/>
             </TableRow>
 
@@ -140,35 +104,17 @@
 
                 <TextView
                         android:layout_weight="1"
-                        android:text="Perikanan"
+                        android:text="@string/peternakan"
                         android:gravity="center"/>
 
                 <TextView
                         android:layout_weight="1"
-                        android:text="Text"
+                        android:text="@string/text"
                         android:gravity="center"/>
 
                 <TextView
                         android:layout_weight="1"
-                        android:text="Text"
-                        android:gravity="center"/>
-            </TableRow>
-
-            <TableRow>
-
-                <TextView
-                        android:layout_weight="1"
-                        android:text="Lainnya"
-                        android:gravity="center"/>
-
-                <TextView
-                        android:layout_weight="1"
-                        android:text="Text"
-                        android:gravity="center"/>
-
-                <TextView
-                        android:layout_weight="1"
-                        android:text="Text"
+                        android:text="@string/text"
                         android:gravity="center"/>
             </TableRow>
 
@@ -176,17 +122,71 @@
 
                 <TextView
                         android:layout_weight="1"
-                        android:text="Total"
+                        android:text="@string/perkebunan"
                         android:gravity="center"/>
 
                 <TextView
                         android:layout_weight="1"
-                        android:text="Text"
+                        android:text="@string/text"
                         android:gravity="center"/>
 
                 <TextView
                         android:layout_weight="1"
-                        android:text="Text"
+                        android:text="@string/text"
+                        android:gravity="center"/>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                        android:layout_weight="1"
+                        android:text="@string/perikanan"
+                        android:gravity="center"/>
+
+                <TextView
+                        android:layout_weight="1"
+                        android:text="@string/text"
+                        android:gravity="center"/>
+
+                <TextView
+                        android:layout_weight="1"
+                        android:text="@string/text"
+                        android:gravity="center"/>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                        android:layout_weight="1"
+                        android:text="@string/lainnya"
+                        android:gravity="center"/>
+
+                <TextView
+                        android:layout_weight="1"
+                        android:text="@string/text"
+                        android:gravity="center"/>
+
+                <TextView
+                        android:layout_weight="1"
+                        android:text="@string/text"
+                        android:gravity="center"/>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                        android:layout_weight="1"
+                        android:text="@string/total"
+                        android:gravity="center"/>
+
+                <TextView
+                        android:layout_weight="1"
+                        android:text="@string/text"
+                        android:gravity="center"/>
+
+                <TextView
+                        android:layout_weight="1"
+                        android:text="@string/text"
                         android:gravity="center"/>
             </TableRow>
 

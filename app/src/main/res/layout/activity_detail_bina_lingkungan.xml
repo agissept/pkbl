@@ -60,7 +60,7 @@
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Indentitas Pemohon"
+                        android:text="@string/indentitas_pemohon"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -185,7 +185,7 @@
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Kelengkapan Survey"
+                        android:text="@string/kelengkapan_survey"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -193,19 +193,19 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:text="Dokumen Survey"
+                        android:text="@string/dokumen_survey"
                         android:textStyle="bold" />
 
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
-                        android:text="Lorem.jpg" />
+                        android:text="@string/lorem_jpg" />
 
                 <com.google.android.material.button.MaterialButton
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Dok survey"
+                        android:text="@string/dok_survey"
                         android:id="@+id/btn_set_dok_survey"/>
 
 
@@ -213,7 +213,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="Lokasi Survey"
+                        android:text="@string/lokasi_survey"
                         android:textStyle="bold" />
 
                 <TextView
@@ -221,13 +221,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
-                        android:text="0, 0" />
+                        android:text="@string/_0_0" />
 
                 <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_set_coordinate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Ubah Koordinat" />
+                        android:text="@string/ubah_koordinat" />
 
 
             </LinearLayout>
@@ -247,7 +247,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="32dp"
-                        android:text="Berkas Survey"
+                        android:text="@string/berkas_survey"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
