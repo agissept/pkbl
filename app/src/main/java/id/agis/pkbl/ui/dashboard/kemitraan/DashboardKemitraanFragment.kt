@@ -54,7 +54,7 @@ class DashboardKemitraanFragment : Fragment() {
 
         // create a custom MarkerView (extend MarkerView) and specify the layout
         // to use for it
-        val mv = CustomMarkerView(context, R.layout.custom_marker_view)
+        val mv = CustomMarkerView(context!!, R.layout.custom_marker_view)
         mv.chartView = chart // For bounds control
         chart.marker = mv // Set the marker to the chart
 
