@@ -25,8 +25,8 @@ class KemitraanAdapter(private val listKemitraan : List<Kemitraan>):
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = listKemitraan[position]
 
-        holder.tvTitle.text = data.title
-        holder.tvBody.text = data.body
+        holder.tvTitle.text = data.namaLengkap
+        holder.tvBody.text = data.nilaiPengajuan
         holder.itemView.setOnClickListener {
             holder.itemView.context.startActivity<DetailBinaLingkunganActivity>()
         }

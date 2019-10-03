@@ -4,10 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import id.agis.pkbl.data.source.remote.retrofit.ApiClient
 import id.agis.pkbl.data.source.remote.retrofit.ApiInterface
-import id.agis.pkbl.model.BinaLingkugan
-import id.agis.pkbl.model.Kemitraan
-import id.agis.pkbl.model.User
-import id.agis.pkbl.model.UserResponse
+import id.agis.pkbl.model.*
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -43,17 +40,17 @@ class RemoteRepository {
     fun getKemitraan(): LiveData<List<Kemitraan>> {
         val dataKemitraan = MutableLiveData<List<Kemitraan>>()
 
-        val call: Call<List<Kemitraan>> = apiInterface.getKemitraan()
-        call.enqueue(object : Callback<List<Kemitraan>> {
-            override fun onFailure(call: Call<List<Kemitraan>>, t: Throwable) {
+        val call: Call<KemitraanResponse> = apiInterface.getKemitraan()
+        call.enqueue(object : Callback<KemitraanResponse> {
+            override fun onFailure(call: Call<KemitraanResponse>, t: Throwable) {
 
             }
 
             override fun onResponse(
-                call: Call<List<Kemitraan>>,
-                response: Response<List<Kemitraan>>
+                call: Call<KemitraanResponse>,
+                response: Response<KemitraanResponse>
             ) {
-                dataKemitraan.postValue(response.body())
+                dataKemitraan.postValue(response.body()?.pemohon)
             }
 
         })
