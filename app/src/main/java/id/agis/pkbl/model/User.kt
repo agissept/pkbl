@@ -2,14 +2,20 @@ package id.agis.pkbl.model
 
 import com.google.gson.annotations.SerializedName
 
-class User(
-    val id: Int,
+data class User(
+    @SerializedName("user_id")
+    val userId: Int,
+
     val username: String,
-    val access: Access
+
+    val access: Access,
+
+    val token: String
 )
 
-class Access(
+data class Access(
     val id: Int,
     @SerializedName("access_name")
-    val accesName: String
+    val accessName: String
 )
+

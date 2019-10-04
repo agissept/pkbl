@@ -1,7 +1,6 @@
 package id.agis.pkbl.model
 
-class UserResponse(
+data class UserResponse(
     val status: Status,
     val user: User
 )
-

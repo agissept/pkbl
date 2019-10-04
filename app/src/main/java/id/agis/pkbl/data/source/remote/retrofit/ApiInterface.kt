@@ -19,10 +19,6 @@ interface ApiInterface {
     @POST("user/login")
     fun loginRequest(@Field("username") username: String, @Field("password") pass: String): Call<UserResponse>
 
-    @GET("login")
-    fun getLogin():Call<UserResponse>
-
-
     @Multipart
     @POST("upload.php")
     fun uploadImage(imageName: MultipartBody.Part): Call<ResponseBody>

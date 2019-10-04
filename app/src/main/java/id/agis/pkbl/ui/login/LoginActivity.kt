@@ -37,8 +37,7 @@ class LoginActivity : AppCompatActivity() {
 
 
         btn_login.setOnClickListener {
-//            requestLogin(ed_username.text.toString(), ed_password.text.toString())
-            startActivity<DashboardActivity>()
+            requestLogin(ed_username.text.toString(), ed_password.text.toString())
         }
 
         btn_user.setOnClickListener {
@@ -60,7 +59,7 @@ class LoginActivity : AppCompatActivity() {
 
         viewModel.requestLogin(username, password).observe(this, Observer {
             if (it != null) {
-                viewModel.saveToken(applicationContext, it.id, it.access.id)
+                viewModel.saveToken(applicationContext, it.userId, it.access.id, it.token)
                 if (it.access.id == 1) {
                     startActivity<DashboardActivity>()
                 } else if (it.access.id == 2) {
