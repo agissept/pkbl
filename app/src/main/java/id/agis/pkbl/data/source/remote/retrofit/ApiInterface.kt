@@ -12,7 +12,7 @@ interface ApiInterface {
     @GET("posts")
     fun getBinaLingkungan(): Call<List<BinaLingkugan>>
 
-    @GET("user/2/pemohon")
+    @GET("/pemohon")
     fun getKemitraan(): Call<KemitraanResponse>
 
     @FormUrlEncoded

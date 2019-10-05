@@ -1,7 +1,9 @@
 package id.agis.pkbl.data.source.remote
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import id.agis.pkbl.constant.Constant
 import id.agis.pkbl.data.source.remote.retrofit.ApiClient
 import id.agis.pkbl.data.source.remote.retrofit.ApiInterface
 import id.agis.pkbl.model.*
@@ -11,10 +13,32 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RemoteRepository {
-    private val apiInterface: ApiInterface = ApiClient.retrofit.create(
+class RemoteRepository(val context: Context) {
+    companion object {
+        fun getInstance(context: Context): RemoteRepository {
+            var instance: RemoteRepository? = null
+            if (instance == null) {
+                synchronized(RemoteRepository::class.java) {
+                    if (instance == null) {
+                        instance = RemoteRepository(context)
+                    }
+                }
+            }
+            return instance as RemoteRepository
+        }
+    }
+
+    private val apiInterface: ApiInterface = ApiClient.retrofit().create(
         ApiInterface::class.java
     )
+
+    fun getToken(context: Context): String? {
+        val sharedPreferences =
+            context.getSharedPreferences(Constant.LOGIN_STATUS, Context.MODE_PRIVATE)
+
+        return sharedPreferences.getString(Constant.USER_TOKEN, null)
+    }
+
 
     fun getBinaLingkungan(): LiveData<List<BinaLingkugan>> {
         val dataBinaLingkungan = MutableLiveData<List<BinaLingkugan>>()
@@ -66,7 +90,10 @@ class RemoteRepository {
 
             }
 
-            override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
+            override fun onResponse(
+                call: Call<UserResponse>,
+                response: Response<UserResponse>
+            ) {
                 loginStatus.postValue(response.body()?.user)
             }
         })
@@ -75,14 +102,17 @@ class RemoteRepository {
 
     fun uploadImage(imageName: MultipartBody.Part) {
         val call = apiInterface.uploadImage(imageName)
-       call.enqueue(object : Callback<ResponseBody>{
-           override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-               TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-           }
+        call.enqueue(object : Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
 
-           override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-               TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-           }
-       })
+            override fun onResponse(
+                call: Call<ResponseBody>,
+                response: Response<ResponseBody>
+            ) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+        })
     }
 }

@@ -10,9 +10,10 @@ import id.agis.pkbl.constant.Constant.Companion.USER_TOKEN
 import id.agis.pkbl.data.source.remote.RemoteRepository
 import id.agis.pkbl.model.User
 
-class LoginViewModel : ViewModel() {
+class LoginViewModel(val remoteRepository: RemoteRepository) : ViewModel() {
+
     fun requestLogin(email: String, pass: String): LiveData<User> {
-        return RemoteRepository().loginRequest(email, pass)
+        return remoteRepository.loginRequest(email, pass)
     }
 
     fun saveToken(context: Context, id: Int, role: Int, token: String) {

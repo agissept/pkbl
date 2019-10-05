@@ -8,12 +8,12 @@ import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import id.agis.pkbl.R
 import id.agis.pkbl.ui.dashboard.DashboardActivity
 import id.agis.pkbl.ui.forgotpasssword.ForgotPasswordActivity
 import id.agis.pkbl.ui.home.MainActivity
 import id.agis.pkbl.ui.signup.SignUpActivity
+import id.agis.pkbl.ui.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.startActivity
 
@@ -33,7 +33,7 @@ class LoginActivity : AppCompatActivity() {
             window.statusBarColor = Color.TRANSPARENT
         }
 
-        viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
+        viewModel = ViewModelFactory.getInstance(this).create(LoginViewModel::class.java)
 
 
         btn_login.setOnClickListener {
