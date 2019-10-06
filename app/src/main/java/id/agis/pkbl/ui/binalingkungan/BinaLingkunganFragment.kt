@@ -5,16 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.agis.pkbl.R
 import id.agis.pkbl.model.BinaLingkugan
+import id.agis.pkbl.ui.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_bina_lingkungan.*
 
 class BinaLingkunganFragment : Fragment() {
 
     private val listBinaLingkungan = mutableListOf<BinaLingkugan>()
     private lateinit var adapter: BinaLingkunganAdapter
-//    private lateinit var viewModel: BinaLingkunganViewModel
+    private lateinit var viewModel: BinaLingkunganViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,37 +26,20 @@ class BinaLingkunganFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_bina_lingkungan, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         adapter = BinaLingkunganAdapter(listBinaLingkungan)
         recycler_view.layoutManager = LinearLayoutManager(context)
         recycler_view.adapter =adapter
 
-        //-------start-----///
-        //dummy data
-
-        val dummyData =  BinaLingkugan(1, 1, "Lorem Ipsum", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin lorem mi, eleifend sed tristique quis, vestibulum consectetur dolor. In hac habitasse platea dictumst. Nam rhoncus sollicitudin ullamcorper. Aenean consectetur, urna molestie pharetra eleifend, lectus est pharetra ipsum, id luctus risus turpis et ante.")
-
-
-        listBinaLingkungan.clear()
-        for (x in 0 until 15){
-            listBinaLingkungan.add(dummyData)
-
-        }
-
-        listBinaLingkungan.addAll(listBinaLingkungan)
-        adapter.notifyDataSetChanged()
-
-        //-------end-----///
-
-//        viewModel = ViewModelProviders.of(this).get(BinaLingkunganViewModel::class.java)
-//        viewModel.data.observe(this, Observer {
-//            listBinaLingkungan.clear()
-//            listBinaLingkungan.addAll(it)
-//            adapter.notifyDataSetChanged()
+        viewModel = ViewModelFactory.getInstance(view.context).create(BinaLingkunganViewModel::class.java)
+        viewModel.data.observe(this, Observer {
+            listBinaLingkungan.clear()
+            listBinaLingkungan.addAll(it)
+            adapter.notifyDataSetChanged()
             progress_circular.visibility = View.INVISIBLE
-//        })
+        })
 
     }
 

@@ -6,9 +6,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import id.agis.pkbl.R
-import id.agis.pkbl.ui.detail.binalingkungan.DetailBinaLingkunganActivity
-import id.agis.pkbl.ui.detail.binalingkungan.DetailBinaLingkunganActivity.Companion.EXTRA_DATA
 import id.agis.pkbl.model.BinaLingkugan
+import id.agis.pkbl.ui.detail.binalingkungan.DetailBinaLingkunganActivity
 import kotlinx.android.synthetic.main.item_list.view.*
 import org.jetbrains.anko.startActivity
 
@@ -26,10 +25,10 @@ class BinaLingkunganAdapter(private val listBinaLingkungan : List<BinaLingkugan>
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = listBinaLingkungan[position]
 
-        holder.tvTitle.text = data.title
-        holder.tvBody.text = data.body
+        holder.tvTitle.text = data.namaLengkap
+        holder.tvBody.text = data.nilaiPengajuan
         holder.itemView.setOnClickListener {
-            holder.itemView.context.startActivity<DetailBinaLingkunganActivity>(EXTRA_DATA to data)
+            holder.itemView.context.startActivity<DetailBinaLingkunganActivity>()
         }
     }
 

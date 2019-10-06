@@ -43,17 +43,17 @@ class RemoteRepository(val context: Context) {
     fun getBinaLingkungan(): LiveData<List<BinaLingkugan>> {
         val dataBinaLingkungan = MutableLiveData<List<BinaLingkugan>>()
 
-        val call: Call<List<BinaLingkugan>> = apiInterface.getBinaLingkungan()
-        call.enqueue(object : Callback<List<BinaLingkugan>> {
-            override fun onFailure(call: Call<List<BinaLingkugan>>, t: Throwable) {
+        val call: Call<BinaLingkunganResponse> = apiInterface.getBinaLingkungan()
+        call.enqueue(object : Callback<BinaLingkunganResponse> {
+            override fun onFailure(call: Call<BinaLingkunganResponse>, t: Throwable) {
 
             }
 
             override fun onResponse(
-                call: Call<List<BinaLingkugan>>,
-                response: Response<List<BinaLingkugan>>
+                call: Call<BinaLingkunganResponse>,
+                response: Response<BinaLingkunganResponse>
             ) {
-                dataBinaLingkungan.postValue(response.body())
+                dataBinaLingkungan.postValue(response.body()?.pemohon)
             }
 
         })

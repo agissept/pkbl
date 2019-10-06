@@ -1,6 +1,6 @@
 package id.agis.pkbl.data.source.remote.retrofit
 
-import id.agis.pkbl.model.BinaLingkugan
+import id.agis.pkbl.model.BinaLingkunganResponse
 import id.agis.pkbl.model.KemitraanResponse
 import id.agis.pkbl.model.UserResponse
 import okhttp3.MultipartBody
@@ -9,8 +9,8 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface ApiInterface {
-    @GET("posts")
-    fun getBinaLingkungan(): Call<List<BinaLingkugan>>
+    @GET("pemohon")
+    fun getBinaLingkungan(): Call<BinaLingkunganResponse>
 
     @GET("pemohon")
     fun getKemitraan(): Call<KemitraanResponse>
