@@ -8,7 +8,7 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import id.agis.pkbl.ui.dashboard.DashboardActivity
-import id.agis.pkbl.ui.home.MainActivity
+import id.agis.pkbl.ui.home.HomeActivity
 import id.agis.pkbl.ui.login.LoginActivity
 import org.jetbrains.anko.startActivity
 
@@ -33,7 +33,7 @@ class SplashScreenActivity : AppCompatActivity() {
                     startActivity<DashboardActivity>()
                 }
                 2->{
-                    startActivity<MainActivity>()
+                    startActivity<HomeActivity>()
                 }
             }
 

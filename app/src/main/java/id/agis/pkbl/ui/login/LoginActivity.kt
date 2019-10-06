@@ -11,7 +11,7 @@ import androidx.lifecycle.Observer
 import id.agis.pkbl.R
 import id.agis.pkbl.ui.dashboard.DashboardActivity
 import id.agis.pkbl.ui.forgotpasssword.ForgotPasswordActivity
-import id.agis.pkbl.ui.home.MainActivity
+import id.agis.pkbl.ui.home.HomeActivity
 import id.agis.pkbl.ui.signup.SignUpActivity
 import id.agis.pkbl.ui.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.activity_login.*
@@ -58,7 +58,7 @@ class LoginActivity : AppCompatActivity() {
                 if (it.access.id == 1) {
                     startActivity<DashboardActivity>()
                 } else if (it.access.id == 2) {
-                    startActivity<MainActivity>()
+                    startActivity<HomeActivity>()
                 }
                 finish()
             }

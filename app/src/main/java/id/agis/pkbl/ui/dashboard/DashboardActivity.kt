@@ -36,7 +36,7 @@ class DashboardActivity : AppCompatActivity() {
 
         val adapter = TabAdapter(supportFragmentManager)
         adapter.addFragment(DashboardBinaLingkunganFragment(), "Bina Lingkungan")
-        adapter.addFragment(DashboardKemitraanFragment(), "Kemitraan")
+        adapter.addFragment(DashboardKemitraanFragment(), "Pemohon")
         tab_layout.setupWithViewPager(view_pager)
         view_pager.adapter = adapter
 

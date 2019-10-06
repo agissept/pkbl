@@ -49,14 +49,14 @@
                 android:theme="@style/ThemeFullScreen">
 
         </activity>
-        <activity android:name=".ui.binalingkungan.EditBinaLingkunganActivity" />
+        <activity android:name="id.agis.pkbl.ui.edit.EditBinaLingkunganActivity" />
         <activity
                 android:name=".ui.detail.binalingkungan.DetailBinaLingkunganActivity"
                 android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" >
 
         </activity>
 
-        <activity android:name=".ui.home.MainActivity" />
+        <activity android:name=".ui.home.HomeActivity" />
     </application>
 
 </manifest>

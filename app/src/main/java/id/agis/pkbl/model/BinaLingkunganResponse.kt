@@ -1,5 +1,5 @@
 package id.agis.pkbl.model
 
 data class BinaLingkunganResponse (
-    val pemohon: List<BinaLingkugan>
+    val pemohon: List<Pemohon>
 )

@@ -7,14 +7,14 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import id.agis.pkbl.R
 import id.agis.pkbl.constant.Constant
-import id.agis.pkbl.ui.binalingkungan.BinaLingkunganFragment
-import id.agis.pkbl.ui.kemitraan.KemitraanFragment
+import id.agis.pkbl.ui.home.binalingkungan.BinaLingkunganFragment
+import id.agis.pkbl.ui.home.kemitraan.KemitraanFragment
 import id.agis.pkbl.ui.login.LoginActivity
 import id.agis.pkbl.util.TabAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
 
-class MainActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
         val adapter = TabAdapter(supportFragmentManager)
         adapter.addFragment(BinaLingkunganFragment(), "Bina Lingkungan")
-        adapter.addFragment(KemitraanFragment(), "Kemitraan")
+        adapter.addFragment(KemitraanFragment(), "Pemohon")
         tab_layout.setupWithViewPager(view_pager)
         view_pager.adapter = adapter
     }

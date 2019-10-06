@@ -16,7 +16,7 @@ import com.vincent.filepicker.Constant.*
 import com.vincent.filepicker.activity.ImagePickActivity
 import com.vincent.filepicker.filter.entity.ImageFile
 import id.agis.pkbl.R
-import id.agis.pkbl.ui.binalingkungan.EditBinaLingkunganActivity
+import id.agis.pkbl.ui.edit.EditBinaLingkunganActivity
 import id.agis.pkbl.ui.map.MapActivity
 import kotlinx.android.synthetic.main.activity_detail_bina_lingkungan.*
 import okhttp3.MediaType
@@ -47,7 +47,7 @@ class DetailBinaLingkunganActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_bina_lingkungan)
 
-//        val data = intent.getParcelableExtra<BinaLingkugan>(EXTRA_DATA)
+//        val data = intent.getParcelableExtra<Pemohon>(EXTRA_DATA)
 
         setSupportActionBar(toolbar)
         collapsing_toolbar.setCollapsedTitleTextColor(

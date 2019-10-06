@@ -1,4 +1,4 @@
-package id.agis.pkbl.ui.binalingkungan
+package id.agis.pkbl.ui.home
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,13 +6,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import id.agis.pkbl.R
-import id.agis.pkbl.model.BinaLingkugan
+import id.agis.pkbl.model.Pemohon
 import id.agis.pkbl.ui.detail.binalingkungan.DetailBinaLingkunganActivity
 import kotlinx.android.synthetic.main.item_list.view.*
 import org.jetbrains.anko.startActivity
 
-class BinaLingkunganAdapter(private val listBinaLingkungan : List<BinaLingkugan>):
-    RecyclerView.Adapter<BinaLingkunganAdapter.ViewHolder>() {
+class HomeAdapter(private val listBinaLingkungan: List<Pemohon>) :
+    RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent, false)
         return ViewHolder(view)
@@ -32,7 +32,7 @@ class BinaLingkunganAdapter(private val listBinaLingkungan : List<BinaLingkugan>
         }
     }
 
-    inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvTitle: TextView = itemView.tv_title
         val tvBody: TextView = itemView.tv_body
     }

@@ -40,8 +40,8 @@ class RemoteRepository(val context: Context) {
     }
 
 
-    fun getBinaLingkungan(): LiveData<List<BinaLingkugan>> {
-        val dataBinaLingkungan = MutableLiveData<List<BinaLingkugan>>()
+    fun getBinaLingkungan(): LiveData<List<Pemohon>> {
+        val dataBinaLingkungan = MutableLiveData<List<Pemohon>>()
 
         val call: Call<BinaLingkunganResponse> = apiInterface.getBinaLingkungan()
         call.enqueue(object : Callback<BinaLingkunganResponse> {
@@ -61,8 +61,8 @@ class RemoteRepository(val context: Context) {
         return dataBinaLingkungan
     }
 
-    fun getKemitraan(): LiveData<List<Kemitraan>> {
-        val dataKemitraan = MutableLiveData<List<Kemitraan>>()
+    fun getKemitraan(): LiveData<List<Pemohon>> {
+        val dataKemitraan = MutableLiveData<List<Pemohon>>()
 
         val call: Call<KemitraanResponse> = apiInterface.getKemitraan()
         call.enqueue(object : Callback<KemitraanResponse> {

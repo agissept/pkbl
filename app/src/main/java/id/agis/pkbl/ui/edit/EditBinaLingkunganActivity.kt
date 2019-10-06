@@ -1,4 +1,4 @@
-package id.agis.pkbl.ui.binalingkungan
+package id.agis.pkbl.ui.edit
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
