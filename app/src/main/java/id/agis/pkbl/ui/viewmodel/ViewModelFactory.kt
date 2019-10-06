@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import id.agis.pkbl.data.source.remote.RemoteRepository
+import id.agis.pkbl.ui.kemitraan.KemitraanViewModel
 import id.agis.pkbl.ui.login.LoginViewModel
 
 
@@ -30,6 +31,11 @@ class ViewModelFactory(
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
                 return LoginViewModel(remoteRepository) as T
             }
+
+            modelClass.isAssignableFrom(KemitraanViewModel::class.java) -> {
+                return KemitraanViewModel(remoteRepository) as T
+            }
+
         }
         throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
     }

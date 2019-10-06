@@ -11,7 +11,7 @@ object ApiClient {
     private fun getClient(token: String): OkHttpClient =
         OkHttpClient.Builder().addInterceptor { chain ->
             val newRequest = chain.request().newBuilder()
-                .addHeader("Authorization", "Bearer $token")
+                .addHeader("Auth", "Bearer $token")
                 .build()
             chain.proceed(newRequest)
         }.build()

@@ -39,11 +39,6 @@ class LoginActivity : AppCompatActivity() {
         btn_login.setOnClickListener {
             requestLogin(ed_username.text.toString(), ed_password.text.toString())
         }
-
-        btn_user.setOnClickListener {
-            startActivity<MainActivity>()
-        }
-
         tv_forgot.setOnClickListener {
             startActivity<ForgotPasswordActivity>()
         }

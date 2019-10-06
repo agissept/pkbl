@@ -28,11 +28,11 @@ class RemoteRepository(val context: Context) {
         }
     }
 
-    private val apiInterface: ApiInterface = ApiClient.retrofit().create(
+    private val apiInterface: ApiInterface = ApiClient.retrofit(getToken(context)).create(
         ApiInterface::class.java
     )
 
-    fun getToken(context: Context): String? {
+    private fun getToken(context: Context): String? {
         val sharedPreferences =
             context.getSharedPreferences(Constant.LOGIN_STATUS, Context.MODE_PRIVATE)
 
@@ -67,7 +67,6 @@ class RemoteRepository(val context: Context) {
         val call: Call<KemitraanResponse> = apiInterface.getKemitraan()
         call.enqueue(object : Callback<KemitraanResponse> {
             override fun onFailure(call: Call<KemitraanResponse>, t: Throwable) {
-
             }
 
             override fun onResponse(
