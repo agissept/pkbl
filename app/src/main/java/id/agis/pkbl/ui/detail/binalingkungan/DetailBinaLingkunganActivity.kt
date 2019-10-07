@@ -1,9 +1,11 @@
 package id.agis.pkbl.ui.detail.binalingkungan
 
 import android.app.Activity
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -12,18 +14,14 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.appbar.AppBarLayout
-import com.vincent.filepicker.Constant.*
-import com.vincent.filepicker.activity.ImagePickActivity
-import com.vincent.filepicker.filter.entity.ImageFile
 import id.agis.pkbl.R
-import id.agis.pkbl.ui.edit.EditBinaLingkunganActivity
 import id.agis.pkbl.ui.map.MapActivity
 import kotlinx.android.synthetic.main.activity_detail_bina_lingkungan.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
+import org.jetbrains.anko.toast
 import pub.devrel.easypermissions.EasyPermissions
 import java.io.File
 
@@ -32,15 +30,15 @@ class DetailBinaLingkunganActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_DATA = "extra_data"
-        const val EXTRA_COORDINATE = 1
+        const val OPEN_COORDINATE_REQUEST_CODE = 110
+        const val OPEN_DOCUMENT_REQUEST_CODE = 111
     }
 
     private lateinit var viewModel: DetailBinaLingkunganViewModel
     private lateinit var adapter: DetailBinaLingkunganAdapter
     private lateinit var backIcon: Drawable
     private lateinit var editIcon: Drawable
-    lateinit var imageName: MultipartBody.Part
-    val listImage = mutableListOf<String?>()
+    private val listFile = mutableListOf<String?>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,15 +82,17 @@ class DetailBinaLingkunganActivity : AppCompatActivity() {
 
 //        tv_nama.text = data.title
 //        tv_alamat.text = data.body
-        adapter = DetailBinaLingkunganAdapter(this, listImage)
-        recycler_view.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        recycler_view.adapter = adapter
+        adapter = DetailBinaLingkunganAdapter(this, listFile)
+        recycler_view.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = adapter
+        }
+
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         btn_set_coordinate.setOnClickListener {
-            startActivityForResult<MapActivity>(EXTRA_COORDINATE)
+            startActivityForResult<MapActivity>(OPEN_COORDINATE_REQUEST_CODE)
         }
 
         btn_set_dok_survey.setOnClickListener {
@@ -101,9 +101,12 @@ class DetailBinaLingkunganActivity : AppCompatActivity() {
                     android.Manifest.permission.READ_EXTERNAL_STORAGE
                 )
             ) {
-                val i = Intent(this, ImagePickActivity::class.java)
-                i.putExtra(MAX_NUMBER, 1)
-                startActivityForResult(i, REQUEST_CODE_PICK_IMAGE)
+                val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                    addCategory(Intent.CATEGORY_OPENABLE)
+                    putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+                    type = "*/*"
+                }
+                startActivityForResult(intent, OPEN_DOCUMENT_REQUEST_CODE)
             } else {
                 EasyPermissions.requestPermissions(
                     this,
@@ -119,26 +122,47 @@ class DetailBinaLingkunganActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == EXTRA_COORDINATE) {
-            if (resultCode == Activity.RESULT_OK) {
-                tv_coordinate.text = data?.getStringExtra("result")
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                OPEN_COORDINATE_REQUEST_CODE -> {
+                    tv_coordinate.text = data?.getStringExtra("result")
+                }
+                OPEN_DOCUMENT_REQUEST_CODE -> {
+                    val listUri = mutableListOf<Uri>()
+                    if (data != null) {
+                        data.clipData?.let { clipData ->
+                            for (i in 0 until clipData.itemCount) {
+                                clipData.getItemAt(i)?.uri?.let { listUri.add(it) }
+                            }
+                        }
+                    } else {
+                        data?.data?.let { listUri.add(it) }
+                    }
+
+
+//                        val uri = data?.data
+                    listUri.forEach {
+                        println(it.toString() + "aaaaaaaaaaaaaaa")
+                    }
+
+//                    uri?.let { openFile(it) }
+                }
             }
-        } else if (requestCode == REQUEST_CODE_PICK_IMAGE && resultCode == Activity.RESULT_OK) {
-            val pickedImg =
-                data?.getParcelableArrayListExtra<ImageFile>(RESULT_PICK_IMAGE)?.get(0)?.path
-            listImage.add(pickedImg)
-            adapter.notifyDataSetChanged()
-
-            val requestBody = RequestBody.create(MediaType.parse("multipart"), File(pickedImg))
-            imageName = MultipartBody.Part.createFormData(
-                "imagename",
-                File(pickedImg).name, requestBody
-            )
-//            viewModel.uploadImage(imageName)
-
         }
-
     }
+
+    private fun openFile(uri: Uri) {
+        try {
+            val openIntent = Intent(Intent.ACTION_VIEW).apply {
+                flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+                data = uri
+            }
+            startActivity(openIntent)
+        } catch (ex: ActivityNotFoundException) {
+            toast("No Activity")
+        }
+    }
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_detail, menu)
@@ -155,10 +179,20 @@ class DetailBinaLingkunganActivity : AppCompatActivity() {
                 onBackPressed()
             }
             R.id.edit -> {
-                startActivity<EditBinaLingkunganActivity>()
+//                startActivity<EditBinaLingkunganActivity>()
             }
         }
 
         return true
+    }
+
+    fun uploadFile(pickedFile: String?) {
+        val requestBody = RequestBody.create(MediaType.parse("multipart"), File(pickedFile))
+        val file = MultipartBody.Part.createFormData(
+            "imagename",
+            File(pickedFile).name, requestBody
+        )
+        viewModel.uploadImage(file)
+
     }
 }
