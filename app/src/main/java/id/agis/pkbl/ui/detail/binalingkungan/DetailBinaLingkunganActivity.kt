@@ -11,10 +11,12 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.appbar.AppBarLayout
 import id.agis.pkbl.R
+import id.agis.pkbl.model.UserFile
 import id.agis.pkbl.ui.map.MapActivity
 import kotlinx.android.synthetic.main.activity_detail_bina_lingkungan.*
 import okhttp3.MediaType
@@ -38,7 +40,7 @@ class DetailBinaLingkunganActivity : AppCompatActivity() {
     private lateinit var adapter: DetailBinaLingkunganAdapter
     private lateinit var backIcon: Drawable
     private lateinit var editIcon: Drawable
-    private val listFile = mutableListOf<String?>()
+    private val listFile = mutableListOf<UserFile>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,13 +82,16 @@ class DetailBinaLingkunganActivity : AppCompatActivity() {
             }
         })
 
-//        tv_nama.text = data.title
-//        tv_alamat.text = data.body
-        adapter = DetailBinaLingkunganAdapter(this, listFile)
-        recycler_view.apply {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = adapter
+        adapter = DetailBinaLingkunganAdapter(this, listFile).apply {
+            onItemClick = {
+                openFile(it.uri)
+            }
         }
+
+        recycler_view.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        recycler_view.adapter = adapter
+
 
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -117,6 +122,12 @@ class DetailBinaLingkunganActivity : AppCompatActivity() {
             }
         }
 
+
+        viewModel.listFileLiveData.observe(this, Observer {
+            listFile.clear()
+            listFile.addAll(it)
+            adapter.notifyDataSetChanged()
+        })
     }
 
 
@@ -128,24 +139,7 @@ class DetailBinaLingkunganActivity : AppCompatActivity() {
                     tv_coordinate.text = data?.getStringExtra("result")
                 }
                 OPEN_DOCUMENT_REQUEST_CODE -> {
-                    val listUri = mutableListOf<Uri>()
-                    if (data != null) {
-                        data.clipData?.let { clipData ->
-                            for (i in 0 until clipData.itemCount) {
-                                clipData.getItemAt(i)?.uri?.let { listUri.add(it) }
-                            }
-                        }
-                    } else {
-                        data?.data?.let { listUri.add(it) }
-                    }
-
-
-//                        val uri = data?.data
-                    listUri.forEach {
-                        println(it.toString() + "aaaaaaaaaaaaaaa")
-                    }
-
-//                    uri?.let { openFile(it) }
+                    viewModel.insertUri(data, this)
                 }
             }
         }
