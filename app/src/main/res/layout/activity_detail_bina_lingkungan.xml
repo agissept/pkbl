@@ -259,12 +259,13 @@
                         android:clipToPadding="false"
                         android:paddingStart="48dp"
                         android:paddingEnd="38dp"
-                        tools:listitem="@layout/image_list"/>
+                        tools:listitem="@layout/file_list"/>
 
                 <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_upload_file"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="32dp"
                         android:text="@string/upload_file" />
             </LinearLayout>
         </LinearLayout>
