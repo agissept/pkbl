@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import id.agis.pkbl.R
 import id.agis.pkbl.model.Pemohon
 import id.agis.pkbl.ui.home.HomeAdapter
-import id.agis.pkbl.ui.viewmodel.ViewModelFactory
+import id.agis.pkbl.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_bina_lingkungan.*
 
 class BinaLingkunganFragment : Fragment() {

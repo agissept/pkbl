@@ -1,9 +1,10 @@
-package id.agis.pkbl.ui.viewmodel
+package id.agis.pkbl.viewmodel
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import id.agis.pkbl.data.source.remote.RemoteRepository
+import id.agis.pkbl.ui.detail.binalingkungan.DetailBinaLingkunganViewModel
 import id.agis.pkbl.ui.home.binalingkungan.BinaLingkunganViewModel
 import id.agis.pkbl.ui.home.kemitraan.KemitraanViewModel
 import id.agis.pkbl.ui.login.LoginViewModel
@@ -38,6 +39,9 @@ class ViewModelFactory(
             }
             modelClass.isAssignableFrom(BinaLingkunganViewModel::class.java) -> {
                 return BinaLingkunganViewModel(remoteRepository) as T
+            }
+            modelClass.isAssignableFrom(DetailBinaLingkunganViewModel::class.java) -> {
+                return DetailBinaLingkunganViewModel(remoteRepository) as T
             }
 
         }

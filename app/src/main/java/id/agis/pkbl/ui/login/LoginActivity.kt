@@ -13,7 +13,7 @@ import id.agis.pkbl.ui.dashboard.DashboardActivity
 import id.agis.pkbl.ui.forgotpasssword.ForgotPasswordActivity
 import id.agis.pkbl.ui.home.HomeActivity
 import id.agis.pkbl.ui.signup.SignUpActivity
-import id.agis.pkbl.ui.viewmodel.ViewModelFactory
+import id.agis.pkbl.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.startActivity
 

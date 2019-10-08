@@ -258,7 +258,14 @@
                         android:layout_marginTop="16dp"
                         android:clipToPadding="false"
                         android:paddingStart="48dp"
-                        android:paddingEnd="38dp" />
+                        android:paddingEnd="38dp"
+                        tools:listitem="@layout/image_list"/>
+
+                <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_upload_file"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/upload_file" />
             </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

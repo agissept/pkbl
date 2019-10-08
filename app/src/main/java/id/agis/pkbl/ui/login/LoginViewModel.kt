@@ -1,6 +1,7 @@
 package id.agis.pkbl.ui.login
 
 import android.content.Context
+import android.os.Environment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import id.agis.pkbl.constant.Constant.Companion.LOGIN_STATUS
@@ -9,6 +10,7 @@ import id.agis.pkbl.constant.Constant.Companion.USER_ROLE
 import id.agis.pkbl.constant.Constant.Companion.USER_TOKEN
 import id.agis.pkbl.data.source.remote.RemoteRepository
 import id.agis.pkbl.model.User
+import java.io.File
 
 class LoginViewModel(val remoteRepository: RemoteRepository) : ViewModel() {
 
@@ -24,4 +26,6 @@ class LoginViewModel(val remoteRepository: RemoteRepository) : ViewModel() {
         editor.putString(USER_TOKEN, token)
         editor.apply()
     }
+
+
 }

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import id.agis.pkbl.R
 import id.agis.pkbl.model.Pemohon
 import id.agis.pkbl.ui.detail.binalingkungan.DetailBinaLingkunganActivity
+import id.agis.pkbl.ui.detail.binalingkungan.DetailBinaLingkunganActivity.Companion.EXTRA_DATA
 import kotlinx.android.synthetic.main.item_list.view.*
 import org.jetbrains.anko.startActivity
 
@@ -28,7 +29,7 @@ class HomeAdapter(private val listBinaLingkungan: List<Pemohon>) :
         holder.tvTitle.text = data.namaLengkap
         holder.tvBody.text = data.nilaiPengajuan
         holder.itemView.setOnClickListener {
-            holder.itemView.context.startActivity<DetailBinaLingkunganActivity>()
+            holder.itemView.context.startActivity<DetailBinaLingkunganActivity>( EXTRA_DATA to data)
         }
     }
 

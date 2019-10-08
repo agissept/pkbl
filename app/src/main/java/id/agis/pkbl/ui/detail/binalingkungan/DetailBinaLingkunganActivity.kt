@@ -1,7 +1,9 @@
 package id.agis.pkbl.ui.detail.binalingkungan
 
+import android.Manifest
 import android.app.Activity
 import android.content.ActivityNotFoundException
+import android.content.Context
 import android.content.Intent
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
@@ -12,23 +14,23 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.appbar.AppBarLayout
 import id.agis.pkbl.R
+import id.agis.pkbl.constant.Constant
+import id.agis.pkbl.constant.Constant.Companion.USER_NAME
+import id.agis.pkbl.model.Pemohon
 import id.agis.pkbl.model.UserFile
 import id.agis.pkbl.ui.map.MapActivity
+import id.agis.pkbl.util.ProgressRequestBodyUtil
+import id.agis.pkbl.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.activity_detail_bina_lingkungan.*
-import okhttp3.MediaType
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
 import pub.devrel.easypermissions.EasyPermissions
-import java.io.File
 
 
-class DetailBinaLingkunganActivity : AppCompatActivity() {
+class DetailBinaLingkunganActivity : AppCompatActivity(), ProgressRequestBodyUtil.UploadCallbacks {
 
     companion object {
         const val EXTRA_DATA = "extra_data"
@@ -47,9 +49,15 @@ class DetailBinaLingkunganActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_bina_lingkungan)
 
-//        val data = intent.getParcelableExtra<Pemohon>(EXTRA_DATA)
+        val pemohon = intent.getParcelableExtra<Pemohon>(EXTRA_DATA)
+        val username = getSharedPreferences(Constant.LOGIN_STATUS, Context.MODE_PRIVATE).getString(
+            USER_NAME,
+            "default"
+        )
 
         setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         collapsing_toolbar.setCollapsedTitleTextColor(
             ContextCompat.getColor(this, android.R.color.white)
         )
@@ -57,7 +65,52 @@ class DetailBinaLingkunganActivity : AppCompatActivity() {
             ContextCompat.getColor(this, android.R.color.black)
         )
 
-        viewModel = ViewModelProviders.of(this).get(DetailBinaLingkunganViewModel::class.java)
+        viewModel =
+            ViewModelFactory.getInstance(this).create(DetailBinaLingkunganViewModel::class.java)
+
+
+        adapter = DetailBinaLingkunganAdapter(this, listFile).apply {
+            onItemClick = {
+                openFile(it.uri)
+            }
+        }
+
+        recycler_view.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        recycler_view.adapter = adapter
+
+
+        btn_set_coordinate.setOnClickListener {
+            startActivityForResult<MapActivity>(OPEN_COORDINATE_REQUEST_CODE)
+        }
+
+        btn_set_dok_survey.setOnClickListener {
+            if (EasyPermissions.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                    addCategory(Intent.CATEGORY_OPENABLE)
+                    putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+                    type = "*/*"
+                }
+                startActivityForResult(intent, OPEN_DOCUMENT_REQUEST_CODE)
+            } else {
+                val rationale = "This application need your permission to access photo gallery."
+                EasyPermissions.requestPermissions(
+                    this, rationale, 991,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                )
+            }
+        }
+
+        btn_upload_file.setOnClickListener {
+            viewModel.uploadFile(listFile, username!!, pemohon.idPemohon, this)
+        }
+
+        viewModel.listFileLiveData.observe(this, Observer {
+            listFile.clear()
+            listFile.addAll(it)
+            adapter.notifyDataSetChanged()
+        })
+
         appbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
             var scrollRange = -1
 
@@ -80,53 +133,6 @@ class DetailBinaLingkunganActivity : AppCompatActivity() {
                     ContextCompat.getColor(this, android.R.color.black), PorterDuff.Mode.SRC_ATOP
                 )
             }
-        })
-
-        adapter = DetailBinaLingkunganAdapter(this, listFile).apply {
-            onItemClick = {
-                openFile(it.uri)
-            }
-        }
-
-        recycler_view.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        recycler_view.adapter = adapter
-
-
-
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        btn_set_coordinate.setOnClickListener {
-            startActivityForResult<MapActivity>(OPEN_COORDINATE_REQUEST_CODE)
-        }
-
-        btn_set_dok_survey.setOnClickListener {
-            if (EasyPermissions.hasPermissions(
-                    this,
-                    android.Manifest.permission.READ_EXTERNAL_STORAGE
-                )
-            ) {
-                val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
-                    addCategory(Intent.CATEGORY_OPENABLE)
-                    putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-                    type = "*/*"
-                }
-                startActivityForResult(intent, OPEN_DOCUMENT_REQUEST_CODE)
-            } else {
-                EasyPermissions.requestPermissions(
-                    this,
-                    "This application need your permission to access photo gallery.",
-                    991,
-                    android.Manifest.permission.READ_EXTERNAL_STORAGE
-                )
-            }
-        }
-
-
-        viewModel.listFileLiveData.observe(this, Observer {
-            listFile.clear()
-            listFile.addAll(it)
-            adapter.notifyDataSetChanged()
         })
     }
 
@@ -180,13 +186,15 @@ class DetailBinaLingkunganActivity : AppCompatActivity() {
         return true
     }
 
-    fun uploadFile(pickedFile: String?) {
-        val requestBody = RequestBody.create(MediaType.parse("multipart"), File(pickedFile))
-        val file = MultipartBody.Part.createFormData(
-            "imagename",
-            File(pickedFile).name, requestBody
-        )
-        viewModel.uploadImage(file)
-
+    override fun onProgressUpdate(percentage: Int) {
+        println("loading..... $percentage")
     }
+
+    override fun onError() {
+    }
+
+    override fun onFinish() {
+        println("file uploaded")
+    }
+
 }

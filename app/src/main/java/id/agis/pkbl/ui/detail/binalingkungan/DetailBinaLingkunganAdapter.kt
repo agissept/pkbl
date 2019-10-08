@@ -24,7 +24,6 @@ class DetailBinaLingkunganAdapter(
     }
 
     override fun getItemCount(): Int {
-        println("asdasdasdas ${listFile.size}" )
         return listFile.size
     }
 

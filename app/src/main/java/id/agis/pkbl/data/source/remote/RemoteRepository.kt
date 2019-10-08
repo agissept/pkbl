@@ -99,18 +99,18 @@ class RemoteRepository(val context: Context) {
         return loginStatus
     }
 
-    fun uploadImage(imageName: MultipartBody.Part) {
-        val call = apiInterface.uploadImage(imageName)
+    fun uploadImage(file: MultipartBody.Part, idPemohon: Int) {
+        val call = apiInterface.uploadFiles(file, idPemohon)
         call.enqueue(object : Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                println("error $t aaaaaaaaaaaaaa")
             }
 
             override fun onResponse(
                 call: Call<ResponseBody>,
                 response: Response<ResponseBody>
             ) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
             }
         })
     }

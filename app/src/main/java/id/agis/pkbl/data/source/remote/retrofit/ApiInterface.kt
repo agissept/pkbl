@@ -20,6 +20,6 @@ interface ApiInterface {
     fun loginRequest(@Field("username") username: String, @Field("password") pass: String): Call<UserResponse>
 
     @Multipart
-    @POST("upload.php")
-    fun uploadImage(imageName: MultipartBody.Part): Call<ResponseBody>
+    @POST("pemohon/files")
+    fun uploadFiles(@Part file: MultipartBody.Part, @Part("id_pemohon") idPemohon: Int): Call<ResponseBody>
 }

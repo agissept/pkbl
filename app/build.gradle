@@ -77,4 +77,7 @@ dependencies {
     implementation 'com.vincent.filepicker:MultiTypeFilePicker:1.0.7'
     implementation 'pub.devrel:easypermissions:1.2.0'
 
+    implementation 'in.gauriinfotech:commons:1.0.8'
+
+
 }
