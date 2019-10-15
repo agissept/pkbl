@@ -174,12 +174,19 @@ object FileUtil {
         typeFolder: String,
         fileName: String
     ): File {
+        println("PKBL/$user/$typePemohon/$typeFolder/$fileName")
         val folder = File(
             Environment.getExternalStorageDirectory().toString(),
-            "PKBL/$user/$typePemohon/$typeFolder/$fileName"
+            "PKBL/$user/$typePemohon/$typeFolder"
         )
-        folder.createNewFile()
-        return folder
+        if(!folder.exists()){
+            folder.mkdirs()
+        }
+        val tempFile = File(folder, fileName)
+        tempFile.createNewFile()
+
+
+        return tempFile
     }
 
     fun copyFile(src: File, dst: File) {

@@ -54,11 +54,13 @@ class DetailBinaLingkunganViewModel(private val pkblRepository: PKBLRepository) 
             }
         } else {
             data?.data?.let {
-                UserFile(
-                    (it),
-                    getPath(context, it),
-                    getFileName(it, context),
-                    getMimeType(it, context)
+                listFile.add(
+                    UserFile(
+                        (it),
+                        getPath(context, it),
+                        getFileName(it, context),
+                        getMimeType(it, context)
+                    )
                 )
             }
         }

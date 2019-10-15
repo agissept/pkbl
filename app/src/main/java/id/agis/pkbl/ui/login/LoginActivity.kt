@@ -54,7 +54,7 @@ class LoginActivity : AppCompatActivity() {
 
         viewModel.requestLogin(username, password).observe(this, Observer {
             if (it != null) {
-                viewModel.saveToken(applicationContext, it.userId, it.access.id, it.token)
+                viewModel.saveToken(applicationContext, it.userId, it.access.id, it.token, it.username)
                 if (it.access.id == 1) {
                     startActivity<DashboardActivity>()
                 } else if (it.access.id == 2) {
