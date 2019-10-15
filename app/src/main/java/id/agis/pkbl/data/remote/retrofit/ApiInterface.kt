@@ -1,4 +1,4 @@
-package id.agis.pkbl.data.source.remote.retrofit
+package id.agis.pkbl.data.remote.retrofit
 
 import id.agis.pkbl.model.BinaLingkunganResponse
 import id.agis.pkbl.model.KemitraanResponse

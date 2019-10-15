@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import id.agis.pkbl.data.source.remote.RemoteRepository
+import id.agis.pkbl.data.PKBLRepository
 import id.agis.pkbl.model.UserFile
 import id.agis.pkbl.util.FileUtil.copyFile
 import id.agis.pkbl.util.FileUtil.createFolder
@@ -15,7 +15,7 @@ import id.agis.pkbl.util.ProgressRequestBodyUtil
 import okhttp3.MultipartBody
 import java.io.File
 
-class DetailBinaLingkunganViewModel(private val remoteRepository: RemoteRepository) : ViewModel() {
+class DetailBinaLingkunganViewModel(private val pkblRepository: PKBLRepository) : ViewModel() {
     val listFileLiveData = MutableLiveData<List<UserFile>>()
     private val listFile = mutableListOf<UserFile>()
 
@@ -32,7 +32,7 @@ class DetailBinaLingkunganViewModel(private val remoteRepository: RemoteReposito
             val fileBody = ProgressRequestBodyUtil(file, it.type!!, listener)
             val multipartBody = MultipartBody.Part.createFormData("files", file.name, fileBody)
 
-            remoteRepository.uploadImage(multipartBody, idPemohon)
+            pkblRepository.uploadFile(multipartBody, idPemohon)
         }
     }
 

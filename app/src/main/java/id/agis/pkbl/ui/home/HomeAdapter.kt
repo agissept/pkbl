@@ -6,13 +6,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import id.agis.pkbl.R
-import id.agis.pkbl.model.Pemohon
+import id.agis.pkbl.data.local.entities.PemohonEntity
 import id.agis.pkbl.ui.detail.binalingkungan.DetailBinaLingkunganActivity
 import id.agis.pkbl.ui.detail.binalingkungan.DetailBinaLingkunganActivity.Companion.EXTRA_DATA
 import kotlinx.android.synthetic.main.item_list.view.*
 import org.jetbrains.anko.startActivity
 
-class HomeAdapter(private val listBinaLingkungan: List<Pemohon>) :
+class HomeAdapter(private val listBinaLingkungan: MutableList<PemohonEntity>) :
     RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent, false)

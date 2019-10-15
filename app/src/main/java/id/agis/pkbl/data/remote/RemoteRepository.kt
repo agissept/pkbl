@@ -1,11 +1,8 @@
-package id.agis.pkbl.data.source.remote
+package id.agis.pkbl.data.remote
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import id.agis.pkbl.constant.Constant
-import id.agis.pkbl.data.source.remote.retrofit.ApiClient
-import id.agis.pkbl.data.source.remote.retrofit.ApiInterface
+import id.agis.pkbl.data.remote.retrofit.ApiInterface
 import id.agis.pkbl.model.*
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
@@ -13,35 +10,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RemoteRepository(val context: Context) {
-    companion object {
-        fun getInstance(context: Context): RemoteRepository {
-            var instance: RemoteRepository? = null
-            if (instance == null) {
-                synchronized(RemoteRepository::class.java) {
-                    if (instance == null) {
-                        instance = RemoteRepository(context)
-                    }
-                }
-            }
-            return instance as RemoteRepository
-        }
-    }
+class RemoteRepository(private val apiInterface: ApiInterface) {
 
-    private val apiInterface: ApiInterface = ApiClient.retrofit(getToken(context)).create(
-        ApiInterface::class.java
-    )
-
-    private fun getToken(context: Context): String? {
-        val sharedPreferences =
-            context.getSharedPreferences(Constant.LOGIN_STATUS, Context.MODE_PRIVATE)
-
-        return sharedPreferences.getString(Constant.USER_TOKEN, null)
-    }
-
-
-    fun getBinaLingkungan(): LiveData<List<Pemohon>> {
-        val dataBinaLingkungan = MutableLiveData<List<Pemohon>>()
+    fun getBinaLingkungan(): LiveData<ApiResponse<List<Pemohon>>> {
+        val dataBinaLingkungan = MutableLiveData<ApiResponse<List<Pemohon>>>()
 
         val call: Call<BinaLingkunganResponse> = apiInterface.getBinaLingkungan()
         call.enqueue(object : Callback<BinaLingkunganResponse> {
@@ -53,7 +25,11 @@ class RemoteRepository(val context: Context) {
                 call: Call<BinaLingkunganResponse>,
                 response: Response<BinaLingkunganResponse>
             ) {
-                dataBinaLingkungan.postValue(response.body()?.pemohon)
+                dataBinaLingkungan.postValue(
+                    ApiResponse.success(
+                        response.body()?.pemohon!!
+                    )
+                )
             }
 
         })
@@ -61,8 +37,8 @@ class RemoteRepository(val context: Context) {
         return dataBinaLingkungan
     }
 
-    fun getKemitraan(): LiveData<List<Pemohon>> {
-        val dataKemitraan = MutableLiveData<List<Pemohon>>()
+    fun getKemitraan(): LiveData<ApiResponse<List<Pemohon>>> {
+        val dataKemitraan = MutableLiveData<ApiResponse<List<Pemohon>>>()
 
         val call: Call<KemitraanResponse> = apiInterface.getKemitraan()
         call.enqueue(object : Callback<KemitraanResponse> {
@@ -73,7 +49,11 @@ class RemoteRepository(val context: Context) {
                 call: Call<KemitraanResponse>,
                 response: Response<KemitraanResponse>
             ) {
-                dataKemitraan.postValue(response.body()?.pemohon)
+                dataKemitraan.postValue(
+                    ApiResponse.success(
+                        response.body()?.pemohon!!
+                    )
+                )
             }
 
         })
@@ -99,11 +79,10 @@ class RemoteRepository(val context: Context) {
         return loginStatus
     }
 
-    fun uploadImage(file: MultipartBody.Part, idPemohon: Int) {
+    fun uploadFile(file: MultipartBody.Part, idPemohon: Int) {
         val call = apiInterface.uploadFiles(file, idPemohon)
         call.enqueue(object : Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                println("error $t aaaaaaaaaaaaaa")
             }
 
             override fun onResponse(

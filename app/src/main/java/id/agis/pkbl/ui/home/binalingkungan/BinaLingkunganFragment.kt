@@ -8,14 +8,15 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.agis.pkbl.R
-import id.agis.pkbl.model.Pemohon
+import id.agis.pkbl.data.local.entities.PemohonEntity
 import id.agis.pkbl.ui.home.HomeAdapter
 import id.agis.pkbl.viewmodel.ViewModelFactory
-import kotlinx.android.synthetic.main.fragment_bina_lingkungan.*
+import id.agis.pkbl.vo.Status
+import kotlinx.android.synthetic.main.fragment_home.*
 
 class BinaLingkunganFragment : Fragment() {
 
-    private val listBinaLingkungan = mutableListOf<Pemohon>()
+    private val listBinaLingkungan = mutableListOf<PemohonEntity>()
     private lateinit var adapter: HomeAdapter
     private lateinit var viewModel: BinaLingkunganViewModel
 
@@ -24,7 +25,7 @@ class BinaLingkunganFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_bina_lingkungan, container, false)
+        return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -32,16 +33,37 @@ class BinaLingkunganFragment : Fragment() {
 
         adapter = HomeAdapter(listBinaLingkungan)
         recycler_view.layoutManager = LinearLayoutManager(context)
-        recycler_view.adapter =adapter
+        recycler_view.adapter = adapter
 
-        viewModel = ViewModelFactory.getInstance(view.context).create(BinaLingkunganViewModel::class.java)
+        viewModel =
+            ViewModelFactory.getInstance(view.context).create(BinaLingkunganViewModel::class.java)
+
+        getData()
+        swipe_refresh.setOnRefreshListener {
+            getData()
+            progress_circular.visibility = View.GONE
+        }
+
+    }
+
+    private fun getData() {
         viewModel.data.observe(this, Observer {
-            listBinaLingkungan.clear()
-            listBinaLingkungan.addAll(it)
-            adapter.notifyDataSetChanged()
-            progress_circular.visibility = View.INVISIBLE
-        })
+            when (it.status) {
+                Status.SUCCESS -> {
+                    listBinaLingkungan.clear()
+                    listBinaLingkungan.addAll(it.data!!)
+                    adapter.notifyDataSetChanged()
+                    progress_circular.visibility = View.GONE
+                    swipe_refresh.isRefreshing = false
+                }
+                Status.ERROR -> {
+                }
+                Status.LOADING -> {
+                    progress_circular.visibility = View.VISIBLE
+                }
+            }
 
+        })
     }
 
 }

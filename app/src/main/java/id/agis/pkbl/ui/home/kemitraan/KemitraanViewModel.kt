@@ -2,9 +2,11 @@ package id.agis.pkbl.ui.home.kemitraan
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import id.agis.pkbl.data.source.remote.RemoteRepository
-import id.agis.pkbl.model.Pemohon
+import id.agis.pkbl.data.PKBLRepository
+import id.agis.pkbl.data.local.entities.PemohonEntity
+import id.agis.pkbl.vo.Resource
+import io.realm.RealmResults
 
-class KemitraanViewModel(remoteRepository: RemoteRepository) : ViewModel() {
-    val data: LiveData<List<Pemohon>> = remoteRepository.getKemitraan()
+class KemitraanViewModel(private val pkblRepository: PKBLRepository) : ViewModel() {
+    val data: LiveData<Resource<RealmResults<PemohonEntity>>>  get() = pkblRepository.getAllKemitraan()
 }

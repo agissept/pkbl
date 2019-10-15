@@ -19,7 +19,7 @@ import com.google.android.material.appbar.AppBarLayout
 import id.agis.pkbl.R
 import id.agis.pkbl.constant.Constant
 import id.agis.pkbl.constant.Constant.Companion.USER_NAME
-import id.agis.pkbl.model.Pemohon
+import id.agis.pkbl.data.local.entities.PemohonEntity
 import id.agis.pkbl.model.UserFile
 import id.agis.pkbl.ui.map.MapActivity
 import id.agis.pkbl.util.ProgressRequestBodyUtil
@@ -49,7 +49,7 @@ class DetailBinaLingkunganActivity : AppCompatActivity(), ProgressRequestBodyUti
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_bina_lingkungan)
 
-        val pemohon = intent.getParcelableExtra<Pemohon>(EXTRA_DATA)
+        val pemohon = intent.getParcelableExtra<PemohonEntity>(EXTRA_DATA)
         val username = getSharedPreferences(Constant.LOGIN_STATUS, Context.MODE_PRIVATE).getString(
             USER_NAME,
             "default"

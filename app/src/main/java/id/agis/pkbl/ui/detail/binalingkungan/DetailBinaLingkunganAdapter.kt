@@ -41,7 +41,7 @@ class DetailBinaLingkunganAdapter(
 
         if (file.type == "pdf") {
             Glide.with(context).load(R.drawable.type_pdf).into(holder.icon)
-        } else if (file.type == "jpg" || file.type == "ong"){
+        } else if (file.type == "jpg" || file.type == "png"){
             val image = File(file.path)
             val uri = Uri.fromFile(image)
             Glide.with(context).load(uri).into(holder.image)
