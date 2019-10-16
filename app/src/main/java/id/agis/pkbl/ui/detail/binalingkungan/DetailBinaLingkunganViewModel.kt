@@ -65,4 +65,9 @@ class DetailBinaLingkunganViewModel(private val pkblRepository: PKBLRepository) 
         listFile.reverse()
         listFileLiveData.postValue(listFile)
     }
+
+    fun deleteFile(position: Int){
+        listFile.removeAt(position - 1)
+        listFileLiveData.postValue(listFile)
+    }
 }

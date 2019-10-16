@@ -2,9 +2,9 @@ package id.agis.pkbl.data.remote.retrofit
 
 import id.agis.pkbl.model.BinaLingkunganResponse
 import id.agis.pkbl.model.KemitraanResponse
+import id.agis.pkbl.model.UploadFileResponse
 import id.agis.pkbl.model.UserResponse
 import okhttp3.MultipartBody
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -21,5 +21,5 @@ interface ApiInterface {
 
     @Multipart
     @POST("pemohon/files")
-    fun uploadFiles(@Part file: MultipartBody.Part, @Part("id_pemohon") idPemohon: Int): Call<ResponseBody>
+    fun uploadFiles(@Part file: MultipartBody.Part, @Part("id_pemohon") idPemohon: Int): Call<UploadFileResponse>
 }
