@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import id.agis.pkbl.data.remote.retrofit.ApiInterface
 import id.agis.pkbl.model.*
 import okhttp3.MultipartBody
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -79,18 +78,22 @@ class RemoteRepository(private val apiInterface: ApiInterface) {
         return loginStatus
     }
 
-    fun uploadFile(file: MultipartBody.Part, idPemohon: Int) {
+    fun uploadFile(file: MultipartBody.Part, idPemohon: Int): MutableLiveData<UploadFileResponse> {
+        val uploadResponse = MutableLiveData<UploadFileResponse>()
+
         val call = apiInterface.uploadFiles(file, idPemohon)
-        call.enqueue(object : Callback<ResponseBody> {
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+        call.enqueue(object : Callback<UploadFileResponse> {
+            override fun onFailure(call: Call<UploadFileResponse>, t: Throwable) {
             }
 
             override fun onResponse(
-                call: Call<ResponseBody>,
-                response: Response<ResponseBody>
+                call: Call<UploadFileResponse>,
+                response: Response<UploadFileResponse>
             ) {
-
+                uploadResponse.postValue(response.body())
             }
         })
+
+        return uploadResponse
     }
 }

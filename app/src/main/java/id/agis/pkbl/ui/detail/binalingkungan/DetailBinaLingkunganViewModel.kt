@@ -11,26 +11,24 @@ import id.agis.pkbl.util.FileUtil.createFolder
 import id.agis.pkbl.util.FileUtil.getFileName
 import id.agis.pkbl.util.FileUtil.getMimeType
 import id.agis.pkbl.util.FileUtil.getPath
-import id.agis.pkbl.util.ProgressRequestBodyUtil
+import okhttp3.MediaType
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import java.io.File
 
 class DetailBinaLingkunganViewModel(private val pkblRepository: PKBLRepository) : ViewModel() {
     val listFileLiveData = MutableLiveData<List<UserFile>>()
     private val listFile = mutableListOf<UserFile>()
 
-    fun uploadFile(
-        listFile: List<UserFile>,
-        username: String,
-        idPemohon: Int,
-        listener: ProgressRequestBodyUtil.UploadCallbacks
-    ) {
+    fun uploadFile(listFile: List<UserFile>, username: String, idPemohon: Int) {
         listFile.forEach {
             val file = File(it.path)
             val target = createFolder(username, "Bina Lingkungan", "Upload", file.name)
+
             copyFile(file, target)
-            val fileBody = ProgressRequestBodyUtil(file, it.type!!, listener)
-            val multipartBody = MultipartBody.Part.createFormData("files", file.name, fileBody)
+
+            val requestBody = RequestBody.create(MediaType.parse("multipart"), target)
+            val multipartBody = MultipartBody.Part.createFormData("files", target.name, requestBody)
 
             pkblRepository.uploadFile(multipartBody, idPemohon)
         }
@@ -64,6 +62,7 @@ class DetailBinaLingkunganViewModel(private val pkblRepository: PKBLRepository) 
                 )
             }
         }
+        listFile.reverse()
         listFileLiveData.postValue(listFile)
     }
 }

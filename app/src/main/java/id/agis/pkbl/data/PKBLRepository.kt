@@ -6,6 +6,7 @@ import id.agis.pkbl.data.local.entities.PemohonEntity
 import id.agis.pkbl.data.remote.ApiResponse
 import id.agis.pkbl.data.remote.RemoteRepository
 import id.agis.pkbl.model.Pemohon
+import id.agis.pkbl.model.UploadFileResponse
 import id.agis.pkbl.model.User
 import id.agis.pkbl.util.LiveRealmData
 import id.agis.pkbl.vo.Resource
@@ -107,8 +108,8 @@ class PKBLRepository(
         return remoteRepository.loginRequest(email, pass)
     }
 
-    override fun uploadFile(multipartBody: MultipartBody.Part, idPemohon: Int) {
-        remoteRepository.uploadFile(multipartBody, idPemohon)
+    override fun uploadFile(file: MultipartBody.Part, idPemohon: Int): LiveData<UploadFileResponse> {
+       return remoteRepository.uploadFile(file, idPemohon)
     }
 
     fun isConnectionAvailable(): Boolean {

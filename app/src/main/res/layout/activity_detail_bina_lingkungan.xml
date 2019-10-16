@@ -185,35 +185,8 @@
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/kelengkapan_survey"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="@string/dokumen_survey"
-                        android:textStyle="bold" />
-
-                <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="24dp"
-                        android:text="@string/lorem_jpg" />
-
-                <com.google.android.material.button.MaterialButton
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/dok_survey"
-                        android:id="@+id/btn_set_dok_survey"/>
-
-
-                <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
                         android:text="@string/lokasi_survey"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                 <TextView
@@ -253,7 +226,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_view"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:clipToPadding="false"

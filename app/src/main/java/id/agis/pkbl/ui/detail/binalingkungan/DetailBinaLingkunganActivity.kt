@@ -22,7 +22,6 @@ import id.agis.pkbl.constant.Constant.Companion.USER_NAME
 import id.agis.pkbl.data.local.entities.PemohonEntity
 import id.agis.pkbl.model.UserFile
 import id.agis.pkbl.ui.map.MapActivity
-import id.agis.pkbl.util.ProgressRequestBodyUtil
 import id.agis.pkbl.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.activity_detail_bina_lingkungan.*
 import org.jetbrains.anko.startActivityForResult
@@ -30,7 +29,7 @@ import org.jetbrains.anko.toast
 import pub.devrel.easypermissions.EasyPermissions
 
 
-class DetailBinaLingkunganActivity : AppCompatActivity(), ProgressRequestBodyUtil.UploadCallbacks {
+class DetailBinaLingkunganActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_DATA = "extra_data"
@@ -68,10 +67,30 @@ class DetailBinaLingkunganActivity : AppCompatActivity(), ProgressRequestBodyUti
         viewModel =
             ViewModelFactory.getInstance(this).create(DetailBinaLingkunganViewModel::class.java)
 
-
+        val activity: Activity = this
         adapter = DetailBinaLingkunganAdapter(this, listFile).apply {
-            onItemClick = {
+            onItemClickFile = {
                 openFile(it.uri)
+            }
+            onItemClick = {
+                if (EasyPermissions.hasPermissions(
+                        activity,
+                        Manifest.permission.READ_EXTERNAL_STORAGE
+                    )
+                ) {
+                    val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                        addCategory(Intent.CATEGORY_OPENABLE)
+                        putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+                        type = "*/*"
+                    }
+                    startActivityForResult(intent, OPEN_DOCUMENT_REQUEST_CODE)
+                } else {
+                    val rationale = "This application need your permission to access photo gallery."
+                    EasyPermissions.requestPermissions(
+                        activity, rationale, 991,
+                        Manifest.permission.READ_EXTERNAL_STORAGE
+                    )
+                }
             }
         }
 
@@ -84,25 +103,8 @@ class DetailBinaLingkunganActivity : AppCompatActivity(), ProgressRequestBodyUti
             startActivityForResult<MapActivity>(OPEN_COORDINATE_REQUEST_CODE)
         }
 
-        btn_set_dok_survey.setOnClickListener {
-            if (EasyPermissions.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
-                    addCategory(Intent.CATEGORY_OPENABLE)
-                    putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-                    type = "*/*"
-                }
-                startActivityForResult(intent, OPEN_DOCUMENT_REQUEST_CODE)
-            } else {
-                val rationale = "This application need your permission to access photo gallery."
-                EasyPermissions.requestPermissions(
-                    this, rationale, 991,
-                    Manifest.permission.READ_EXTERNAL_STORAGE
-                )
-            }
-        }
-
         btn_upload_file.setOnClickListener {
-            viewModel.uploadFile(listFile, username!!, pemohon.idPemohon, this)
+            viewModel.uploadFile(listFile, username!!, pemohon.idPemohon)
         }
 
         viewModel.listFileLiveData.observe(this, Observer {
@@ -186,15 +188,11 @@ class DetailBinaLingkunganActivity : AppCompatActivity(), ProgressRequestBodyUti
         return true
     }
 
-    override fun onProgressUpdate(percentage: Int) {
-        println("loading..... $percentage")
-    }
-
-    override fun onError() {
-    }
-
-    override fun onFinish() {
-        println("file uploaded")
+    override fun onContextItemSelected(item: MenuItem?): Boolean {
+        if (item?.itemId == 123) {
+            viewModel.deleteFile(item.groupId)
+        }
+        return super.onContextItemSelected(item)
     }
 
 }
