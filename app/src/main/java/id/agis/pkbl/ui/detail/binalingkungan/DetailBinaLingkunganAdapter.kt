@@ -10,16 +10,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import id.agis.pkbl.R
-import id.agis.pkbl.model.UserFile
+import id.agis.pkbl.data.local.entities.FileEntity
 import kotlinx.android.synthetic.main.file_list.view.*
-import org.jetbrains.anko.toast
 import java.io.File
 
 class DetailBinaLingkunganAdapter(
     val context: Context,
-    private val listFile: List<UserFile>
+    private val listFile: MutableList<FileEntity>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    lateinit var onItemClickFile: ((UserFile) -> Unit)
+    lateinit var onItemClickFile: ((FileEntity) -> Unit)
     lateinit var onItemClick: (() -> Unit)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -63,7 +62,6 @@ class DetailBinaLingkunganAdapter(
             viewHolder.title.text = file.name
             viewHolder.itemView.setOnClickListener {
                 onItemClickFile(file)
-                it.context.toast(file.uri.path!!)
             }
             viewHolder.itemView.setOnCreateContextMenuListener { menu, _, _ ->
                 menu.add(position, 123, 0, "Delete")

@@ -1,6 +1,7 @@
 package id.agis.pkbl.data
 
 import androidx.lifecycle.LiveData
+import id.agis.pkbl.data.local.entities.FileEntity
 import id.agis.pkbl.data.local.entities.PemohonEntity
 import id.agis.pkbl.model.UploadFileResponse
 import id.agis.pkbl.model.User
@@ -17,4 +18,7 @@ interface PKBLDataSource {
     fun getAllBinaLingkungan(): LiveData<Resource<RealmResults<PemohonEntity>>>
 
     fun uploadFile(file: MultipartBody.Part, idPemohon: Int): LiveData<UploadFileResponse>
+
+    fun getAllFile(idPemohon: Int): LiveData<RealmResults<FileEntity>>
+    fun insertFile(file: FileEntity)
 }

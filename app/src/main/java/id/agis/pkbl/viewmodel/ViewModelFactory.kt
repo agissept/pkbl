@@ -15,7 +15,6 @@ import id.agis.pkbl.ui.login.LoginViewModel
 class ViewModelFactory(
     private val pkblRepository: PKBLRepository
 ) : ViewModelProvider.NewInstanceFactory() {
-
     companion object {
         @Volatile
         private var instance: ViewModelFactory? = null
@@ -32,7 +31,6 @@ class ViewModelFactory(
                 instance = ViewModelFactory(Injection.provideRepository(context, null))
             }
             return instance!!
-
         }
 
         private fun getToken(context: Context): String? {
@@ -46,7 +44,7 @@ class ViewModelFactory(
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         when {
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
-                return LoginViewModel(pkblRepository) as T
+                return LoginViewModel( pkblRepository) as T
             }
 
             modelClass.isAssignableFrom(KemitraanViewModel::class.java) -> {

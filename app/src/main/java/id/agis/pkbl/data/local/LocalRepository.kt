@@ -1,5 +1,6 @@
 package id.agis.pkbl.data.local
 
+import id.agis.pkbl.data.local.entities.FileEntity
 import id.agis.pkbl.data.local.entities.PemohonEntity
 import id.agis.pkbl.data.local.realm.AppDao
 import id.agis.pkbl.util.LiveRealmData
@@ -39,7 +40,19 @@ class LocalRepository(private val appDao: AppDao) {
     fun getAllBinaLingkungan(): LiveRealmData<PemohonEntity> {
 //        return appDao.getAllBinaLingkungan()
         return appDao.getAllKemitraan()
+    }
 
+
+    fun getAllFile(idPemohon: Int): LiveRealmData<FileEntity>{
+        return appDao.getAllFile(idPemohon)
+    }
+
+    fun insertFile(file: FileEntity){
+        appDao.insertFile(file)
+    }
+
+    fun deleteFile(id: Long){
+        appDao.deleteFile(id)
     }
 
 }

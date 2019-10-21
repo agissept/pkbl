@@ -15,7 +15,8 @@ import java.io.File
 
 
 object FileUtil {
-    fun getPath(context: Context, uri: Uri): String? {
+    fun Uri.getPath(context: Context): String {
+        val uri = this
         var filePath = ""
 
         // ExternalStorageProvider
@@ -116,7 +117,7 @@ object FileUtil {
 
             return filePath
         }
-        return null
+        return ""
     }
 
     private fun isExternalStorageDocument(uri: Uri): Boolean {
@@ -159,7 +160,8 @@ object FileUtil {
         return displayName
     }
 
-    fun getMimeType(uri: Uri, context: Context): String? {
+    fun Uri.getMimeType(context: Context): String? {
+        val uri = this
         return if (uri.scheme == ContentResolver.SCHEME_CONTENT) {
             val mime = MimeTypeMap.getSingleton()
             mime?.getExtensionFromMimeType(context.contentResolver.getType(uri))

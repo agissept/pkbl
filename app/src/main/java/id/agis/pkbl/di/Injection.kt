@@ -8,6 +8,7 @@ import id.agis.pkbl.data.remote.retrofit.ApiClient
 import id.agis.pkbl.data.remote.retrofit.ApiInterface
 import id.agis.pkbl.util.LiveDataUtil.appDao
 import io.realm.Realm
+import io.realm.RealmConfiguration
 
 
 class Injection {
@@ -15,7 +16,9 @@ class Injection {
         fun provideRepository(context: Context, token: String?): PKBLRepository {
             val apiInterface: ApiInterface = ApiClient.retrofit(token).create(ApiInterface::class.java)
 
-            val db = Realm.getDefaultInstance()
+            Realm.init(context)
+            val configuration = RealmConfiguration.Builder().build()
+            val db = Realm.getInstance(configuration)
             val localRepository = LocalRepository.getInstance(db.appDao())
             val remoteRepository = RemoteRepository(apiInterface)
 

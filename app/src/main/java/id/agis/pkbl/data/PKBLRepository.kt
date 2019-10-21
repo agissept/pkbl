@@ -2,6 +2,7 @@ package id.agis.pkbl.data
 
 import androidx.lifecycle.LiveData
 import id.agis.pkbl.data.local.LocalRepository
+import id.agis.pkbl.data.local.entities.FileEntity
 import id.agis.pkbl.data.local.entities.PemohonEntity
 import id.agis.pkbl.data.remote.ApiResponse
 import id.agis.pkbl.data.remote.RemoteRepository
@@ -18,6 +19,7 @@ class PKBLRepository(
     val localRepository: LocalRepository,
     private val remoteRepository: RemoteRepository
 ) : PKBLDataSource {
+
     companion object {
         @Volatile
         private var instance: PKBLRepository? = null
@@ -110,6 +112,14 @@ class PKBLRepository(
 
     override fun uploadFile(file: MultipartBody.Part, idPemohon: Int): LiveData<UploadFileResponse> {
        return remoteRepository.uploadFile(file, idPemohon)
+    }
+
+    override fun getAllFile(idPemohon: Int): LiveData<RealmResults<FileEntity>> {
+        return localRepository.getAllFile(idPemohon)
+    }
+
+    override fun insertFile(file: FileEntity) {
+        localRepository.insertFile(file)
     }
 
     fun isConnectionAvailable(): Boolean {

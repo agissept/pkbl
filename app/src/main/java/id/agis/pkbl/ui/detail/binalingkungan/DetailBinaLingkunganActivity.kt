@@ -5,23 +5,27 @@ import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
-import android.graphics.PorterDuff
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.appbar.AppBarLayout
 import id.agis.pkbl.R
 import id.agis.pkbl.constant.Constant
+import id.agis.pkbl.constant.Constant.Companion.USER_ID
 import id.agis.pkbl.constant.Constant.Companion.USER_NAME
+import id.agis.pkbl.constant.Constant.Companion.USER_ROLE
+import id.agis.pkbl.constant.Constant.Companion.USER_TOKEN
+import id.agis.pkbl.data.local.entities.FileEntity
 import id.agis.pkbl.data.local.entities.PemohonEntity
-import id.agis.pkbl.model.UserFile
+import id.agis.pkbl.model.Access
+import id.agis.pkbl.model.User
 import id.agis.pkbl.ui.map.MapActivity
+import id.agis.pkbl.util.FileUtil.getMimeType
+import id.agis.pkbl.util.FileUtil.getPath
 import id.agis.pkbl.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.activity_detail_bina_lingkungan.*
 import org.jetbrains.anko.startActivityForResult
@@ -39,38 +43,39 @@ class DetailBinaLingkunganActivity : AppCompatActivity() {
 
     private lateinit var viewModel: DetailBinaLingkunganViewModel
     private lateinit var adapter: DetailBinaLingkunganAdapter
-    private lateinit var backIcon: Drawable
-    private lateinit var editIcon: Drawable
-    private val listFile = mutableListOf<UserFile>()
+    private lateinit var user: User
+    private lateinit var pemohonEntity: PemohonEntity
+    private val listFile = mutableListOf<FileEntity>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_bina_lingkungan)
 
-        val pemohon = intent.getParcelableExtra<PemohonEntity>(EXTRA_DATA)
-        val username = getSharedPreferences(Constant.LOGIN_STATUS, Context.MODE_PRIVATE).getString(
-            USER_NAME,
-            "default"
-        )
-
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        collapsing_toolbar.setCollapsedTitleTextColor(
-            ContextCompat.getColor(this, android.R.color.white)
-        )
-        collapsing_toolbar.setExpandedTitleColor(
-            ContextCompat.getColor(this, android.R.color.black)
-        )
+
+        pemohonEntity = intent.getParcelableExtra(EXTRA_DATA)
+
+        getSharedPreferences(Constant.LOGIN_STATUS, Context.MODE_PRIVATE).apply {
+            val username = getString(USER_NAME, "default")!!
+            val role = getInt(USER_ROLE, 0)
+            val id = getInt(USER_ID, 0)
+            val token = getString(USER_TOKEN, "default")!!
+            val access = Access(role, "")
+            user = User(id, username, access, token)
+        }
 
         viewModel =
             ViewModelFactory.getInstance(this).create(DetailBinaLingkunganViewModel::class.java)
 
+
         val activity: Activity = this
         adapter = DetailBinaLingkunganAdapter(this, listFile).apply {
             onItemClickFile = {
-                openFile(it.uri)
+                openFile(it.uri?.toUri()!!)
+                toast(it.uri!!)
             }
             onItemClick = {
                 if (EasyPermissions.hasPermissions(
@@ -104,38 +109,15 @@ class DetailBinaLingkunganActivity : AppCompatActivity() {
         }
 
         btn_upload_file.setOnClickListener {
-            viewModel.uploadFile(listFile, username!!, pemohon.idPemohon)
+            //            viewModel.uploadFile(listFile, username!!, pemohon.idPemohon)
         }
 
-        viewModel.listFileLiveData.observe(this, Observer {
-            listFile.clear()
-            listFile.addAll(it)
-            adapter.notifyDataSetChanged()
-        })
-
-        appbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
-            var scrollRange = -1
-
-            if (scrollRange == -1) {
-                scrollRange = appbar.totalScrollRange
-            }
-            if (scrollRange + verticalOffset == 0) {
-                backIcon.setColorFilter(
-                    ContextCompat.getColor(this, android.R.color.white),
-                    PorterDuff.Mode.SRC_ATOP
-                )
-                editIcon.setColorFilter(
-                    ContextCompat.getColor(this, android.R.color.white), PorterDuff.Mode.SRC_ATOP
-                )
-            } else if (::editIcon.isInitialized) {
-                backIcon.setColorFilter(
-                    ContextCompat.getColor(this, android.R.color.black), PorterDuff.Mode.SRC_ATOP
-                )
-                editIcon.setColorFilter(
-                    ContextCompat.getColor(this, android.R.color.black), PorterDuff.Mode.SRC_ATOP
-                )
-            }
-        })
+        viewModel.idPemohon = 0
+//        viewModel.listFile.observe(this, Observer {
+//            listFile.clear()
+//            listFile.addAll(it)
+//            adapter.notifyDataSetChanged()
+//        })
     }
 
 
@@ -147,7 +129,34 @@ class DetailBinaLingkunganActivity : AppCompatActivity() {
                     tv_coordinate.text = data?.getStringExtra("result")
                 }
                 OPEN_DOCUMENT_REQUEST_CODE -> {
-                    viewModel.insertUri(data, this)
+                    val listUri = viewModel.getUri(data)
+                    listUri.forEach {
+
+                        val target = viewModel.copyFile(it.getPath(this), user.username)
+                        val expectation = it
+                        val reality = target.path
+                        val extra = Uri.parse("file://" + reality)
+                        Log.i("aaaaaa","e: $expectation" +
+                                "\n r: $reality" +
+                                "\n $extra" +
+                                "\n aaaaaaaaaaaaaaaaaaaaaaa")
+                        val fileEntity = FileEntity(
+                            target.name,
+                            it.getMimeType(this)!!,
+                            pemohonEntity.idPemohon,
+                            user.userId,
+                            null,
+                            Uri.parse(target.toString()).toString(),
+                            target.path,
+                            uploaded = false,
+                            downloaded = true
+                        )
+                        listFile.add(fileEntity)
+//                        viewModel.insertFile(fileEntity)
+                    }
+                    adapter.notifyDataSetChanged()
+
+
                 }
             }
         }
@@ -168,10 +177,6 @@ class DetailBinaLingkunganActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_detail, menu)
-        if (menu != null) {
-            backIcon = toolbar.navigationIcon!!
-            editIcon = menu.findItem(R.id.edit).icon
-        }
         return true
     }
 
