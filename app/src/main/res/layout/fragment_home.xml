@@ -1,27 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:id="@+id/swipe_refresh">
+        android:layout_height="match_parent">
 
-    <RelativeLayout
+    <com.synnapps.carouselview.CarouselView
+            android:id="@+id/carouselView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="300dp"
+            app:fillColor="@color/secondaryColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:pageColor="#00000000"
+            app:radius="6dp"
+            app:slideInterval="3000" />
 
-        <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:listitem="@layout/item_list" />
 
-        <ProgressBar
-                android:id="@+id/progress_circular"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true" />
-    </RelativeLayout>
+    <TextView
+            android:id="@+id/btn_dashboard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:drawableTop="@mipmap/ic_launcher"
+            android:gravity="center"
+            android:text="Dashboard"
+            app:layout_constraintEnd_toStartOf="@+id/btn_pending_job"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btn_pending_job" />
 
-</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    <TextView
+            android:id="@+id/btn_pending_job"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:drawableTop="@mipmap/ic_launcher"
+            android:gravity="center"
+            android:text="Pending Job"
+            app:layout_constraintEnd_toStartOf="@+id/btn_status"
+            app:layout_constraintStart_toEndOf="@+id/btn_dashboard"
+            app:layout_constraintTop_toBottomOf="@+id/carouselView" />
+
+    <TextView
+            android:id="@+id/btn_status"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:drawableTop="@mipmap/ic_launcher"
+            android:gravity="center"
+            android:text="Status Permohonan"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_pending_job"
+            app:layout_constraintTop_toTopOf="@+id/btn_pending_job" />
+
+    <TextView
+            android:id="@+id/btn_kredit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:drawableTop="@mipmap/ic_launcher"
+            android:gravity="center"
+            android:text="Simulasi Jasa Kredit"
+            app:layout_constraintEnd_toStartOf="@+id/btn_dokumen"
+            app:layout_constraintStart_toStartOf="@+id/btn_dashboard"
+            app:layout_constraintTop_toTopOf="@+id/btn_dokumen" />
+
+    <TextView
+            android:id="@+id/btn_dokumen"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:drawableTop="@mipmap/ic_launcher"
+            android:gravity="center"
+            android:text="Dokumen"
+            app:layout_constraintEnd_toStartOf="@+id/btn_info"
+            app:layout_constraintStart_toEndOf="@+id/btn_kredit"
+            app:layout_constraintTop_toBottomOf="@+id/btn_pending_job" />
+
+
+    <TextView
+            android:id="@+id/btn_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:drawableTop="@mipmap/ic_launcher"
+            android:gravity="center"
+            android:text="Info"
+            app:layout_constraintEnd_toEndOf="@+id/btn_status"
+            app:layout_constraintStart_toEndOf="@+id/btn_dokumen"
+            app:layout_constraintTop_toTopOf="@+id/btn_dokumen" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,8 +12,8 @@ import id.agis.pkbl.ui.detail.binalingkungan.DetailBinaLingkunganActivity.Compan
 import kotlinx.android.synthetic.main.item_list.view.*
 import org.jetbrains.anko.startActivity
 
-class HomeAdapter(private val listBinaLingkungan: MutableList<PemohonEntity>) :
-    RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+class UnusedAdapter(private val listBinaLingkungan: MutableList<PemohonEntity>) :
+    RecyclerView.Adapter<UnusedAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent, false)
         return ViewHolder(view)

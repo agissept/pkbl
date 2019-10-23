@@ -11,14 +11,14 @@ import id.agis.pkbl.ui.home.binalingkungan.BinaLingkunganFragment
 import id.agis.pkbl.ui.home.kemitraan.KemitraanFragment
 import id.agis.pkbl.ui.login.LoginActivity
 import id.agis.pkbl.util.TabAdapter
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_unused.*
 import org.jetbrains.anko.startActivity
 
-class HomeActivity : AppCompatActivity() {
+class UnusedActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_unused)
 
         val adapter = TabAdapter(supportFragmentManager)
         adapter.addFragment(BinaLingkunganFragment(), "Bina Lingkungan")
