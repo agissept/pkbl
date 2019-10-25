@@ -3,40 +3,46 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/mobile_navigation"
-        app:startDestination="@+id/nav_dashboard">
+        app:startDestination="@+id/nav_home">
 
     <fragment
-            android:id="@+id/nav_dashboard"
-            android:name="id.agis.pkbl.ui.dashboard.ui.dashboard.DashboardFragment"
-            android:label="Dashboard"
+            android:id="@+id/nav_home"
+            android:name="id.agis.pkbl.ui.dashboard.ui.home.HomeFragment"
+            android:label=" "
             tools:layout="@layout/fragment_home" />
 
     <fragment
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_dashboard"
+            android:name="id.agis.pkbl.ui.dashboard.DashboardFragment"
+            android:label="Dashboard"
+            tools:layout="@layout/fragment_dashboard" />
+
+    <fragment
+            android:id="@+id/nav_pending_job"
             android:name="id.agis.pkbl.ui.dashboard.ui.gallery.GalleryFragment"
             android:label="@string/menu_gallery"
             tools:layout="@layout/fragment_gallery" />
 
     <fragment
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_status"
             android:name="id.agis.pkbl.ui.dashboard.ui.slideshow.SlideshowFragment"
             android:label="@string/menu_slideshow"
             tools:layout="@layout/fragment_slideshow" />
 
     <fragment
-            android:id="@+id/nav_tools"
+            android:id="@+id/nav_kredit"
             android:name="id.agis.pkbl.ui.dashboard.ui.tools.ToolsFragment"
             android:label="@string/menu_tools"
             tools:layout="@layout/fragment_tools" />
 
     <fragment
-            android:id="@+id/nav_share"
+            android:id="@+id/nav_dokumen"
             android:name="id.agis.pkbl.ui.dashboard.ui.share.ShareFragment"
             android:label="@string/menu_share"
             tools:layout="@layout/fragment_share" />
 
     <fragment
-            android:id="@+id/nav_send"
+            android:id="@+id/nav_info"
             android:name="id.agis.pkbl.ui.dashboard.ui.send.SendFragment"
             android:label="@string/menu_send"
             tools:layout="@layout/fragment_send" />

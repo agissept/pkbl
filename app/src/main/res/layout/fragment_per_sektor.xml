@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="DATA PENYALURAN MITRA BINAAN PER JULI 2019 PER BIDANG USAHA"
+            android:gravity="center"/>
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pie_chart"
+        android:layout_width="match_parent"
+        android:layout_height="300dp" />
+
+    <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp">
+
+        <TableRow android:background="#000000">
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/sektor"
+                    android:textColor="#ffffff" />
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/rka"
+                    android:textColor="#ffffff" />
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/realisasi"
+                    android:textColor="#ffffff" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/industri" />
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/text" />
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/text" />
+        </TableRow>
+
+
+        <TableRow>
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/perdagangan" />
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/text" />
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/text" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/pertanian" />
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/text" />
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/text" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/peternakan" />
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/text" />
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/text" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/perkebunan" />
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/text" />
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/text" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/perikanan" />
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/text" />
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/text" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/lainnya" />
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/text" />
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/text" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/total" />
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/text" />
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/text" />
+        </TableRow>
+
+
+    </TableLayout>
+
+</LinearLayout>

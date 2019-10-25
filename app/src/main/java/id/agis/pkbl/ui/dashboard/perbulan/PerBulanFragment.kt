@@ -1,5 +1,4 @@
-package id.agis.pkbl.ui.dashboard.binalingkungan
-
+package id.agis.pkbl.ui.dashboard.perbulan
 
 import android.graphics.Color
 import android.os.Bundle
@@ -16,11 +15,10 @@ import com.github.mikephil.charting.formatter.LargeValueFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
 import id.agis.pkbl.R
 import id.agis.pkbl.util.CustomMarkerView
-import kotlinx.android.synthetic.main.fragment_dashboard_kemitraan.*
-import java.util.*
+import kotlinx.android.synthetic.main.fragment_per_bulan.*
 
+class PerBulanFragment : Fragment() {
 
-class DashboardBinaLingkunganFragment : Fragment() {
     val judul = arrayListOf(
         "industri",
         "perdagangan",
@@ -36,63 +34,65 @@ class DashboardBinaLingkunganFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dashboard_kemitraan, container, false)
+        return inflater.inflate(R.layout.fragment_per_bulan, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        chart.description.isEnabled = false
-
-        // scaling can now only be done on x- and y-axis separately
-        chart.setPinchZoom(false)
-
-        chart.setDrawBarShadow(false)
-
-        chart.setDrawGridBackground(false)
-
-        chart.extraBottomOffset = 30f
+        chart.apply {
+            description.isEnabled = false
+            // scaling can now only be done on x- and y-axis separately
+            setPinchZoom(false)
+            setDrawBarShadow(false)
+            setDrawGridBackground(false)
+            extraBottomOffset = 30f
+        }
 
         // create a custom MarkerView (extend MarkerView) and specify the layout
         // to use for it
-        val mv = CustomMarkerView(context!!, R.layout.custom_marker_view)
-        mv.chartView = chart // For bounds control
+        val mv = CustomMarkerView(context!!, R.layout.custom_marker_view).apply {
+            chartView = chart // For bounds control
+        }
         chart.marker = mv // Set the marker to the chart
 
-        val l = chart.legend
-        l.verticalAlignment = Legend.LegendVerticalAlignment.BOTTOM
-        l.horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER
-        l.orientation = Legend.LegendOrientation.HORIZONTAL
-        l.setDrawInside(true)
-        l.yOffset = 5f
-        l.textSize = 8f
-
-
-        val xAxis = chart.xAxis
-        xAxis.position = XAxis.XAxisPosition.BOTTOM
-        xAxis.setAvoidFirstLastClipping(true)
-        xAxis.labelCount = 7
-        xAxis.setCenterAxisLabels(true)
-        xAxis.setDrawGridLines(true)
-        xAxis.axisMinimum = 0f
-        xAxis.granularity = 1f
-        xAxis.labelRotationAngle = -45f
-        xAxis.valueFormatter = object : ValueFormatter() {
-            override fun getFormattedValue(value: Float): String {
-                val x = value.toInt() % judul.size
-                return if (x >= 0 && x < judul.size) {
-                    judul[x]
-                } else {
-                    ""
-                }
-            }
+        chart.legend.apply {
+            verticalAlignment = Legend.LegendVerticalAlignment.BOTTOM
+            horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER
+            orientation = Legend.LegendOrientation.HORIZONTAL
+            setDrawInside(true)
+            yOffset = 5f
+            textSize = 8f
         }
 
-        val leftAxis = chart.axisLeft
-        leftAxis.valueFormatter = LargeValueFormatter()
-        leftAxis.setDrawGridLines(false)
-        leftAxis.spaceTop = 35f
-        leftAxis.axisMinimum = 0f // this replaces setStartAtZero(true)
+        chart.xAxis.apply {
+            position = XAxis.XAxisPosition.BOTTOM
+            setAvoidFirstLastClipping(true)
+            labelCount = 7
+            setCenterAxisLabels(true)
+            setDrawGridLines(true)
+            axisMinimum = 0f
+            granularity = 1f
+            labelRotationAngle = -45f
+            valueFormatter = object : ValueFormatter() {
+                override fun getFormattedValue(value: Float): String {
+                    val x = value.toInt() % judul.size
+                    return if (x >= 0 && x < judul.size) {
+                        judul[x]
+                    } else {
+                        ""
+                    }
+                }
+            }
+
+        }
+
+        chart.axisLeft.apply {
+           valueFormatter = LargeValueFormatter()
+            setDrawGridLines(false)
+            spaceTop = 35f
+            axisMinimum = 0f // this replaces setStartAtZero(true)
+        }
 
         chart.axisRight.isEnabled = false
         chart.axisLeft.isEnabled = false

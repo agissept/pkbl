@@ -5,9 +5,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import id.agis.pkbl.R
-import id.agis.pkbl.ui.dashboard.DashboardActivity
-import id.agis.pkbl.ui.dashboard.HomeActivity
-import id.agis.pkbl.ui.home.UnusedActivity
+import id.agis.pkbl.ui.home.HomeActivity
 import id.agis.pkbl.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.startActivity
@@ -43,9 +41,9 @@ class LoginActivity : AppCompatActivity() {
             if (it != null) {
                 viewModel.saveToken(applicationContext, it.userId, it.access.id, it.token, it.username)
                 if (it.access.id == 1) {
-                    startActivity<DashboardActivity>()
+//                    startActivity<DashboardActivity>()
                 } else if (it.access.id == 2) {
-                    startActivity<UnusedActivity>()
+//                    startActivity<UnusedActivity>()
                 }
                 finish()
             }

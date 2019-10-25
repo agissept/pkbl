@@ -3,7 +3,6 @@ package id.agis.pkbl.ui.splashscreen
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
-import id.agis.pkbl.ui.dashboard.DashboardActivity
 import id.agis.pkbl.ui.login.LoginActivity
 import org.jetbrains.anko.startActivity
 
@@ -17,7 +16,7 @@ class SplashScreenActivity : AppCompatActivity() {
         if (viewModel.getToken(this) != null) {
             when(viewModel.getRole(this)){
                 1->{
-                    startActivity<DashboardActivity>()
+//                    startActivity<DashboardActivity>()
                 }
                 2->{
 //                    startActivity<UnusedActivity>()

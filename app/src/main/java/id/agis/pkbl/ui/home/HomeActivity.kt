@@ -1,4 +1,4 @@
-package id.agis.pkbl.ui.dashboard
+package id.agis.pkbl.ui.home
 
 import android.os.Bundle
 import android.view.Menu
@@ -12,6 +12,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import id.agis.pkbl.R
+
 
 class HomeActivity : AppCompatActivity() {
 
@@ -30,8 +31,9 @@ class HomeActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_dashboard, R.id.nav_gallery, R.id.nav_slideshow,
-                R.id.nav_tools, R.id.nav_share, R.id.nav_send
+                R.id.nav_home,
+                R.id.nav_dashboard, R.id.nav_pending_job, R.id.nav_status,
+                R.id.nav_kredit, R.id.nav_dokumen, R.id.nav_info
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
