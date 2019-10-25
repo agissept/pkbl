@@ -19,19 +19,19 @@
             <TextView
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="@string/sektor"
+                    android:text="Wilayah"
                     android:textColor="#ffffff" />
 
             <TextView
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="@string/rka"
+                    android:text="%"
                     android:textColor="#ffffff" />
 
             <TextView
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="@string/realisasi"
+                    android:text="Jumlah Penyaluran"
                     android:textColor="#ffffff" />
         </TableRow>
 
@@ -40,7 +40,7 @@
             <TextView
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="@string/industri" />
+                    android:text="Sumatera Selatan" />
 
             <TextView
                     android:layout_weight="1"
@@ -59,7 +59,7 @@
             <TextView
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="@string/perdagangan" />
+                    android:text="Sumatera Barat" />
 
             <TextView
                     android:layout_weight="1"
@@ -77,7 +77,7 @@
             <TextView
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="@string/pertanian" />
+                    android:text="Lampung" />
 
             <TextView
                     android:layout_weight="1"
@@ -95,7 +95,7 @@
             <TextView
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="@string/peternakan" />
+                    android:text="Jakarta" />
 
             <TextView
                     android:layout_weight="1"
@@ -113,7 +113,7 @@
             <TextView
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="@string/perkebunan" />
+                    android:text="Jawa Barat" />
 
             <TextView
                     android:layout_weight="1"
@@ -131,7 +131,7 @@
             <TextView
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="@string/perikanan" />
+                    android:text="Sumatera Barat" />
 
             <TextView
                     android:layout_weight="1"
@@ -149,7 +149,7 @@
             <TextView
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="@string/lainnya" />
+                    android:text="Jawa Timur" />
 
             <TextView
                     android:layout_weight="1"
@@ -167,7 +167,7 @@
             <TextView
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="@string/total" />
+                    android:text="Jumlah" />
 
             <TextView
                     android:layout_weight="1"

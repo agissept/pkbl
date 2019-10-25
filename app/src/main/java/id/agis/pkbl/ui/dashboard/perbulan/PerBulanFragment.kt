@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
@@ -15,18 +14,19 @@ import com.github.mikephil.charting.formatter.LargeValueFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
 import id.agis.pkbl.R
 import id.agis.pkbl.util.CustomMarkerView
+import id.agis.pkbl.util.CustomPercentFormatter
 import kotlinx.android.synthetic.main.fragment_per_bulan.*
 
 class PerBulanFragment : Fragment() {
 
     val judul = arrayListOf(
-        "industri",
-        "perdagangan",
-        "pertanian",
-        "peternakan",
-        "pelabuhan",
-        "perikanan",
-        "lainnya"
+        "Sumatera Selatan",
+        "Sumatera Barat",
+        "Lampung",
+        "Jakarta",
+        "Jawa Barat",
+        "Sumatera Barat",
+        "Jawa Timur"
     )
 
     override fun onCreateView(
@@ -56,21 +56,13 @@ class PerBulanFragment : Fragment() {
         }
         chart.marker = mv // Set the marker to the chart
 
-        chart.legend.apply {
-            verticalAlignment = Legend.LegendVerticalAlignment.BOTTOM
-            horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER
-            orientation = Legend.LegendOrientation.HORIZONTAL
-            setDrawInside(true)
-            yOffset = 5f
-            textSize = 8f
-        }
 
         chart.xAxis.apply {
             position = XAxis.XAxisPosition.BOTTOM
             setAvoidFirstLastClipping(true)
-            labelCount = 7
+            setDrawGridLines(false)
             setCenterAxisLabels(true)
-            setDrawGridLines(true)
+            labelCount = 7
             axisMinimum = 0f
             granularity = 1f
             labelRotationAngle = -45f
@@ -88,14 +80,13 @@ class PerBulanFragment : Fragment() {
         }
 
         chart.axisLeft.apply {
-           valueFormatter = LargeValueFormatter()
-            setDrawGridLines(false)
             spaceTop = 35f
             axisMinimum = 0f // this replaces setStartAtZero(true)
+            isEnabled = true
         }
 
         chart.axisRight.isEnabled = false
-        chart.axisLeft.isEnabled = false
+        chart.legend.isEnabled = false
 
         val groupSpace = 0.12f
         val barSpace = 0.04f // x4 DataSet
@@ -106,14 +97,25 @@ class PerBulanFragment : Fragment() {
         val startYear = 0
         val endYear = 7
 
+        val totalValue = 1000000f
+
         val values1 = ArrayList<BarEntry>()
         val values2 = ArrayList<BarEntry>()
+
+        val data = arrayOf("percent", totalValue)
+
+        values2.add(BarEntry(0f, 500000f, data))
+        values2.add(BarEntry(0f, 100000f, data))
+        values2.add(BarEntry(0f, 50000f, data))
+        values2.add(BarEntry(0f, 50000f, data))
+        values2.add(BarEntry(0f, 200000f, data))
+        values2.add(BarEntry(0f, 80000f, data))
+        values2.add(BarEntry(0f, 20000f, data))
 
         val randomMultiplier = 10 * 100000f
 
         for (i in startYear until endYear) {
             values1.add(BarEntry(i.toFloat(), (Math.random() * randomMultiplier).toFloat()))
-            values2.add(BarEntry(i.toFloat(), (Math.random() * randomMultiplier).toFloat()))
         }
 
         val set1: BarDataSet
@@ -126,6 +128,7 @@ class PerBulanFragment : Fragment() {
 
             set1.values = values1
             set2.values = values2
+            set2.valueFormatter = CustomPercentFormatter(totalValue)
 
             chart.data.notifyDataChanged()
             chart.notifyDataSetChanged()
@@ -134,12 +137,13 @@ class PerBulanFragment : Fragment() {
             // create 2 DataSets
             set1 = BarDataSet(values1, "Rekap 2018")
             set1.color = Color.rgb(104, 241, 175)
+            set1.valueFormatter = LargeValueFormatter()
             set2 = BarDataSet(values2, "Realisasi 1 Jan - 31 Desember 2018")
             set2.color = Color.rgb(164, 228, 251)
-
+            set2.valueFormatter = CustomPercentFormatter(totalValue)
 
             val data = BarData(set1, set2)
-            data.setValueFormatter(LargeValueFormatter())
+
 
             chart.data = data
         }
@@ -156,6 +160,5 @@ class PerBulanFragment : Fragment() {
         chart.groupBars(startYear.toFloat(), groupSpace, barSpace)
         chart.invalidate()
     }
-
 
 }

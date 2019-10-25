@@ -10,6 +10,7 @@ import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.utils.MPPointF
 import com.github.mikephil.charting.utils.Utils
 import id.agis.pkbl.R
+import java.text.DecimalFormat
 
 
 @SuppressLint("ViewConstructor")
@@ -20,15 +21,25 @@ class CustomMarkerView(context: Context, layoutResource: Int) :
 
     // content (user-interface)
     override fun refreshContent(e: Entry?, highlight: Highlight?) {
-
-        if (e is CandleEntry) {
-
-            val ce = e as CandleEntry?
-
-            tvContent.text = Utils.formatNumber(ce!!.high, 0, true)
+        val data = if (e?.data != null) {
+            e.data as Array<*>
         } else {
+            arrayOf("")
+        }
 
-            tvContent.text = Utils.formatNumber(e!!.y, 0, true)
+        when {
+            e is CandleEntry -> {
+
+                val ce = e as CandleEntry?
+
+                tvContent.text = Utils.formatNumber(ce!!.high, 0, true)
+            }
+            data[0] == "percent" -> {
+                val formatter = DecimalFormat("###,###,##0.0")
+                val newValue = e!!.y / data[1] as Float * 100
+                tvContent.text = formatter.format(newValue).toString() + "%"
+            }
+            else -> tvContent.text = Utils.formatNumber(e!!.y, 0, true)
         }
 
         super.refreshContent(e, highlight)
