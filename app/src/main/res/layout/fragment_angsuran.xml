@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="DATA PENYALURAN MITRA BINAAN PER JULI 2019"
+            android:gravity="center"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"/>
+
+    <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/chart"
+            android:layout_width="match_parent"
+            android:layout_height="300dp" />
+
+    <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp">
+
+        <TableRow android:background="#fbc02d">
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Periode" />
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Jumlah Angsuran" />
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="%" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Januari" />
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/text" />
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/text" />
+        </TableRow>
+
+
+        <TableRow>
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Februari" />
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/text" />
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/text" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Maret" />
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/text" />
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/text" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="April" />
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/text" />
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/text" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Mei" />
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/text" />
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/text" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Juni" />
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/text" />
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/text" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Juli" />
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/text" />
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/text" />
+        </TableRow>
+
+    </TableLayout>
+
+</LinearLayout>

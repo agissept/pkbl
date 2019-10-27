@@ -8,10 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayout
 import id.agis.pkbl.R
+import id.agis.pkbl.ui.dashboard.angsuran.AngsuranFragment
 import id.agis.pkbl.ui.dashboard.perbulan.PerBulanFragment
 import id.agis.pkbl.ui.dashboard.persektor.PerSektorFragment
-import kotlinx.android.synthetic.main.fragment_dashboard.*
 import id.agis.pkbl.ui.dashboard.perwilayah.PerWilayahFragment
+import kotlinx.android.synthetic.main.fragment_dashboard.*
 
 /**
  * A simple [Fragment] subclass.
@@ -51,7 +52,7 @@ class DashboardFragment : Fragment() {
                         loadLayout(PerBulanFragment())
                     }
                     3 -> {
-                        loadLayout(PerBulanFragment())
+                        loadLayout(AngsuranFragment())
                     }
                 }
             }
