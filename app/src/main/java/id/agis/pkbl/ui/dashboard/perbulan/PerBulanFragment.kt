@@ -10,7 +10,6 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
-import com.github.mikephil.charting.formatter.LargeValueFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
 import id.agis.pkbl.R
 import id.agis.pkbl.util.CustomMarkerView
@@ -59,9 +58,9 @@ class PerBulanFragment : Fragment() {
 
         chart.xAxis.apply {
             position = XAxis.XAxisPosition.BOTTOM
-            setAvoidFirstLastClipping(true)
+            setAvoidFirstLastClipping(false)
             setDrawGridLines(false)
-            setCenterAxisLabels(true)
+            setCenterAxisLabels(false)
             labelCount = 7
             axisMinimum = 0f
             granularity = 1f
@@ -89,7 +88,7 @@ class PerBulanFragment : Fragment() {
         chart.legend.isEnabled = false
 
         val groupSpace = 0.12f
-        val barSpace = 0.04f // x4 DataSet
+        val spaceBetweenBarInGroup = 0f // x4 DataSet
         val barWidth = 0.4f // x4 DataSet
         // (0.2 + 0.03) * 4 + 0.08 = 1.00 -> interval per "group"
 
@@ -136,10 +135,10 @@ class PerBulanFragment : Fragment() {
         } else run {
             // create 2 DataSets
             set1 = BarDataSet(values1, "Rekap 2018")
-            set1.color = Color.rgb(104, 241, 175)
-            set1.valueFormatter = LargeValueFormatter()
+            set1.color = Color.rgb(3, 155, 229)
+
             set2 = BarDataSet(values2, "Realisasi 1 Jan - 31 Desember 2018")
-            set2.color = Color.rgb(164, 228, 251)
+            set2.color = Color.rgb(245, 124, 0)
             set2.valueFormatter = CustomPercentFormatter(totalValue)
 
             val data = BarData(set1, set2)
@@ -156,8 +155,8 @@ class PerBulanFragment : Fragment() {
 
         // barData.getGroupWith(...) is a helper that calculates the width each group needs based on the provided parameters
         chart.xAxis.axisMaximum =
-            startYear + chart.barData.getGroupWidth(groupSpace, barSpace) * groupCount
-        chart.groupBars(startYear.toFloat(), groupSpace, barSpace)
+            startYear + chart.barData.getGroupWidth(groupSpace, spaceBetweenBarInGroup) * groupCount
+        chart.groupBars(startYear.toFloat(), groupSpace, spaceBetweenBarInGroup)
         chart.invalidate()
     }
 

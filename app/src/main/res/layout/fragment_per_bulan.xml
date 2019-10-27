@@ -4,6 +4,25 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+    <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="DATA PENYALURAN MITRA BINAAN PER JULI 2019"
+            android:gravity="center"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"/>
+
+    <TextView
+            android:id="@+id/tv_subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="PER BIDANG USAHA"
+            android:gravity="center"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"/>
+
+
     <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/chart"
             android:layout_width="match_parent"
@@ -14,25 +33,22 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp">
 
-        <TableRow android:background="#000000">
+        <TableRow android:background="#fbc02d">
 
             <TextView
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Wilayah"
-                    android:textColor="#ffffff" />
+                    android:text="Wilayah" />
 
             <TextView
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="%"
-                    android:textColor="#ffffff" />
+                    android:text="%" />
 
             <TextView
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Jumlah Penyaluran"
-                    android:textColor="#ffffff" />
+                    android:text="Jumlah Penyaluran" />
         </TableRow>
 
         <TableRow>
@@ -179,7 +195,6 @@
                     android:gravity="center"
                     android:text="@string/text" />
         </TableRow>
-
 
     </TableLayout>
 

@@ -1,15 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
     <TextView
+            android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="DATA PENYALURAN MITRA BINAAN PER JULI 2019 PER BIDANG USAHA"
-            android:gravity="center"/>
+            android:text="DATA PENYALURAN MITRA BINAAN PER JULI 2019"
+            android:gravity="center"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"/>
+
+    <TextView
+            android:id="@+id/tv_subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="BERDASARKAN PROPINSI"
+            android:gravity="center"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"/>
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/pie_chart"
@@ -21,25 +32,23 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp">
 
-        <TableRow android:background="#000000">
+
+        <TableRow android:background="#fbc02d">
 
             <TextView
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="@string/sektor"
-                    android:textColor="#ffffff" />
+                    android:text="Wilayah" />
 
             <TextView
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="@string/rka"
-                    android:textColor="#ffffff" />
+                    android:text="%" />
 
             <TextView
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="@string/realisasi"
-                    android:textColor="#ffffff" />
+                    android:text="Jumlah Penyaluran" />
         </TableRow>
 
         <TableRow>
@@ -156,7 +165,7 @@
             <TextView
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="@string/lainnya" />
+                    android:text="Jasa" />
 
             <TextView
                     android:layout_weight="1"
@@ -174,7 +183,43 @@
             <TextView
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="@string/total" />
+                    android:text="Usaha Lainnya" />
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/text" />
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/text" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Kerjasama Lainnya" />
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/text" />
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/text" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Jumlah" />
 
             <TextView
                     android:layout_weight="1"
