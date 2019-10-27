@@ -7,9 +7,9 @@
         android:orientation="vertical">
 
     <ScrollView
+            android:id="@+id/scroll_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/scroll_view">
+            android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -122,10 +122,36 @@
                     app:layout_constraintTop_toBottomOf="@+id/btn_tampilan"
                     app:tabGravity="fill"
                     app:tabMaxWidth="0dp"
-                    app:tabMode="fixed" />
+                    app:tabMode="fixed">
 
-            <id.agis.pkbl.ui.dashboard.CustomViewPager
-                    android:id="@+id/view_pager"
+                <com.google.android.material.tabs.TabItem
+                        android:id="@+id/tab_sektor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Per Sektor" />
+
+                <com.google.android.material.tabs.TabItem
+                        android:id="@+id/tab_wilayah"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Per Wilayah" />
+
+                <com.google.android.material.tabs.TabItem
+                        android:id="@+id/tab_bulan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Per Bulan" />
+
+                <com.google.android.material.tabs.TabItem
+                        android:id="@+id/tab_angsuran"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Angsuran" />
+
+            </com.google.android.material.tabs.TabLayout>
+
+            <FrameLayout
+                    android:id="@+id/container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="@+id/tab_layout"
@@ -133,11 +159,4 @@
                     app:layout_constraintTop_toBottomOf="@+id/tab_layout" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
-    <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/primaryDarkColor" />
-
-
 </LinearLayout>
