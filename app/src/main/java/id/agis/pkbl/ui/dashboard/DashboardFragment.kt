@@ -11,6 +11,7 @@ import id.agis.pkbl.R
 import id.agis.pkbl.ui.dashboard.perbulan.PerBulanFragment
 import id.agis.pkbl.ui.dashboard.persektor.PerSektorFragment
 import kotlinx.android.synthetic.main.fragment_dashboard.*
+import id.agis.pkbl.ui.dashboard.perwilayah.PerWilayahFragment
 
 /**
  * A simple [Fragment] subclass.
@@ -44,7 +45,7 @@ class DashboardFragment : Fragment() {
                         loadLayout(PerSektorFragment())
                     }
                     1 -> {
-                        loadLayout(PerBulanFragment())
+                        loadLayout(PerWilayahFragment())
                     }
                     2 -> {
                         loadLayout(PerBulanFragment())
