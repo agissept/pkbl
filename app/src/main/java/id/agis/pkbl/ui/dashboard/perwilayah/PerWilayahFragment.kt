@@ -1,4 +1,5 @@
-package id.agis.pkbl.ui.dashboard.perbulan
+package id.agis.pkbl.ui.dashboard.perwilayah
+
 
 import android.graphics.Color
 import android.os.Bundle
@@ -12,20 +13,22 @@ import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.ValueFormatter
 import id.agis.pkbl.R
-import id.agis.pkbl.util.CustomCurrencyFormatter
 import id.agis.pkbl.util.CustomMarkerView
-import kotlinx.android.synthetic.main.fragment_per_bulan.*
+import id.agis.pkbl.util.CustomPercentFormatter
+import kotlinx.android.synthetic.main.fragment_per_wilayah.*
 
-class PerBulanFragment : Fragment() {
-
+/**
+ * A simple [Fragment] subclass.
+ */
+class PerWilayahFragment : Fragment() {
     val judul = arrayListOf(
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "Mei",
-        "Jun",
-        "Jul"
+        "Sumatera Selatan",
+        "Sumatera Barat",
+        "Lampung",
+        "Jakarta",
+        "Jawa Barat",
+        "Sumatera Barat",
+        "Jawa Timur"
     )
 
     override fun onCreateView(
@@ -33,7 +36,7 @@ class PerBulanFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_per_bulan, container, false)
+        return inflater.inflate(R.layout.fragment_per_wilayah, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -127,19 +130,19 @@ class PerBulanFragment : Fragment() {
 
             set1.values = values1
             set2.values = values2
-            set2.valueFormatter = CustomCurrencyFormatter()
+            set2.valueFormatter = CustomPercentFormatter(totalValue)
 
             chart.data.notifyDataChanged()
             chart.notifyDataSetChanged()
 
         } else run {
             // create 2 DataSets
-            set1 = BarDataSet(values1, "")
+            set1 = BarDataSet(values1, "Rekap 2018")
             set1.color = Color.rgb(3, 155, 229)
 
-            set2 = BarDataSet(values2, "")
-            set2.color = Color.rgb(187, 222, 251)
-            set2.valueFormatter = CustomCurrencyFormatter()
+            set2 = BarDataSet(values2, "Realisasi 1 Jan - 31 Desember 2018")
+            set2.color = Color.rgb(245, 124, 0)
+            set2.valueFormatter = CustomPercentFormatter(totalValue)
 
             val data = BarData(set1, set2)
 
