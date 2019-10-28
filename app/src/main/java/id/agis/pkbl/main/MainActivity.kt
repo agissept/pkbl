@@ -1,4 +1,4 @@
-package id.agis.pkbl.ui.home
+package id.agis.pkbl.main
 
 import android.os.Bundle
 import android.view.Menu
@@ -14,7 +14,7 @@ import com.google.android.material.navigation.NavigationView
 import id.agis.pkbl.R
 
 
-class HomeActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 

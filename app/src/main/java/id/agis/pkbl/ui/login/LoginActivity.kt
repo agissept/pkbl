@@ -5,7 +5,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import id.agis.pkbl.R
-import id.agis.pkbl.ui.home.HomeActivity
+import id.agis.pkbl.main.MainActivity
 import id.agis.pkbl.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.startActivity
@@ -23,7 +23,7 @@ class LoginActivity : AppCompatActivity() {
         viewModel = ViewModelFactory.getInstance(this).create(LoginViewModel::class.java)
 
         btn_login.setOnClickListener {
-            startActivity<HomeActivity>()
+            startActivity<MainActivity>()
 
 //            requestLogin(ed_username.text.toString(), ed_password.text.toString())
         }
