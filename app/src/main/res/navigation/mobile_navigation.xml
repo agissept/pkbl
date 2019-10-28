@@ -17,6 +17,7 @@
             android:label="Dashboard"
             tools:layout="@layout/fragment_dashboard" />
 
+
     <fragment
             android:id="@+id/nav_pending_job"
             android:name="id.agis.pkbl.ui.dashboard.ui.gallery.GalleryFragment"
@@ -27,7 +28,35 @@
             android:id="@+id/nav_status"
             android:name="id.agis.pkbl.ui.statuspermohonan.StatusPermohonanFragment"
             android:label="Status Permohonan"
-            tools:layout="@layout/fragment_status_permohonan" />
+            tools:layout="@layout/fragment_status_permohonan">
+        <action
+                android:id="@+id/action_nav_status_to_nav_list_status_pemohonan"
+                app:destination="@id/nav_list_status_pemohonan" />
+    </fragment>
+
+
+    <fragment
+            android:id="@+id/nav_list_status_pemohonan"
+            android:name="id.agis.pkbl.ui.statuspermohonan.liststatuspermohonan.ListStatusPermohonanFragment"
+            android:label="List Status Permohonan"
+            tools:layout="@layout/fragment_list_status_permohonan" >
+
+        <argument
+                android:name="pemohon"
+                app:argType="string" />
+        <argument
+                android:name="institusi"
+                app:argType="string" />
+        <argument android:name="kemitraan"
+                app:argType="boolean" />
+        <argument
+                android:name="bina_lingkungan"
+                app:argType="boolean" />
+        <argument
+                android:name="bina_wilayah"
+                app:argType="boolean" />
+    </fragment>
+
 
     <fragment
             android:id="@+id/nav_kredit"
