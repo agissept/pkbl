@@ -1,4 +1,4 @@
-package id.agis.pkbl.ui.dashboard.ui.home
+package id.agis.pkbl.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
