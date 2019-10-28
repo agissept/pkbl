@@ -1,4 +1,4 @@
-package id.agis.pkbl.ui.dashboard.ui.slideshow
+package id.agis.pkbl.ui.statuspermohonan
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

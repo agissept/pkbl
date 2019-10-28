@@ -19,7 +19,7 @@
         <item
                 android:id="@+id/nav_status"
                 android:icon="@drawable/ic_menu_slideshow"
-                android:title="@string/menu_slideshow" />
+                android:title="Status Permohonan" />
         <item
                 android:id="@+id/nav_kredit"
                 android:icon="@drawable/ic_menu_manage"
