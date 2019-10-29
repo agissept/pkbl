@@ -6,10 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import id.agis.pkbl.R
-import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
@@ -55,10 +54,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun startFragment(id: Int){
-        val navHostFragment = activity?.nav_host_fragment as NavHostFragment
-        val inflater = navHostFragment.navController.navInflater
-        val graph = inflater.inflate(R.navigation.mobile_navigation)
-        graph.startDestination = id
-        navHostFragment.navController.graph = graph
+        findNavController().navigate(id)
     }
 }
