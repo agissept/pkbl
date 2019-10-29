@@ -23,7 +23,7 @@
         <item
                 android:id="@+id/nav_kredit"
                 android:icon="@drawable/ic_menu_manage"
-                android:title="@string/menu_tools" />
+                android:title="Simulasi Jasa Kredit" />
     </group>
 
     <item android:title="Communicate">
