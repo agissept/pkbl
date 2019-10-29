@@ -60,9 +60,9 @@
 
     <fragment
             android:id="@+id/nav_kredit"
-            android:name="id.agis.pkbl.ui.dashboard.ui.tools.ToolsFragment"
-            android:label="@string/menu_tools"
-            tools:layout="@layout/fragment_tools" />
+            android:name="id.agis.pkbl.ui.kredit.KreditFragment"
+            android:label="Simulasi Jasa Kredit"
+            tools:layout="@layout/fragment_kredit" />
 
     <fragment
             android:id="@+id/nav_dokumen"
