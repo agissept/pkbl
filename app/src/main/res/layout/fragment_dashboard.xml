@@ -54,40 +54,32 @@
                     android:id="@+id/chip_group"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:checkedChip="@+id/chip_sektor"
+                    app:checkedChip="@+id/chip_kemitraan"
                     app:singleLine="true"
                     app:singleSelection="true">
 
                 <com.google.android.material.chip.Chip
-                        android:id="@+id/chip_sektor"
+                        android:id="@+id/chip_kemitraan"
                         style="@style/Widget.MaterialComponents.Chip.Choice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Per Sektor"
+                        android:text="Kemitraan"
                         app:chipBackgroundColor="@color/bg_chip_state_list" />
 
                 <com.google.android.material.chip.Chip
-                        android:id="@+id/chip_wilayah"
+                        android:id="@+id/chip_bina_lingkungan"
                         style="@style/Widget.MaterialComponents.Chip.Choice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Per Wilayah"
+                        android:text="Bina Lingkungan"
                         app:chipBackgroundColor="@color/bg_chip_state_list" />
 
                 <com.google.android.material.chip.Chip
-                        android:id="@+id/chip_bulan"
+                        android:id="@+id/chip_bina_wilayah"
                         style="@style/Widget.MaterialComponents.Chip.Choice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Per Bulan"
-                        app:chipBackgroundColor="@color/bg_chip_state_list" />
-
-                <com.google.android.material.chip.Chip
-                        android:id="@+id/chip_angsuran"
-                        style="@style/Widget.MaterialComponents.Chip.Choice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Angusran"
+                        android:text="Bina Wilayah"
                         app:chipBackgroundColor="@color/bg_chip_state_list" />
 
             </com.google.android.material.chip.ChipGroup>
