@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import id.agis.pkbl.R
 import id.agis.pkbl.data.local.entities.PemohonEntity
-import id.agis.pkbl.ui.home.UnusedAdapter
+import id.agis.pkbl.ui.pendingjob.listpemohon.ListPemohonAdapter
 
 class BinaLingkunganFragment : Fragment() {
 
     private val listBinaLingkungan = mutableListOf<PemohonEntity>()
-    private lateinit var adapter: UnusedAdapter
+    private lateinit var adapter: ListPemohonAdapter
     private lateinit var viewModel: BinaLingkunganViewModel
 
     override fun onCreateView(
@@ -26,7 +26,7 @@ class BinaLingkunganFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 //        super.onViewCreated(view, savedInstanceState)
 //
-//        adapter = UnusedAdapter(listBinaLingkungan)
+//        adapter = ListPemohonAdapter(listBinaLingkungan)
 //        recycler_view.layoutManager = LinearLayoutManager(context)
 //        recycler_view.adapter = adapter
 //

@@ -20,9 +20,42 @@
 
     <fragment
             android:id="@+id/nav_pending_job"
-            android:name="id.agis.pkbl.ui.dashboard.ui.gallery.GalleryFragment"
-            android:label="@string/menu_gallery"
-            tools:layout="@layout/fragment_gallery" />
+            android:name="id.agis.pkbl.ui.pendingjob.PendingJobFragment"
+            android:label="Pending Job"
+            tools:layout="@layout/fragment_pending_job" >
+        <action
+                android:id="@+id/action_nav_pending_job_to_nav_list_pemohon"
+                app:destination="@id/nav_list_pemohon" />
+    </fragment>
+
+    <fragment
+            android:id="@+id/nav_program_kemitraan"
+            android:name="id.agis.pkbl.ui.pendingjob.kemitraan.ProgramKemitraanFragment"
+            android:label="Program Kemitraan"
+            tools:layout="@layout/fragment_program_kemitraan" />
+
+    <fragment
+            android:id="@+id/nav_bina_lingkungan"
+            android:name="id.agis.pkbl.ui.pendingjob.binalingkungan.BinaLingkunganFragment"
+            android:label="Bina Lingkungan"
+            tools:layout="@layout/fragment_bina_lingkungan" />
+
+    <fragment
+            android:id="@+id/nav_csr"
+            android:name="id.agis.pkbl.ui.pendingjob.csr.CSRFragment"
+            android:label="CSR"
+            tools:layout="@layout/fragment_csr" />
+
+    <fragment
+            android:id="@+id/nav_list_pemohon"
+            android:name="id.agis.pkbl.ui.pendingjob.listpemohon.ListPemohonFragment"
+            android:label="{title}"
+            tools:layout="@layout/fragment_list_pemohon" >
+        <argument
+                android:name="title"
+                app:argType="string" />
+    </fragment>
+
 
     <fragment
             android:id="@+id/nav_status"

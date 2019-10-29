@@ -8,12 +8,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import id.agis.pkbl.R
 import id.agis.pkbl.data.local.entities.PemohonEntity
-import id.agis.pkbl.ui.home.UnusedAdapter
+import id.agis.pkbl.ui.pendingjob.listpemohon.ListPemohonAdapter
 
 class KemitraanFragment : Fragment() {
 
     private val listKemitraan = mutableListOf<PemohonEntity>()
-    private lateinit var adapter: UnusedAdapter
+    private lateinit var adapter: ListPemohonAdapter
     private lateinit var viewModel: KemitraanViewModel
 
 
@@ -28,7 +28,7 @@ class KemitraanFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        adapter = UnusedAdapter(listKemitraan)
+//        adapter = ListPemohonAdapter(listKemitraan)
 //        recycler_view.layoutManager = LinearLayoutManager(context)
 //        recycler_view.adapter = adapter
 //
