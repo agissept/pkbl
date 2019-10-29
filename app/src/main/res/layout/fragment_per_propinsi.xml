@@ -17,7 +17,7 @@
             android:id="@+id/tv_subtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="PER BIDANG USAHA"
+            android:text="BERDASARKAN PROPINSI"
             android:gravity="center"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"/>

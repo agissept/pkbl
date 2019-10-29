@@ -1,4 +1,4 @@
-package id.agis.pkbl.ui.dashboard.perwilayah
+package id.agis.pkbl.ui.dashboard.perwilayah.perkota
 
 
 import android.graphics.Color
@@ -15,20 +15,19 @@ import com.github.mikephil.charting.formatter.ValueFormatter
 import id.agis.pkbl.R
 import id.agis.pkbl.util.CustomMarkerView
 import id.agis.pkbl.util.CustomPercentFormatter
-import kotlinx.android.synthetic.main.fragment_per_wilayah.*
+import kotlinx.android.synthetic.main.fragment_per_kota.*
 
 /**
  * A simple [Fragment] subclass.
  */
-class PerWilayahFragment : Fragment() {
+class PerKotaFragment : Fragment() {
+
     val judul = arrayListOf(
-        "Sumatera Selatan",
-        "Sumatera Barat",
-        "Lampung",
-        "Jakarta",
-        "Jawa Barat",
-        "Sumatera Barat",
-        "Jawa Timur"
+        "Muara Enim",
+        "OKU Timur",
+        "Ogan ilir",
+        "Musi Banyuasin",
+        "Pali"
     )
 
     override fun onCreateView(
@@ -36,7 +35,7 @@ class PerWilayahFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_per_wilayah, container, false)
+        return inflater.inflate(R.layout.fragment_per_kota, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -95,11 +94,11 @@ class PerWilayahFragment : Fragment() {
         val barWidth = 0.4f // x4 DataSet
         // (0.2 + 0.03) * 4 + 0.08 = 1.00 -> interval per "group"
 
-        val groupCount = 7
+        val groupCount = 5
         val startYear = 0
-        val endYear = 7
+        val endYear = 5
 
-        val totalValue = 1000000f
+        val totalValue = 900000f
 
         val values1 = ArrayList<BarEntry>()
         val values2 = ArrayList<BarEntry>()
@@ -111,8 +110,6 @@ class PerWilayahFragment : Fragment() {
         values2.add(BarEntry(0f, 50000f, data))
         values2.add(BarEntry(0f, 50000f, data))
         values2.add(BarEntry(0f, 200000f, data))
-        values2.add(BarEntry(0f, 80000f, data))
-        values2.add(BarEntry(0f, 20000f, data))
 
         val randomMultiplier = 10 * 100000f
 
@@ -137,11 +134,11 @@ class PerWilayahFragment : Fragment() {
 
         } else run {
             // create 2 DataSets
-            set1 = BarDataSet(values1, "Rekap 2018")
+            set1 = BarDataSet(values1, "")
             set1.color = Color.rgb(3, 155, 229)
 
-            set2 = BarDataSet(values2, "Realisasi 1 Jan - 31 Desember 2018")
-            set2.color = Color.rgb(245, 124, 0)
+            set2 = BarDataSet(values2, "")
+            set2.color = Color.rgb(187, 222, 251)
             set2.valueFormatter = CustomPercentFormatter(totalValue)
 
             val data = BarData(set1, set2)
@@ -162,5 +159,6 @@ class PerWilayahFragment : Fragment() {
         chart.groupBars(startYear.toFloat(), groupSpace, spaceBetweenBarInGroup)
         chart.invalidate()
     }
+
 
 }
