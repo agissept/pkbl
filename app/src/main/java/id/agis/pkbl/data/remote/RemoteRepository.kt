@@ -96,4 +96,8 @@ class RemoteRepository(private val apiInterface: ApiInterface) {
 
         return uploadResponse
     }
+
+    fun getPengajuan(){
+
+    }
 }

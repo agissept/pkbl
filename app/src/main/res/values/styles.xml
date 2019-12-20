@@ -22,6 +22,14 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="TitleDashboard" parent="TextAppearance.MaterialComponents.Subtitle1">
+
+    </style>
+
+    <style name="SubTitleDashboard" parent="TextAppearance.MaterialComponents.Caption">
+
+    </style>
+
     <!--    <style name="ThemeFullScreen" parent="Theme.MaterialComponents.NoActionBar">-->
     <!--        <item name="colorPrimary">@color/colorPrimary</item>-->
     <!--        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->

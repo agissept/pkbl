@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.PieData
@@ -33,6 +34,10 @@ class PerSektorFragment : Fragment(), OnChartValueSelectedListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+        recycler_view.layoutManager = LinearLayoutManager(context)
+        recycler_view.adapter = PerSektorAdapter()
 
 
         pie_chart.apply {
