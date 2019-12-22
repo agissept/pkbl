@@ -34,7 +34,7 @@ class UnusedActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item?.itemId){
-            R.id.logout ->{
+            R.id.filter ->{
                 deleteToken(this)
                 startActivity<LoginActivity>()
                 finish()

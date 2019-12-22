@@ -1,158 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/backdrop"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="16dp"
-            android:layout_marginBottom="16dp">
+            android:layout_height="wrap_content">
 
-        <Spinner
-                android:id="@+id/sp_tahun"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:entries="@array/array_tahun"
-                app:layout_constraintEnd_toStartOf="@+id/sp_bulan"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView" />
+        <include layout="@layout/backdrop" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <Spinner
-                android:id="@+id/sp_bulan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:entries="@array/array_bulan"
-                app:layout_constraintBottom_toBottomOf="@+id/sp_tahun"
-                app:layout_constraintEnd_toStartOf="@+id/sp_cabang"
-                app:layout_constraintStart_toEndOf="@+id/sp_tahun"
-                app:layout_constraintTop_toTopOf="@+id/sp_tahun" />
 
-        <Spinner
-                android:id="@+id/sp_cabang"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:entries="@array/array_cabang"
-                app:layout_constraintBottom_toBottomOf="@+id/sp_bulan"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/sp_bulan"
-                app:layout_constraintTop_toTopOf="@+id/sp_bulan"
-                app:layout_constraintVertical_bias="0.0" />
+    <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/product_grid"
+            android:layout_marginTop="6dp"
+            android:background="@android:color/white"
+            android:elevation="6dp">
 
-        <HorizontalScrollView
-                android:id="@+id/horizontalScrollView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scrollbars="none"
-                app:layout_constraintEnd_toEndOf="@+id/btn_tampilan"
-                app:layout_constraintStart_toStartOf="@+id/btn_tampilan"
-                app:layout_constraintTop_toTopOf="parent">
-
-            <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/chip_group"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:checkedChip="@+id/chip_kemitraan"
-                    app:singleLine="true"
-                    app:singleSelection="true">
-
-                <com.google.android.material.chip.Chip
-                        android:id="@+id/chip_kemitraan"
-                        style="@style/Widget.MaterialComponents.Chip.Choice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Kemitraan"
-                        app:chipBackgroundColor="@color/bg_chip_state_list" />
-
-                <com.google.android.material.chip.Chip
-                        android:id="@+id/chip_bina_lingkungan"
-                        style="@style/Widget.MaterialComponents.Chip.Choice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Bina Lingkungan"
-                        app:chipBackgroundColor="@color/bg_chip_state_list" />
-
-                <com.google.android.material.chip.Chip
-                        android:id="@+id/chip_bina_wilayah"
-                        style="@style/Widget.MaterialComponents.Chip.Choice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Bina Wilayah"
-                        app:chipBackgroundColor="@color/bg_chip_state_list" />
-
-            </com.google.android.material.chip.ChipGroup>
-        </HorizontalScrollView>
-
-        <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_tampilan"
-                style="@style/ButtonStyle"
+        <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:gravity="center"
-                android:text="Tampilkan"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/sp_tahun" />
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-        <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                app:layout_constraintEnd_toEndOf="@+id/btn_tampilan"
-                app:layout_constraintStart_toStartOf="@+id/btn_tampilan"
-                app:layout_constraintTop_toBottomOf="@+id/btn_tampilan">
-
-            <LinearLayout
+            <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tab_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:background="#ffffff"
+                    app:tabGravity="fill"
+                    app:tabMaxWidth="0dp"
+                    app:tabMode="fixed">
 
-                <com.google.android.material.tabs.TabLayout
-                        android:layout_marginBottom="8dp"
-                        android:id="@+id/tab_layout"
+                <com.google.android.material.tabs.TabItem
+                        android:id="@+id/tab_sektor"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:tabGravity="fill"
-                        app:tabMaxWidth="0dp"
-                        app:tabMode="fixed">
+                        android:layout_height="match_parent"
+                        android:text="Per Sektor" />
 
-                    <com.google.android.material.tabs.TabItem
-                            android:id="@+id/tab_sektor"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Per Sektor" />
-
-                    <com.google.android.material.tabs.TabItem
-                            android:id="@+id/tab_wilayah"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Per Wilayah" />
-
-                    <com.google.android.material.tabs.TabItem
-                            android:id="@+id/tab_bulan"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Per Bulan" />
-
-                    <com.google.android.material.tabs.TabItem
-                            android:id="@+id/tab_angsuran"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Angsuran" />
-
-                </com.google.android.material.tabs.TabLayout>
-
-                <FrameLayout
-                        android:id="@+id/container"
+                <com.google.android.material.tabs.TabItem
+                        android:id="@+id/tab_wilayah"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-            </LinearLayout>
+                        android:layout_height="match_parent"
+                        android:text="Per Wilayah" />
 
-        </androidx.cardview.widget.CardView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+                <com.google.android.material.tabs.TabItem
+                        android:id="@+id/tab_bulan"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Per Bulan" />
+
+                <com.google.android.material.tabs.TabItem
+                        android:id="@+id/tab_angsuran"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Angsuran" />
+
+            </com.google.android.material.tabs.TabLayout>
+
+            <FrameLayout
+                    android:id="@+id/container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#ffffff" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</FrameLayout>
