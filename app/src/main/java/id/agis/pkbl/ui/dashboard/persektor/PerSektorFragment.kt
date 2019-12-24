@@ -47,6 +47,8 @@ class PerSektorFragment : Fragment() {
         recycler_view.adapter = adapter
 
         val viewModel = ViewModelProviders.of(this).get(PerSektorViewModel::class.java)
+
+        viewModel.getPengajuan("sektor")
         viewModel.dataPengajuan.observe(this, androidx.lifecycle.Observer {
             listPengajuan.clear()
             listPengajuan.addAll(it)

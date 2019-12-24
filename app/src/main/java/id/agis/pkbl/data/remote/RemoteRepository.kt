@@ -97,12 +97,10 @@ class RemoteRepository(private val apiInterface: ApiInterface) {
         return uploadResponse
     }
 
-    fun getPengajuan(): LiveData<List<Pengajuan>>{
+    fun getPengajuan(orderBy: String): MutableLiveData<List<Pengajuan>>{
         val dataPengajuan = MutableLiveData<List<Pengajuan>>()
 
-
-
-        val call: Call<List<Pengajuan>> = apiInterface.getPengajuan()
+        val call: Call<List<Pengajuan>> = apiInterface.getPengajuan(orderBy)
         call.enqueue(object : Callback<List<Pengajuan>> {
             override fun onFailure(call: Call<List<Pengajuan>>, t: Throwable) {
             }

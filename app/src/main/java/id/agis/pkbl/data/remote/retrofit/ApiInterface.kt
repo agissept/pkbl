@@ -12,8 +12,8 @@ interface ApiInterface {
     @GET("pemohon")
     fun getKemitraan(): Call<KemitraanResponse>
 
-    @GET("result_pengajuan.php?orderBy=sektor")
-    fun getPengajuan(): Call<List<Pengajuan>>
+    @GET("result_pengajuan.php")
+    fun getPengajuan(@Query("orderBy") orderBy: String): Call<List<Pengajuan>>
 
     @FormUrlEncoded
     @POST("user/login")
