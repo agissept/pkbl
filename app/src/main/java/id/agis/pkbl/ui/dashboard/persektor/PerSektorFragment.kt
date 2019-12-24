@@ -7,6 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.Entry
@@ -18,11 +21,15 @@ import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.github.mikephil.charting.utils.ColorTemplate
 import id.agis.pkbl.R
+import id.agis.pkbl.model.Pengajuan
 import kotlinx.android.synthetic.main.fragment_per_sektor.*
 import java.util.*
+import kotlin.collections.ArrayList
 
-class PerSektorFragment : Fragment(), OnChartValueSelectedListener {
-
+class PerSektorFragment : Fragment() {
+    val listPengajuan = mutableListOf<Pengajuan>()
+    val listPieEntry = ArrayList<PieEntry>()
+    lateinit var adapter: PerSektorAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,9 +42,29 @@ class PerSektorFragment : Fragment(), OnChartValueSelectedListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        adapter = PerSektorAdapter(listPengajuan)
         recycler_view.layoutManager = LinearLayoutManager(context)
-        recycler_view.adapter = PerSektorAdapter()
+        recycler_view.adapter = adapter
+
+        val viewModel = ViewModelProviders.of(this).get(PerSektorViewModel::class.java)
+        viewModel.dataPengajuan.observe(this, androidx.lifecycle.Observer {
+            listPengajuan.clear()
+            listPengajuan.addAll(it)
+
+            val jumlahDana = listPengajuan.sumBy { pengajuan->
+                pengajuan.dana.toInt()
+            }
+
+            listPengajuan.forEach {pengajuan ->
+                val percent = pengajuan.dana.toFloat() / jumlahDana  *  100
+                listPieEntry.add(PieEntry(percent ,pengajuan.sektor))
+            }
+
+            adapter.notifyDataSetChanged()
+            setData()
+        })
+
+
 
 
         pie_chart.apply {
@@ -57,10 +84,6 @@ class PerSektorFragment : Fragment(), OnChartValueSelectedListener {
             isHighlightPerTapEnabled = true
         }
 
-
-        // add a selection listener
-        pie_chart.setOnChartValueSelectedListener(this)
-
         pie_chart.legend.apply {
             verticalAlignment = Legend.LegendVerticalAlignment.TOP
             horizontalAlignment = Legend.LegendHorizontalAlignment.RIGHT
@@ -75,26 +98,7 @@ class PerSektorFragment : Fragment(), OnChartValueSelectedListener {
 
 
     private fun setData() {
-
-        val entries = ArrayList<PieEntry>()
-
-        // NOTE: The order of the entries when being added to the entries array determines their position around the center of
-        // the chart.
-        entries.apply {
-            add(PieEntry(4f, "Industri"))
-            add(PieEntry(31f, "Perdagangan"))
-            add(PieEntry(10f, "Pertanian"))
-            add(PieEntry(11f, "Peternakan"))
-            add(PieEntry(1f, "Perkebunan"))
-            add(PieEntry(4f, "Pelabuhan"))
-            add(PieEntry(13f, "Perikanan"))
-            add(PieEntry(30f, "Jasa"))
-            add(PieEntry(0f, "Usaha Lainnya"))
-            add(PieEntry(0f, "Kerjasama Lainnya"))
-        }
-
-
-        val dataSet = PieDataSet(entries, "Election Results").apply {
+        val dataSet = PieDataSet(listPieEntry, "Election Results").apply {
             sliceSpace = 3f
             selectionShift = 5f
         }
@@ -123,7 +127,6 @@ class PerSektorFragment : Fragment(), OnChartValueSelectedListener {
         dataSet.colors = colors
         //dataSet.setSelectionShift(0f);
 
-
         dataSet.valueLinePart1OffsetPercentage = 80f
         dataSet.valueLinePart1Length = 0.2f
         dataSet.valueLinePart2Length = 0.4f
@@ -146,21 +149,4 @@ class PerSektorFragment : Fragment(), OnChartValueSelectedListener {
 
         pie_chart.invalidate()
     }
-
-
-    override fun onValueSelected(e: Entry?, h: Highlight) {
-
-        if (e == null)
-            return
-        Log.i(
-            "VAL SELECTED",
-            "Value: " + e.y + ", xIndex: " + e.x
-                    + ", DataSet index: " + h.dataSetIndex
-        )
-    }
-
-    override fun onNothingSelected() {
-        Log.i("PieChart", "nothing selected")
-    }
-
 }

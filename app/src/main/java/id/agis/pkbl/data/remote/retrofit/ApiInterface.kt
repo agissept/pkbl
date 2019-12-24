@@ -1,9 +1,6 @@
 package id.agis.pkbl.data.remote.retrofit
 
-import id.agis.pkbl.model.BinaLingkunganResponse
-import id.agis.pkbl.model.KemitraanResponse
-import id.agis.pkbl.model.UploadFileResponse
-import id.agis.pkbl.model.UserResponse
+import id.agis.pkbl.model.*
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -14,6 +11,9 @@ interface ApiInterface {
 
     @GET("pemohon")
     fun getKemitraan(): Call<KemitraanResponse>
+
+    @GET("result_pengajuan.php?orderBy=sektor")
+    fun getPengajuan(): Call<List<Pengajuan>>
 
     @FormUrlEncoded
     @POST("user/login")

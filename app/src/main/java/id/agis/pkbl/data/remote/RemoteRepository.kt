@@ -97,7 +97,25 @@ class RemoteRepository(private val apiInterface: ApiInterface) {
         return uploadResponse
     }
 
-    fun getPengajuan(){
+    fun getPengajuan(): LiveData<List<Pengajuan>>{
+        val dataPengajuan = MutableLiveData<List<Pengajuan>>()
 
+
+
+        val call: Call<List<Pengajuan>> = apiInterface.getPengajuan()
+        call.enqueue(object : Callback<List<Pengajuan>> {
+            override fun onFailure(call: Call<List<Pengajuan>>, t: Throwable) {
+            }
+
+            override fun onResponse(
+                call: Call<List<Pengajuan>>,
+                response: Response<List<Pengajuan>>
+            ) {
+                dataPengajuan.postValue(response.body())
+            }
+
+        })
+
+        return dataPengajuan
     }
 }

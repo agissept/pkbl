@@ -24,7 +24,7 @@ android {
     }
     compileSdkVersion 28
     defaultConfig {
-        buildConfigField("String", "BASE_URL", '"https://api-pkbl-v1.herokuapp.com/api/"')
+        buildConfigField("String", "BASE_URL", '"http://192.168.43.245/pkbl-api/"')
         applicationId "id.agis.pkbl"
         minSdkVersion 21
         targetSdkVersion 28
