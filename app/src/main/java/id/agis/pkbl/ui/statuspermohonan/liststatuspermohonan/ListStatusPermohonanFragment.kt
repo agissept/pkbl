@@ -37,7 +37,7 @@ class ListStatusPermohonanFragment : Fragment() {
         val binaLingkungan = argument?.binaLingkungan
         val binaWilayahFragment = argument?.binaWilayah
 
-        tv_title.text = "$pemohon, $institusi"
+        tv_nama.text = "$pemohon, $institusi"
 
         val sizeIsNotEmpty = arrayListOf(true, false).random()
 

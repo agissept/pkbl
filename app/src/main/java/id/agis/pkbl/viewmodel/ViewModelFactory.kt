@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import id.agis.pkbl.constant.Constant
 import id.agis.pkbl.data.PKBLRepository
 import id.agis.pkbl.di.Injection
-import id.agis.pkbl.ui.detail.binalingkungan.DetailBinaLingkunganViewModel
+import id.agis.pkbl.ui.detail.binalingkungan.DetailPengajuanViewModel
 import id.agis.pkbl.ui.home.binalingkungan.BinaLingkunganViewModel
 import id.agis.pkbl.ui.home.kemitraan.KemitraanViewModel
 import id.agis.pkbl.ui.login.LoginViewModel
@@ -35,7 +35,7 @@ class ViewModelFactory(
 
         private fun getToken(context: Context): String? {
             val sharedPreferences =
-                context.getSharedPreferences(Constant.LOGIN_STATUS, Context.MODE_PRIVATE)
+                context.getSharedPreferences(Constant.USER, Context.MODE_PRIVATE)
 
             return sharedPreferences.getString(Constant.USER_TOKEN, null)
         }
@@ -53,8 +53,8 @@ class ViewModelFactory(
             modelClass.isAssignableFrom(BinaLingkunganViewModel::class.java) -> {
                 return BinaLingkunganViewModel(pkblRepository) as T
             }
-            modelClass.isAssignableFrom(DetailBinaLingkunganViewModel::class.java) -> {
-                return DetailBinaLingkunganViewModel(pkblRepository) as T
+            modelClass.isAssignableFrom(DetailPengajuanViewModel::class.java) -> {
+                return DetailPengajuanViewModel(pkblRepository) as T
             }
 
         }

@@ -8,6 +8,7 @@
         android:paddingLeft="16dp"
         android:paddingRight="16dp">
 
+
     <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -39,10 +40,11 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:gravity="center"
-                    android:text="BERDASARKAN SEKTOR" />
+                    android:text="BERDASARKAN PROPINSI" />
 
-            <com.github.mikephil.charting.charts.PieChart
-                    android:id="@+id/pie_chart"
+
+            <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/chart"
                     android:layout_width="match_parent"
                     android:layout_height="300dp" />
 
@@ -56,4 +58,5 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:itemCount="7"
             tools:listitem="@layout/item_dashboard" />
+
 </LinearLayout>

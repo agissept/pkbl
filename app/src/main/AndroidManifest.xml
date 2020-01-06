@@ -39,7 +39,7 @@
                 android:screenOrientation="portrait" />
         <activity android:name=".ui.edit.EditBinaLingkunganActivity" />
         <activity
-                android:name=".ui.detail.binalingkungan.DetailBinaLingkunganActivity"
+                android:name=".ui.detail.binalingkungan.DetailPengajuanFragment"
                 android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"></activity>
         <activity android:name=".ui.home.UnusedActivity" />
         <activity

@@ -7,24 +7,32 @@ import android.app.Activity
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.*
-import android.view.animation.AccelerateDecelerateInterpolator
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.tabs.TabLayout
 import id.agis.pkbl.R
-import id.agis.pkbl.ui.dashboard.angsuran.AngsuranFragment
-import id.agis.pkbl.ui.dashboard.perbulan.PerBulanFragment
 import id.agis.pkbl.ui.dashboard.persektor.PerSektorFragment
-import id.agis.pkbl.ui.dashboard.perwilayah.perpropinsi.PerPropinsiFragment
+import id.agis.pkbl.ui.dashboard.perwilayah.PerWilayahViewModel
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.backdrop.*
 import kotlinx.android.synthetic.main.fragment_dashboard.*
+
 
 /**
  * A simple [Fragment] subclass.
  */
 class DashboardFragment : Fragment() {
+    lateinit var viewModel: DashboardViewModel
     private var backdropShown = false
     private lateinit var menu: Menu
+    private val listTahun = mutableListOf<String>()
+    private val listBulan = mutableListOf<String>()
+    private lateinit var adapterTahun: ArrayAdapter<String>
+    private lateinit var adapterBulan: ArrayAdapter<String>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +44,37 @@ class DashboardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loadLayout(PerSektorFragment())
+        adapterTahun = ArrayAdapter(context!!, android.R.layout.simple_spinner_item, listTahun)
+        adapterTahun.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        adapterBulan = ArrayAdapter(context!!, android.R.layout.simple_spinner_item, listBulan)
+        adapterBulan.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        sp_tahun.adapter = adapterTahun
+        sp_bulan.adapter = adapterBulan
+
+        sp_tahun.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
+                viewModel.getBulan(listTahun[position])
+                observeBulan()
+            }
+        }
+
+        viewModel = ViewModelProviders.of(this).get(DashboardViewModel::class.java)
+
+        viewModel.getTahun()
+        viewModel.tahun.observe(this, Observer {
+            listTahun.clear()
+            listTahun.addAll(it.map { pengajuan ->
+                pengajuan.time.take(4)
+            })
+            adapterTahun.notifyDataSetChanged()
+
+            viewModel.getBulan(listTahun[0])
+            observeBulan()
+        })
 
         (activity as AppCompatActivity).appbar?.elevation = 0f
 
@@ -50,26 +88,22 @@ class DashboardFragment : Fragment() {
             }
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                when (tab_layout.selectedTabPosition) {
-                    0 -> {
-                        loadLayout(PerSektorFragment())
-                    }
-                    1 -> {
-                        loadLayout(PerPropinsiFragment())
-                    }
-                    2 -> {
-                        loadLayout(PerBulanFragment())
-                    }
-                    3 -> {
-                        loadLayout(AngsuranFragment())
-                    }
-                }
+                loadLayout()
             }
 
         })
+
+        btn_tampilan.setOnClickListener {
+            loadLayout()
+        }
     }
 
-    private fun loadLayout(fragment: Fragment) {
+    private fun loadLayout() {
+        val fragment = when (tab_layout.selectedTabPosition) {
+            0 -> PerSektorFragment()
+            1 -> PerWilayahViewModel()
+            else -> PerSektorFragment()
+        }
         fragmentManager?.beginTransaction()
             ?.replace(R.id.container, fragment)
             ?.commit()
@@ -119,7 +153,6 @@ class DashboardFragment : Fragment() {
             (if (backdropShown) translateY else 0).toFloat()
         )
         animator.duration = 500
-        animator.interpolator = AccelerateDecelerateInterpolator()
 
         animatorSet.play(animator)
         animator.start()
@@ -128,11 +161,41 @@ class DashboardFragment : Fragment() {
     }
 
     private fun updateIcon() {
-            if (backdropShown) {
-                menu.findItem(R.id.filter).icon = context?.getDrawable(R.drawable.ic_close)
-            } else {
-                menu.findItem(R.id.filter).icon = context?.getDrawable(R.drawable.ic_filter)
-            }
+        if (backdropShown) {
+            menu.findItem(R.id.filter).icon = context?.getDrawable(R.drawable.ic_close)
+        } else {
+            menu.findItem(R.id.filter).icon = context?.getDrawable(R.drawable.ic_filter)
+        }
+    }
+
+    private fun convertBulan(bulan: Int): String {
+        return when (bulan) {
+            1 -> "Januari"
+            2 -> "Februari"
+            3 -> "Maret"
+            4 -> "April"
+            5 -> "Mei"
+            6 -> "Juni"
+            7 -> "Juli"
+            8 -> "Agustus"
+            9 -> "September"
+            10 -> "Oktober"
+            11 -> "November"
+            12 -> "Desember"
+            else -> "Januari"
+        }
+    }
+
+    fun observeBulan(){
+        viewModel.bulan.observe(this, Observer {
+            listBulan.clear()
+            listBulan.addAll(it.map { pengajuan ->
+                convertBulan(pengajuan.time.substring(5, 7).toInt())
+            })
+            adapterBulan.notifyDataSetChanged()
+            loadLayout()
+        })
+
     }
 
 }

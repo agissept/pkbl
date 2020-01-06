@@ -1,18 +1,24 @@
 package id.agis.pkbl.ui.dashboard
 
-import android.content.Context
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import id.agis.pkbl.constant.Constant.Companion.LOGIN_STATUS
-import id.agis.pkbl.constant.Constant.Companion.USER_ID
-import id.agis.pkbl.constant.Constant.Companion.USER_ROLE
+import id.agis.pkbl.data.remote.RemoteRepository
+import id.agis.pkbl.data.remote.retrofit.ApiClient
+import id.agis.pkbl.data.remote.retrofit.ApiInterface
+import id.agis.pkbl.model.Pengajuan
 
 class DashboardViewModel: ViewModel() {
+    private val apiInterface: ApiInterface = ApiClient.retrofit().create(ApiInterface::class.java)
+    private var _tahun = MutableLiveData<List<Pengajuan>>()
+    val tahun get() = _tahun
+    private var _bulan = MutableLiveData<List<Pengajuan>>()
+    val bulan get() = _bulan
 
-    fun deleteToken(context: Context){
-        val sharedPreferences = context.getSharedPreferences(LOGIN_STATUS, Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.putString(USER_ID, null)
-        editor.putString(USER_ROLE, null)
-        editor.apply()
+    fun getTahun(){
+        _tahun = RemoteRepository(apiInterface).getPengajuan("tahun", "", "", "")
+    }
+
+    fun getBulan(tahun: String){
+        _bulan = RemoteRepository(apiInterface).getPengajuan("bulan", "", tahun, "")
     }
 }

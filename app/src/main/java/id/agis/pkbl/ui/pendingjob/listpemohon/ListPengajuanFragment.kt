@@ -8,13 +8,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.agis.pkbl.R
-import id.agis.pkbl.data.local.entities.PemohonEntity
+import id.agis.pkbl.model.Pengajuan
 import kotlinx.android.synthetic.main.fragment_list_pemohon.*
 
 /**
  * A simple [Fragment] subclass.
  */
-class ListPemohonFragment : Fragment() {
+class ListPengajuanFragment : Fragment() {
+    private val listPemohon = mutableListOf<Pengajuan>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,17 +28,16 @@ class ListPemohonFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val pemohon = PemohonEntity(0, "Andi Sofyan", "100.000.000")
-        val listPemohon = mutableListOf<PemohonEntity>()
-        for (x in 0 until 10) {
-            listPemohon.add(pemohon)
+        val argument = arguments?.let { ListPengajuanFragmentArgs.fromBundle(it) }
+        listPemohon.apply {
+            clear()
+            addAll(argument!!.pengajuan)
         }
-
+        val source = argument!!.source
         recycler_view.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = ListPemohonAdapter(listPemohon)
+            adapter = ListPengajuanAdapter(listPemohon, source)
         }
     }
-
 
 }

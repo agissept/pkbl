@@ -13,11 +13,56 @@ interface ApiInterface {
     fun getKemitraan(): Call<KemitraanResponse>
 
     @GET("result_pengajuan.php")
-    fun getPengajuan(@Query("orderBy") orderBy: String): Call<List<Pengajuan>>
+    fun getPengajuan(
+        @Query("groupBy") groupBy: String,
+        @Query("bulan") bulan: String,
+        @Query("tahun") tahun: String,
+        @Query("type") type: String
+    ): Call<List<Pengajuan>>
+
+    @GET("penugasan.php")
+    fun getPenugasan(
+        @Query("type") type: String,
+        @Query("user") user: String
+    ): Call<List<Pengajuan>>
 
     @FormUrlEncoded
-    @POST("user/login")
-    fun loginRequest(@Field("username") username: String, @Field("password") pass: String): Call<UserResponse>
+    @POST("post_penugasan.php")
+    fun postPenugasan(
+        @Query("id") id: Int,
+        @Field("koordinat") koordinat: String
+    ): Call<Status>
+
+    @FormUrlEncoded
+    @POST("post_penilaian.php")
+    fun postPenilaian(
+        @Query("id") id: Int,
+        @Field("penilai") penilai: String,
+        @Field("penilaian") penilaian: String
+    ): Call<Status>
+
+    @FormUrlEncoded
+    @POST("post_persetujuan.php")
+    fun postPersetujuan(
+        @Query("id") id: Int,
+        @Field("penyetuju") penyetuju: String,
+        @Field("status_persetujuan") statusPersetujuan: Boolean,
+        @Field("alasan") alasan: String
+    ): Call<Status>
+
+    @FormUrlEncoded
+    @POST("post_pencairan.php")
+    fun postPencairan(
+        @Query("id") id: Int,
+        @Field("pencair") pencair: String
+    ): Call<Status>
+
+    @FormUrlEncoded
+    @POST("login.php")
+    fun loginRequest(
+        @Field("username") username: String,
+        @Field("password") password: String
+    ): Call<User>
 
     @Multipart
     @POST("pemohon/files")

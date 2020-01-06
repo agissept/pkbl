@@ -15,11 +15,12 @@
             android:focusable="true">
 
         <TextView
+                android:id="@+id/tv_penugasan"
                 style="@style/Widget.MaterialComponents.CardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
-                android:text="Penugasan Survey 0 data" />
+                android:text="@string/penugasan_survey" />
 
     </com.google.android.material.card.MaterialCardView>
 
@@ -32,11 +33,12 @@
             android:focusable="true">
 
         <TextView
+                android:id="@+id/tv_penilaian"
                 style="@style/Widget.MaterialComponents.CardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
-                android:text="Penilaian 2 data" />
+                android:text="@string/penilaian" />
 
     </com.google.android.material.card.MaterialCardView>
 
@@ -49,11 +51,12 @@
             android:focusable="true">
 
         <TextView
+                android:id="@+id/tv_persetujuan"
                 style="@style/Widget.MaterialComponents.CardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
-                android:text="Persetujuan 0 data" />
+                android:text="@string/persetujuan" />
 
     </com.google.android.material.card.MaterialCardView>
 
@@ -66,16 +69,17 @@
             android:focusable="true">
 
         <TextView
+                android:id="@+id/tv_pencairan"
                 style="@style/Widget.MaterialComponents.CardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
-                android:text="Pencairan 0 data" />
+                android:text="@string/pencairan" />
 
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
-            android:id="@+id/card_realisasi"
+            android:id="@+id/card_selesai"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
@@ -83,13 +87,33 @@
             android:focusable="true">
 
         <TextView
+                android:id="@+id/tv_selesai"
                 style="@style/Widget.MaterialComponents.CardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
-                android:text="Realisasi 0 data" />
+                android:text="@string/selesai" />
 
     </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_ditolak"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:clickable="true"
+            android:focusable="true">
+
+        <TextView
+                android:id="@+id/tv_ditolak"
+                style="@style/Widget.MaterialComponents.CardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="@string/pencairan" />
+
+    </com.google.android.material.card.MaterialCardView>
+
 
 
 </LinearLayout>

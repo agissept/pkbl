@@ -45,7 +45,7 @@ class UnusedActivity : AppCompatActivity() {
     }
 
     private fun deleteToken(context: Context){
-        val sharedPreferences = context.getSharedPreferences(Constant.LOGIN_STATUS, Context.MODE_PRIVATE)
+        val sharedPreferences = context.getSharedPreferences(Constant.USER, Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.putString(Constant.USER_ID, null)
         editor.putString(Constant.USER_ROLE, null)

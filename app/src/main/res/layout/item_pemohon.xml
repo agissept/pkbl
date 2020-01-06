@@ -14,18 +14,18 @@
             android:padding="16dp">
 
         <TextView
-                android:id="@+id/tv_title"
+                android:id="@+id/tv_nama"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Andi Sofyan"
+                android:text="@string/place_holder_nama"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
         <TextView
-                android:id="@+id/tv_body"
+                android:id="@+id/tv_alamat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Jl kencana barat no 26 Jakarta Selatan" />
+                android:text="@string/place_holder_alamat" />
 
     </LinearLayout>
 

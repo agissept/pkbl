@@ -2,30 +2,33 @@ package id.agis.pkbl.ui.login
 
 import android.content.Context
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import id.agis.pkbl.constant.Constant.Companion.LOGIN_STATUS
-import id.agis.pkbl.constant.Constant.Companion.USER_ID
-import id.agis.pkbl.constant.Constant.Companion.USER_NAME
-import id.agis.pkbl.constant.Constant.Companion.USER_ROLE
-import id.agis.pkbl.constant.Constant.Companion.USER_TOKEN
+import id.agis.pkbl.constant.Constant
 import id.agis.pkbl.data.PKBLRepository
+import id.agis.pkbl.data.remote.RemoteRepository
+import id.agis.pkbl.data.remote.retrofit.ApiClient
+import id.agis.pkbl.data.remote.retrofit.ApiInterface
 import id.agis.pkbl.model.User
 
 class LoginViewModel(private val pkblRepository: PKBLRepository) : ViewModel() {
+    private val apiInterface: ApiInterface = ApiClient.retrofit().create(ApiInterface::class.java)
 
-    fun requestLogin(email: String, pass: String): LiveData<User> {
-        return pkblRepository.loginRequest(email, pass)
+    private var _user = MutableLiveData<User>()
+    val user get() = _user
+
+    fun postLogin(username: String, password: String): LiveData<User> {
+        return RemoteRepository(apiInterface).postLogin(username, password)
     }
 
-    fun saveToken(context: Context, id: Int, role: Int, token: String, username: String) {
-        val sharedPreferences = context.getSharedPreferences(LOGIN_STATUS, Context.MODE_PRIVATE)
+    fun saveToken(context: Context, id: Int, username: String, email: String, role: String) {
+        val sharedPreferences = context.getSharedPreferences(Constant.USER, Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
-        editor.putInt(USER_ID, id)
-        editor.putInt(USER_ROLE, role)
-        editor.putString(USER_NAME, username)
-        editor.putString(USER_TOKEN, token)
+        editor.putInt(Constant.USER_ID, id)
+        editor.putString(Constant.USER_NAME, username)
+        editor.putString(Constant.USER_EMAIL, email)
+        editor.putString(Constant.USER_ROLE, role)
         editor.apply()
     }
-
 
 }

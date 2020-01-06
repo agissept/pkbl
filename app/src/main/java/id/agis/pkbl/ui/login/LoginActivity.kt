@@ -18,17 +18,14 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-
         supportActionBar?.hide()
         viewModel = ViewModelFactory.getInstance(this).create(LoginViewModel::class.java)
 
         btn_login.setOnClickListener {
-            startActivity<MainActivity>()
-
-//            requestLogin(ed_username.text.toString(), ed_password.text.toString())
+            requestLogin(ed_username.text.toString(), ed_password.text.toString())
         }
         tv_forgot.setOnClickListener {
-//            startActivity<ForgotPasswordActivity>()
+            //            startActivity<ForgotPasswordActivity>()
         }
 
     }
@@ -37,17 +34,12 @@ class LoginActivity : AppCompatActivity() {
         tv_error.visibility = View.INVISIBLE
         progress_circular.visibility = View.VISIBLE
 
-        viewModel.requestLogin(username, password).observe(this, Observer {
-            if (it != null) {
-                viewModel.saveToken(applicationContext, it.userId, it.access.id, it.token, it.username)
-                if (it.access.id == 1) {
-//                    startActivity<DashboardActivity>()
-                } else if (it.access.id == 2) {
-//                    startActivity<UnusedActivity>()
-                }
+        viewModel.postLogin(username, password).observe(this, Observer {
+            if (it.status) {
+                viewModel.saveToken(applicationContext, it.id, it.username, it.email, it.role)
+                startActivity<MainActivity>()
                 finish()
-            }
-            if (it == null) {
+            } else {
                 tv_error.visibility = View.VISIBLE
                 progress_circular.visibility = View.INVISIBLE
             }

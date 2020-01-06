@@ -93,7 +93,7 @@ class DetailBinaLingkunganAdapter(
 
     inner class ViewHolder1(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val image: ImageView = itemView.iv_image
-        val title: TextView = itemView.tv_title
+        val title: TextView = itemView.tv_nama
         val icon: ImageView = itemView.iv_icon
     }
 }

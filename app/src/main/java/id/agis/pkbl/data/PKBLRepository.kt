@@ -107,7 +107,7 @@ class PKBLRepository(
     }
 
     override fun loginRequest(email: String, pass: String): LiveData<User> {
-        return remoteRepository.loginRequest(email, pass)
+        return remoteRepository.postLogin(email, pass)
     }
 
     override fun uploadFile(file: MultipartBody.Part, idPemohon: Int): LiveData<UploadFileResponse> {

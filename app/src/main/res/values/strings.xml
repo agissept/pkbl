@@ -64,6 +64,15 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_chart_dashboard">DATA PENYALURAN %1s PER %2s %3s</string>
+    <string name="penugasan_survey">Penugasan Survey %1d data</string>
+    <string name="penilaian">Penilaian %1d data</string>
+    <string name="persetujuan">Persetujuan %1d data</string>
+    <string name="pencairan">Pencairan %1d data</string>
+    <string name="selesai">Selesai %1d data</string>
+    <string name="ditolak">Ditolak %1d data</string>
+    <string name="place_holder_alamat">Jl kencana barat no 26 Jakarta Selatan</string>
+    <string name="place_holder_nama">Andi Sofyan</string>
 
     <string-array name="array_tahun">
         <item>2019</item>

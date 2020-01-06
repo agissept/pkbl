@@ -3,9 +3,14 @@ package id.agis.pkbl.ui.detail.binalingkungan
 import android.content.Intent
 import android.net.Uri
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import id.agis.pkbl.data.PKBLRepository
 import id.agis.pkbl.data.local.entities.FileEntity
+import id.agis.pkbl.data.remote.RemoteRepository
+import id.agis.pkbl.data.remote.retrofit.ApiClient
+import id.agis.pkbl.data.remote.retrofit.ApiInterface
+import id.agis.pkbl.model.Status
 import id.agis.pkbl.util.FileUtil.copyFile
 import id.agis.pkbl.util.FileUtil.createFolder
 import io.realm.RealmResults
@@ -14,9 +19,35 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
 
-class DetailBinaLingkunganViewModel(private val pkblRepository: PKBLRepository) : ViewModel() {
+class DetailPengajuanViewModel(private val pkblRepository: PKBLRepository) : ViewModel() {
+    private val apiInterface: ApiInterface = ApiClient.retrofit().create(ApiInterface::class.java)
+
     var idPemohon = 0
+    var _status = MutableLiveData<Status>()
+    val status get() = _status
+
     val listFile: LiveData<RealmResults<FileEntity>> get() = pkblRepository.getAllFile(idPemohon)
+
+    fun postPenugasan(id: Int, koordinat: String) {
+        _status = RemoteRepository(apiInterface).postPenugasan(id, koordinat)
+    }
+
+    fun postPenilaian(id: Int, user: String, penilaian: String) {
+        _status = RemoteRepository(apiInterface).postPenilaian(id, user, penilaian)
+    }
+
+    fun postPersetujuan(
+        id: Int,
+        user: String,
+        statusPersetujuan: Boolean,
+        alasan: String
+    ) {
+        _status = RemoteRepository(apiInterface).postPersetujuan(id, user, statusPersetujuan, alasan)
+    }
+
+    fun postPencairan(id: Int, user: String) {
+        _status = RemoteRepository(apiInterface).postPencairan(id, user)
+    }
 
     fun uploadFile(listFile: List<FileEntity>, idPemohon: Int) {
         listFile.forEach {
@@ -60,7 +91,7 @@ class DetailBinaLingkunganViewModel(private val pkblRepository: PKBLRepository) 
 //        listFileLiveData.postValue(listFile)
     }
 
-     fun copyFile(path: String, username: String): File {
+    fun copyFile(path: String, username: String): File {
         val file = File(path)
         val target = createFolder(
             username,
@@ -74,7 +105,7 @@ class DetailBinaLingkunganViewModel(private val pkblRepository: PKBLRepository) 
         return file
     }
 
-    fun insertFile(fileEntity: FileEntity){
+    fun insertFile(fileEntity: FileEntity) {
         pkblRepository.insertFile(fileEntity)
     }
 }

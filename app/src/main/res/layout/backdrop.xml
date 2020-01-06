@@ -3,33 +3,21 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
     <Spinner
             android:id="@+id/sp_tahun"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:entries="@array/array_tahun"
             app:layout_constraintEnd_toStartOf="@+id/sp_bulan"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView" />
 
     <Spinner
             android:id="@+id/sp_bulan"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:entries="@array/array_bulan"
             app:layout_constraintBottom_toBottomOf="@+id/sp_tahun"
-            app:layout_constraintEnd_toStartOf="@+id/sp_cabang"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/sp_tahun"
             app:layout_constraintTop_toTopOf="@+id/sp_tahun" />
 
-    <Spinner
-            android:id="@+id/sp_cabang"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:entries="@array/array_cabang"
-            app:layout_constraintBottom_toBottomOf="@+id/sp_bulan"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/sp_bulan"
-            app:layout_constraintTop_toTopOf="@+id/sp_bulan"
-            app:layout_constraintVertical_bias="0.0" />
 
     <HorizontalScrollView
             android:id="@+id/horizontalScrollView"
@@ -65,11 +53,11 @@
                     app:chipBackgroundColor="@color/bg_chip_state_list" />
 
             <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_bina_wilayah"
+                    android:id="@+id/chip_bina_csr"
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Bina Wilayah"
+                    android:text="CSR"
                     app:chipBackgroundColor="@color/bg_chip_state_list" />
 
         </com.google.android.material.chip.ChipGroup>

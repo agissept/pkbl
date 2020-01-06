@@ -1,5 +1,6 @@
 package id.agis.pkbl.ui.dashboard.ui.send
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import id.agis.pkbl.R
+import id.agis.pkbl.constant.Constant
+import id.agis.pkbl.ui.login.LoginActivity
+import org.jetbrains.anko.support.v4.startActivity
 
 class SendFragment : Fragment() {
 
@@ -19,13 +23,12 @@ class SendFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        sendViewModel =
-            ViewModelProviders.of(this).get(SendViewModel::class.java)
+
+        context!!.getSharedPreferences(Constant.USER,  Context.MODE_PRIVATE).edit().clear().apply()
+        startActivity<LoginActivity>()
+        activity?.finish()
+
         val root = inflater.inflate(R.layout.fragment_send, container, false)
-        val textView: TextView = root.findViewById(R.id.text_send)
-        sendViewModel.text.observe(this, Observer {
-            textView.text = it
-        })
         return root
     }
 }

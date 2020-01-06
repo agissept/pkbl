@@ -2,28 +2,24 @@ package id.agis.pkbl.ui.dashboard.persektor
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProviders
-import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.mikephil.charting.components.Legend
-import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.formatter.PercentFormatter
-import com.github.mikephil.charting.highlight.Highlight
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.github.mikephil.charting.utils.ColorTemplate
+import com.google.android.material.chip.Chip
 import id.agis.pkbl.R
 import id.agis.pkbl.model.Pengajuan
+import kotlinx.android.synthetic.main.backdrop.*
 import kotlinx.android.synthetic.main.fragment_per_sektor.*
-import java.util.*
 import kotlin.collections.ArrayList
 
 class PerSektorFragment : Fragment() {
@@ -42,13 +38,21 @@ class PerSektorFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val appCompatActivity = activity as AppCompatActivity
+        val bulan = appCompatActivity.sp_bulan.selectedItem.toString()
+        val tahun = appCompatActivity.sp_tahun.selectedItem.toString()
+        val chipId = appCompatActivity.chip_group.checkedChipId
+        val type = appCompatActivity.findViewById<Chip>(chipId).text.toString()
+
+        tv_nama.text = resources.getString(R.string.title_chart_dashboard, type, bulan, tahun)
+
         adapter = PerSektorAdapter(listPengajuan)
         recycler_view.layoutManager = LinearLayoutManager(context)
         recycler_view.adapter = adapter
 
         val viewModel = ViewModelProviders.of(this).get(PerSektorViewModel::class.java)
 
-        viewModel.getPengajuan("sektor")
+        viewModel.getPengajuan("sektor", bulan, tahun, type)
         viewModel.dataPengajuan.observe(this, androidx.lifecycle.Observer {
             listPengajuan.clear()
             listPengajuan.addAll(it)
@@ -64,6 +68,7 @@ class PerSektorFragment : Fragment() {
 
             adapter.notifyDataSetChanged()
             setData()
+            progress_bar.visibility = View.INVISIBLE
         })
 
 

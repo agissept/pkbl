@@ -5,7 +5,7 @@
         android:orientation="vertical">
 
     <TextView
-            android:id="@+id/tv_title"
+            android:id="@+id/tv_nama"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="DATA PENYALURAN MITRA BINAAN PER JULI 2019"

@@ -4,37 +4,40 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import id.agis.pkbl.R
-import id.agis.pkbl.data.local.entities.PemohonEntity
-import id.agis.pkbl.ui.detail.binalingkungan.DetailBinaLingkunganActivity
-import id.agis.pkbl.ui.detail.binalingkungan.DetailBinaLingkunganActivity.Companion.EXTRA_DATA
+import id.agis.pkbl.model.Pengajuan
 import kotlinx.android.synthetic.main.item_pemohon.view.*
-import org.jetbrains.anko.startActivity
 
-class ListPemohonAdapter(private val listPemohon: MutableList<PemohonEntity>) :
-    RecyclerView.Adapter<ListPemohonAdapter.ViewHolder>() {
+
+class ListPengajuanAdapter(private val listPengajuan: MutableList<Pengajuan>, val source: String) :
+    RecyclerView.Adapter<ListPengajuanAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_pemohon, parent, false)
         return ViewHolder(view)
     }
 
     override fun getItemCount(): Int {
-        return listPemohon.size
+        return listPengajuan.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val data = listPemohon[position]
+        val pengajuan = listPengajuan[position]
 
-        holder.tvTitle.text = data.namaLengkap
-        holder.tvBody.text = data.nilaiPengajuan
+        holder.tvNama.text = pengajuan.nama
+        val alamat = "${pengajuan.jalan}, ${pengajuan.kota}"
+        holder.tvAlamat.text = alamat
         holder.itemView.setOnClickListener {
-            holder.itemView.context.startActivity<DetailBinaLingkunganActivity>( EXTRA_DATA to data)
+            val action = ListPengajuanFragmentDirections.actionNavListPemohonToNavDetailPengajuan(
+                pengajuan, source
+            )
+            holder.itemView.findNavController().navigate(action)
         }
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tvTitle: TextView = itemView.tv_title
-        val tvBody: TextView = itemView.tv_body
+        val tvNama: TextView = itemView.tv_nama
+        val tvAlamat: TextView = itemView.tv_alamat
     }
 }
