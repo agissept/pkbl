@@ -73,6 +73,7 @@
     <string name="ditolak">Ditolak %1d data</string>
     <string name="place_holder_alamat">Jl kencana barat no 26 Jakarta Selatan</string>
     <string name="place_holder_nama">Andi Sofyan</string>
+    <string name="hello">Hello %1s!</string>
 
     <string-array name="array_tahun">
         <item>2019</item>

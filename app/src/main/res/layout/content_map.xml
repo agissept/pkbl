@@ -29,7 +29,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_margin="16dp"
-            android:background="@color/colorPrimary"
             android:text="Set Location"
             android:textColor="#ffffff"
             android:textStyle="bold" />

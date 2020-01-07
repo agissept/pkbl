@@ -7,14 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import id.agis.pkbl.R
-import id.agis.pkbl.data.local.entities.PemohonEntity
+//import id.agis.pkbl.data.local.entities.PemohonEntity
 import id.agis.pkbl.ui.pendingjob.listpemohon.ListPengajuanAdapter
 
 class KemitraanFragment : Fragment() {
 
-    private val listKemitraan = mutableListOf<PemohonEntity>()
+    private val listKemitraan = mutableListOf<String>()
     private lateinit var adapter: ListPengajuanAdapter
-    private lateinit var viewModel: KemitraanViewModel
+//    private lateinit var viewModel: KemitraanViewModel
 
 
     override fun onCreateView(

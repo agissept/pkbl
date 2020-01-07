@@ -19,7 +19,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         supportActionBar?.hide()
-        viewModel = ViewModelFactory.getInstance(this).create(LoginViewModel::class.java)
+        viewModel = ViewModelFactory.getInstance().create(LoginViewModel::class.java)
 
         btn_login.setOnClickListener {
             requestLogin(ed_username.text.toString(), ed_password.text.toString())

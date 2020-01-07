@@ -6,14 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import id.agis.pkbl.R
-import id.agis.pkbl.data.local.entities.PemohonEntity
+//import id.agis.pkbl.data.local.entities.PemohonEntity
 import id.agis.pkbl.ui.pendingjob.listpemohon.ListPengajuanAdapter
 
 class BinaLingkunganFragment : Fragment() {
 
-    private val listBinaLingkungan = mutableListOf<PemohonEntity>()
+    private val listBinaLingkungan = mutableListOf<String>()
     private lateinit var adapter: ListPengajuanAdapter
-    private lateinit var viewModel: BinaLingkunganViewModel
+//    private lateinit var viewModel: BinaLingkunganViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

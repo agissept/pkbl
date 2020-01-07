@@ -15,7 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.agis.pkbl.R
 import id.agis.pkbl.constant.Constant
-import id.agis.pkbl.data.local.entities.FileEntity
+//import id.agis.pkbl.data.local.entities.FileEntity
 import id.agis.pkbl.ui.map.MapActivity
 import id.agis.pkbl.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -35,7 +35,7 @@ class DetailPengajuanFragment : Fragment() {
 
     private lateinit var viewModel: DetailPengajuanViewModel
     private lateinit var adapter: DetailBinaLingkunganAdapter
-    private val listFile = mutableListOf<FileEntity>()
+    private val listFile = mutableListOf<String>()
     private var koordinat = ""
     private var source = ""
     var user = ""
@@ -107,13 +107,13 @@ class DetailPengajuanFragment : Fragment() {
 //        }
 
         viewModel =
-            ViewModelFactory.getInstance(context!!).create(DetailPengajuanViewModel::class.java)
+            ViewModelFactory.getInstance().create(DetailPengajuanViewModel::class.java)
 
         adapter = DetailBinaLingkunganAdapter(context!!, listFile).apply {
-            onItemClickFile = {
-                openFile(it.uri?.toUri()!!)
-                toast(it.uri!!)
-            }
+//            onItemClickFile = {
+//                openFile(it.uri?.toUri()!!)
+//                toast(it.uri!!)
+//            }
             onItemClick = {
                 if (checkPermission()) {
                     openFileManager()

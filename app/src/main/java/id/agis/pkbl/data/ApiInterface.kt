@@ -1,4 +1,4 @@
-package id.agis.pkbl.data.remote.retrofit
+package id.agis.pkbl.data
 
 import id.agis.pkbl.model.*
 import okhttp3.MultipartBody
@@ -24,6 +24,11 @@ interface ApiInterface {
     fun getPenugasan(
         @Query("type") type: String,
         @Query("user") user: String
+    ): Call<List<Pengajuan>>
+
+    @GET("search.php")
+    fun getSearch(
+        @Query("query") query: String
     ): Call<List<Pengajuan>>
 
     @FormUrlEncoded

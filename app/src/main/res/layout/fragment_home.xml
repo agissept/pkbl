@@ -1,89 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/swipe_refresh"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="8dp">
+
+    <TextView
+        android:id="@+id/tv_title_name"
+        style="@style/TextAppearance.MaterialComponents.Headline5"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:text="@string/hello"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <com.synnapps.carouselview.CarouselView
-            android:id="@+id/carouselView"
+    <TextView
+        android:id="@+id/textView"
+        style="@style/TextAppearance.MaterialComponents.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome back to get started with your job"
+        app:layout_constraintStart_toStartOf="@+id/tv_title_name"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title_name" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        app:cardCornerRadius="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_title_name"
+        app:layout_constraintStart_toStartOf="@+id/tv_title_name"
+        app:layout_constraintTop_toBottomOf="@+id/textView">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            app:fillColor="@color/secondaryColor"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:pageColor="#00000000"
-            app:radius="6dp"
-            app:slideInterval="3000" />
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="32dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/circleImageView"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@mipmap/ic_launcher_round"
+                app:civ_border_color="#ffffff"
+                app:civ_border_width="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="agis@gmail.com"
+                app:layout_constraintBottom_toBottomOf="@+id/circleImageView"
+                app:layout_constraintStart_toStartOf="@+id/tv_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_name"
+                app:layout_constraintVertical_bias="0.0" />
+
+
+            <TextView
+                android:id="@+id/tv_name"
+                style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Agis"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_role"
+                app:layout_constraintStart_toEndOf="@+id/circleImageView"
+                app:layout_constraintTop_toTopOf="@+id/circleImageView"
+                app:layout_constraintVertical_bias="0.3" />
+
+            <TextView
+                android:id="@+id/tv_role"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="56dp"
+                android:background="#ffffff"
+                android:text="Petugas"
+                app:layout_constraintEnd_toEndOf="@+id/circleImageView"
+                app:layout_constraintHorizontal_bias="0.555"
+                app:layout_constraintStart_toStartOf="@+id/circleImageView"
+                app:layout_constraintTop_toTopOf="@+id/circleImageView" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 
 
     <TextView
-            android:id="@+id/btn_dashboard"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:drawableTop="@mipmap/ic_launcher"
-            android:gravity="center"
-            android:text="Dashboard"
-            app:layout_constraintEnd_toStartOf="@+id/btn_pending_job"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/btn_pending_job" />
-
-    <TextView
-            android:id="@+id/btn_pending_job"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:drawableTop="@mipmap/ic_launcher"
-            android:gravity="center"
-            android:text="Pending Job"
-            app:layout_constraintEnd_toStartOf="@+id/btn_status"
-            app:layout_constraintStart_toEndOf="@+id/btn_dashboard"
-            app:layout_constraintTop_toBottomOf="@+id/carouselView" />
-
-    <TextView
-            android:id="@+id/btn_status"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:drawableTop="@mipmap/ic_launcher"
-            android:gravity="center"
-            android:text="Status Permohonan"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btn_pending_job"
-            app:layout_constraintTop_toTopOf="@+id/btn_pending_job" />
-
-    <TextView
-            android:id="@+id/btn_kredit"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:drawableTop="@mipmap/ic_launcher"
-            android:gravity="center"
-            android:text="Simulasi Jasa Kredit"
-            app:layout_constraintEnd_toStartOf="@+id/btn_dokumen"
-            app:layout_constraintStart_toStartOf="@+id/btn_dashboard"
-            app:layout_constraintTop_toTopOf="@+id/btn_dokumen" />
-
-    <TextView
-            android:id="@+id/btn_dokumen"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:drawableTop="@mipmap/ic_launcher"
-            android:gravity="center"
-            android:text="Dokumen"
-            app:layout_constraintEnd_toStartOf="@+id/btn_info"
-            app:layout_constraintStart_toEndOf="@+id/btn_kredit"
-            app:layout_constraintTop_toBottomOf="@+id/btn_pending_job" />
+        android:id="@+id/btn_dashboard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:drawableTop="@mipmap/ic_launcher"
+        android:gravity="center"
+        android:text="Dashboard"
+        app:layout_constraintEnd_toStartOf="@+id/btn_pending_job"
+        app:layout_constraintStart_toStartOf="@+id/materialCardView"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
 
 
     <TextView
-            android:id="@+id/btn_info"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:drawableTop="@mipmap/ic_launcher"
-            android:gravity="center"
-            android:text="Info"
-            app:layout_constraintEnd_toEndOf="@+id/btn_status"
-            app:layout_constraintStart_toEndOf="@+id/btn_dokumen"
-            app:layout_constraintTop_toTopOf="@+id/btn_dokumen" />
+        android:id="@+id/btn_pending_job"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:drawableTop="@mipmap/ic_launcher"
+        android:gravity="center"
+        android:text="Pending Job"
+        app:layout_constraintEnd_toStartOf="@id/btn_dokumen"
+        app:layout_constraintStart_toEndOf="@+id/btn_dashboard"
+        app:layout_constraintTop_toTopOf="@+id/btn_dashboard" />
+
+    <TextView
+        android:id="@+id/btn_dokumen"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:drawableTop="@mipmap/ic_launcher"
+        android:gravity="center"
+        android:text="Dokumen"
+        app:layout_constraintEnd_toStartOf="@+id/btn_info"
+        app:layout_constraintStart_toEndOf="@+id/btn_pending_job"
+        app:layout_constraintTop_toTopOf="@+id/btn_pending_job" />
+
+    <TextView
+        android:id="@+id/btn_info"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:drawableTop="@mipmap/ic_launcher"
+        android:gravity="center"
+        android:text="Info"
+        app:layout_constraintEnd_toEndOf="@+id/materialCardView"
+        app:layout_constraintStart_toEndOf="@+id/btn_dokumen"
+        app:layout_constraintTop_toTopOf="@+id/btn_dokumen" />
+
+    <TextView
+        android:id="@+id/textView11"
+        style="@style/TextAppearance.MaterialComponents.Subtitle1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Uncompleted Job"
+        app:layout_constraintStart_toStartOf="@+id/btn_dashboard"
+        app:layout_constraintTop_toBottomOf="@+id/btn_dokumen" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View all"
+        app:layout_constraintBottom_toBottomOf="@+id/textView11"
+        app:layout_constraintEnd_toEndOf="@+id/btn_info"
+        app:layout_constraintTop_toTopOf="@+id/textView11"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:clipToPadding="false"
+        android:orientation="horizontal"
+        android:paddingStart="24dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="@+id/btn_info"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView11"
+        tools:listitem="@layout/item_job" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

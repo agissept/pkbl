@@ -4,57 +4,45 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import id.agis.pkbl.constant.Constant
-import id.agis.pkbl.data.PKBLRepository
+import id.agis.pkbl.data.ApiInterface
 import id.agis.pkbl.di.Injection
 import id.agis.pkbl.ui.detail.binalingkungan.DetailPengajuanViewModel
-import id.agis.pkbl.ui.home.binalingkungan.BinaLingkunganViewModel
-import id.agis.pkbl.ui.home.kemitraan.KemitraanViewModel
+import id.agis.pkbl.ui.home.HomeViewModel
 import id.agis.pkbl.ui.login.LoginViewModel
+import id.agis.pkbl.ui.search.SearchViewModel
 
 
 class ViewModelFactory(
-    private val pkblRepository: PKBLRepository
+    private val apiInterface: ApiInterface
 ) : ViewModelProvider.NewInstanceFactory() {
     companion object {
         @Volatile
         private var instance: ViewModelFactory? = null
 
-        fun getInstance(context: Context): ViewModelFactory {
-            val token = getToken(context)
-            if (token != null) {
+        fun getInstance(): ViewModelFactory {
                 synchronized(ViewModelFactory::class.java) {
                     if (instance == null) {
-                        instance = ViewModelFactory(Injection.provideRepository(context, token))
+                        instance = ViewModelFactory(Injection.provideRepository())
                     }
                 }
-            } else {
-                instance = ViewModelFactory(Injection.provideRepository(context, null))
-            }
             return instance!!
-        }
-
-        private fun getToken(context: Context): String? {
-            val sharedPreferences =
-                context.getSharedPreferences(Constant.USER, Context.MODE_PRIVATE)
-
-            return sharedPreferences.getString(Constant.USER_TOKEN, null)
         }
     }
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         when {
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
-                return LoginViewModel( pkblRepository) as T
+                return LoginViewModel(apiInterface) as T
             }
 
-            modelClass.isAssignableFrom(KemitraanViewModel::class.java) -> {
-                return KemitraanViewModel(pkblRepository) as T
-            }
-            modelClass.isAssignableFrom(BinaLingkunganViewModel::class.java) -> {
-                return BinaLingkunganViewModel(pkblRepository) as T
-            }
             modelClass.isAssignableFrom(DetailPengajuanViewModel::class.java) -> {
-                return DetailPengajuanViewModel(pkblRepository) as T
+                return DetailPengajuanViewModel(apiInterface) as T
+            }
+            modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
+                return HomeViewModel(apiInterface) as T
+            }
+            modelClass.isAssignableFrom(SearchViewModel::class.java) -> {
+                return SearchViewModel(apiInterface) as T
             }
 
         }

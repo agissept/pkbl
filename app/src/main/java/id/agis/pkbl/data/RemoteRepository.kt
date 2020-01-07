@@ -1,8 +1,7 @@
-package id.agis.pkbl.data.remote
+package id.agis.pkbl.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import id.agis.pkbl.data.remote.retrofit.ApiInterface
 import id.agis.pkbl.model.*
 import okhttp3.MultipartBody
 import retrofit2.Call
@@ -10,54 +9,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class RemoteRepository(private val apiInterface: ApiInterface) {
-    fun getBinaLingkungan(): LiveData<ApiResponse<List<Pemohon>>> {
-        val dataBinaLingkungan = MutableLiveData<ApiResponse<List<Pemohon>>>()
-
-        val call: Call<BinaLingkunganResponse> = apiInterface.getBinaLingkungan()
-        call.enqueue(object : Callback<BinaLingkunganResponse> {
-            override fun onFailure(call: Call<BinaLingkunganResponse>, t: Throwable) {
-
-            }
-
-            override fun onResponse(
-                call: Call<BinaLingkunganResponse>,
-                response: Response<BinaLingkunganResponse>
-            ) {
-                dataBinaLingkungan.postValue(
-                    ApiResponse.success(
-                        response.body()?.pemohon!!
-                    )
-                )
-            }
-
-        })
-
-        return dataBinaLingkungan
-    }
-
-    fun getKemitraan(): LiveData<ApiResponse<List<Pemohon>>> {
-        val dataKemitraan = MutableLiveData<ApiResponse<List<Pemohon>>>()
-
-        val call: Call<KemitraanResponse> = apiInterface.getKemitraan()
-        call.enqueue(object : Callback<KemitraanResponse> {
-            override fun onFailure(call: Call<KemitraanResponse>, t: Throwable) {
-            }
-
-            override fun onResponse(
-                call: Call<KemitraanResponse>,
-                response: Response<KemitraanResponse>
-            ) {
-                dataKemitraan.postValue(
-                    ApiResponse.success(
-                        response.body()?.pemohon!!
-                    )
-                )
-            }
-
-        })
-
-        return dataKemitraan
-    }
 
     fun postLogin(email: String, password: String): LiveData<User> {
         val loginStatus = MutableLiveData<User>()
@@ -131,6 +82,29 @@ class RemoteRepository(private val apiInterface: ApiInterface) {
         val dataPenugasan = MutableLiveData<List<Pengajuan>>()
 
         val call: Call<List<Pengajuan>> = apiInterface.getPenugasan(type, user)
+        call.enqueue(object : Callback<List<Pengajuan>> {
+            override fun onFailure(call: Call<List<Pengajuan>>, t: Throwable) {
+                println("aaaaaaaaaaaaa $t")
+            }
+
+            override fun onResponse(
+                call: Call<List<Pengajuan>>,
+                response: Response<List<Pengajuan>>
+            ) {
+                dataPenugasan.postValue(response.body())
+            }
+
+        })
+
+        return dataPenugasan
+    }
+
+    fun getSearch(
+        query: String
+    ): MutableLiveData<List<Pengajuan>> {
+        val dataPenugasan = MutableLiveData<List<Pengajuan>>()
+
+        val call: Call<List<Pengajuan>> = apiInterface.getSearch(query)
         call.enqueue(object : Callback<List<Pengajuan>> {
             override fun onFailure(call: Call<List<Pengajuan>>, t: Throwable) {
                 println("aaaaaaaaaaaaa $t")

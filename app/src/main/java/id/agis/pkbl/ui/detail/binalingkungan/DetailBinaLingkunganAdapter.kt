@@ -10,15 +10,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import id.agis.pkbl.R
-import id.agis.pkbl.data.local.entities.FileEntity
+//import id.agis.pkbl.data.local.entities.FileEntity
 import kotlinx.android.synthetic.main.file_list.view.*
 import java.io.File
 
 class DetailBinaLingkunganAdapter(
     val context: Context,
-    private val listFile: MutableList<FileEntity>
+    private val listFile: MutableList<String>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    lateinit var onItemClickFile: ((FileEntity) -> Unit)
+//    lateinit var onItemClickFile: ((FileEntity) -> Unit)
     lateinit var onItemClick: (() -> Unit)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -59,24 +59,24 @@ class DetailBinaLingkunganAdapter(
         } else {
             val viewHolder = ViewHolder1(holder.itemView)
             val file = listFile[position - 1]
-            viewHolder.title.text = file.name
+//            viewHolder.title.text = file.name
             viewHolder.itemView.setOnClickListener {
-                onItemClickFile(file)
+//                onItemClickFile(file)
             }
             viewHolder.itemView.setOnCreateContextMenuListener { menu, _, _ ->
                 menu.add(position, 123, 0, "Delete")
             }
 
-            if (file.type == "pdf") {
-                Glide.with(context).load(R.drawable.type_pdf).into(viewHolder.icon)
-            } else if (file.type == "jpg" || file.type == "png") {
-                val image = File(file.path)
-                val uri = Uri.fromFile(image)
-                Glide.with(context).load(uri).into(viewHolder.image)
-                viewHolder.image.visibility = View.VISIBLE
-            } else {
-                Glide.with(context).load(R.drawable.type_unknow).into(viewHolder.icon)
-            }
+//            if (file.type == "pdf") {
+//                Glide.with(context).load(R.drawable.type_pdf).into(viewHolder.icon)
+//            } else if (file.type == "jpg" || file.type == "png") {
+//                val image = File(file.path)
+//                val uri = Uri.fromFile(image)
+//                Glide.with(context).load(uri).into(viewHolder.image)
+//                viewHolder.image.visibility = View.VISIBLE
+//            } else {
+//                Glide.with(context).load(R.drawable.type_unknow).into(viewHolder.icon)
+//            }
         }
 
     }
