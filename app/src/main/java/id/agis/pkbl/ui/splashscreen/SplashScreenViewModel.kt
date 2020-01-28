@@ -8,7 +8,7 @@ class SplashScreenViewModel: ViewModel() {
     fun getUsername(context: Context): String?{
         val sharedPreferences = context.getSharedPreferences(Constant.USER, Context.MODE_PRIVATE)
 
-        return sharedPreferences.getString(Constant.USER_NAME, null)
+        return sharedPreferences.getString(Constant.USER_USERNAME, null)
     }
 
 }

@@ -1,137 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/mobile_navigation"
-        app:startDestination="@+id/nav_home">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
 
     <fragment
-            android:id="@+id/nav_home"
-            android:name="id.agis.pkbl.ui.home.HomeFragment"
-            android:label="Home"
-            tools:layout="@layout/fragment_home" />
+        android:id="@+id/nav_home"
+        android:name="id.agis.pkbl.ui.home.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home">
 
-    <fragment
-            android:id="@+id/nav_dashboard"
-            android:name="id.agis.pkbl.ui.dashboard.DashboardFragment"
-            android:label="Dashboard"
-            tools:layout="@layout/fragment_dashboard" />
-
-
-    <fragment
-            android:id="@+id/nav_pending_job"
-            android:name="id.agis.pkbl.ui.pendingjob.PendingJobFragment"
-            android:label="Pending Job"
-            tools:layout="@layout/fragment_pending_job" >
         <action
-                android:id="@+id/action_nav_pending_job_to_nav_list_pemohon"
-                app:destination="@id/nav_list_pemohon" />
-        <argument
-                android:name="source"
-                app:argType="string" />
-    </fragment>
-
-    <fragment
-            android:id="@+id/nav_program_kemitraan"
-            android:name="id.agis.pkbl.ui.pendingjob.kemitraan.ProgramKemitraanFragment"
-            android:label="Program Kemitraan"
-            tools:layout="@layout/fragment_program_kemitraan" />
-
-    <fragment
-            android:id="@+id/nav_bina_lingkungan"
-            android:name="id.agis.pkbl.ui.pendingjob.binalingkungan.BinaLingkunganFragment"
-            android:label="Bina Lingkungan"
-            tools:layout="@layout/fragment_bina_lingkungan" />
-
-    <fragment
-            android:id="@+id/nav_csr"
-            android:name="id.agis.pkbl.ui.pendingjob.csr.CSRFragment"
-            android:label="CSR"
-            tools:layout="@layout/fragment_csr" />
-
-    <fragment
-            android:id="@+id/nav_list_pemohon"
-            android:name="id.agis.pkbl.ui.pendingjob.listpemohon.ListPengajuanFragment"
-            android:label="{title}"
-            tools:layout="@layout/fragment_list_pemohon" >
-        <argument
-                android:name="title"
-                app:argType="string" />
-        <argument
-                android:name="pengajuan"
-                app:argType="id.agis.pkbl.model.Pengajuan[]" />
-        <argument
-                android:name="source"
-                app:argType="string" />
+            android:id="@+id/action_nav_home_to_nav_search"
+            app:destination="@id/nav_search" />
         <action
-                android:id="@+id/action_nav_list_pemohon_to_nav_detail_pengajuan"
-                app:destination="@id/nav_detail_pengajuan" />
-    </fragment>
-
-    <fragment
-            android:id="@+id/nav_detail_pengajuan"
-            android:name="id.agis.pkbl.ui.detail.binalingkungan.DetailPengajuanFragment"
-            android:label="Detail"
-            tools:layout="@layout/fragment_detail_pengajuan" >
-        <argument
-                android:name="pengajuan"
-                app:argType="id.agis.pkbl.model.Pengajuan" />
-        <argument
-                android:name="source"
-                app:argType="string" />
-
-    </fragment>
-
-
-    <fragment
-            android:id="@+id/nav_status"
-            android:name="id.agis.pkbl.ui.statuspermohonan.StatusPermohonanFragment"
-            android:label="Status Permohonan"
-            tools:layout="@layout/fragment_status_permohonan">
+            android:id="@+id/action_nav_home_to_nav_detail_pengajuan"
+            app:destination="@id/nav_detail_pengajuan" />
         <action
-                android:id="@+id/action_nav_status_to_nav_list_status_pemohonan"
-                app:destination="@id/nav_list_status_pemohonan" />
+            android:id="@+id/action_nav_home_to_nav_list_pemohon"
+            app:destination="@id/nav_list_pemohon" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_search"
+        android:name="id.agis.pkbl.ui.search.SearchFragment"
+        android:label="Search"
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/action_nav_search_to_nav_detail_pengajuan"
+            app:destination="@id/nav_detail_pengajuan" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_dashboard"
+        android:name="id.agis.pkbl.ui.dashboard.DashboardFragment"
+        android:label="Dashboard"
+        tools:layout="@layout/fragment_dashboard" />
+
+
+    <fragment
+        android:id="@+id/nav_pending_job"
+        android:name="id.agis.pkbl.ui.pendingjob.PendingJobFragment"
+        android:label="Pending Job"
+        tools:layout="@layout/fragment_pending_job">
+        <action
+            android:id="@+id/action_nav_pending_job_to_nav_list_pemohon"
+            app:destination="@id/nav_list_pemohon" />
+        <argument
+            android:name="source"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_list_pemohon"
+        android:name="id.agis.pkbl.ui.listpemohon.ListPengajuanFragment"
+        android:label="{title}"
+        tools:layout="@layout/fragment_list_pemohon">
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="pengajuan"
+            app:argType="id.agis.pkbl.model.Pengajuan[]" />
+        <argument
+            android:name="source"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_nav_list_pemohon_to_nav_detail_pengajuan"
+            app:destination="@id/nav_detail_pengajuan" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_detail_pengajuan"
+        android:name="id.agis.pkbl.ui.detail.DetailPengajuanFragment"
+        android:label="Detail"
+        tools:layout="@layout/fragment_detail_pengajuan">
+        <argument
+            android:name="pengajuan"
+            app:argType="id.agis.pkbl.model.Pengajuan" />
+        <argument
+            android:name="source"
+            app:argType="string" />
+
     </fragment>
 
 
     <fragment
-            android:id="@+id/nav_list_status_pemohonan"
-            android:name="id.agis.pkbl.ui.statuspermohonan.liststatuspermohonan.ListStatusPermohonanFragment"
-            android:label="List Status Permohonan"
-            tools:layout="@layout/fragment_list_status_permohonan" >
-
-        <argument
-                android:name="pemohon"
-                app:argType="string" />
-        <argument
-                android:name="institusi"
-                app:argType="string" />
-        <argument android:name="kemitraan"
-                app:argType="boolean" />
-        <argument
-                android:name="bina_lingkungan"
-                app:argType="boolean" />
-        <argument
-                android:name="bina_wilayah"
-                app:argType="boolean" />
+    android:id="@+id/nav_document"
+    android:name="id.agis.pkbl.ui.document.DocumentFragment"
+    android:label="Document"
+    tools:layout="@layout/fragment_document">
+        <action
+            android:id="@+id/action_nav_document_to_nav_document_folder2"
+            app:destination="@id/nav_document_folder" />
     </fragment>
 
+    <fragment
+        android:id="@+id/nav_document_folder"
+        android:name="id.agis.pkbl.ui.documentfolder.DocumentFolderFragment"
+        android:label="Document"
+        tools:layout="@layout/fragment_document">
+
+        <argument
+            android:name="path"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_nav_document_folder_self"
+            app:destination="@id/nav_document_folder" />
+    </fragment>
 
     <fragment
-            android:id="@+id/nav_kredit"
-            android:name="id.agis.pkbl.ui.kredit.KreditFragment"
-            android:label="Simulasi Jasa Kredit"
-            tools:layout="@layout/fragment_kredit" />
+        android:id="@+id/nav_logout"
+        android:name="id.agis.pkbl.ui.logout.LogoutFragment"
+        android:label="Logout"
+        tools:layout="@layout/fragment_logout" />
 
     <fragment
-            android:id="@+id/nav_dokumen"
-            android:name="id.agis.pkbl.ui.dashboard.ui.share.ShareFragment"
-            android:label="@string/menu_share"
-            tools:layout="@layout/fragment_share" />
+        android:id="@+id/nav_info"
+        android:name="id.agis.pkbl.ui.info.InfoFragment"
+        android:label="Info"
+        tools:layout="@layout/fragment_info" >
+        <action
+            android:id="@+id/action_nav_info_to_nav_detai_info"
+            app:destination="@id/nav_detai_info" />
+    </fragment>
 
     <fragment
-            android:id="@+id/nav_info"
-            android:name="id.agis.pkbl.ui.dashboard.ui.send.SendFragment"
-            android:label="@string/menu_send"
-            tools:layout="@layout/fragment_send" />
+        android:id="@+id/nav_detai_info"
+        android:name="id.agis.pkbl.ui.detailinfo.DetailInfoFragment"
+        android:label="Detail Info"
+        tools:layout="@layout/fragment_detail_info" >
+        <argument
+            android:name="info"
+            app:argType="id.agis.pkbl.model.Info" />
+    </fragment>
 </navigation>

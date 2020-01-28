@@ -47,8 +47,8 @@ class PerSektorFragment : Fragment() {
         tv_nama.text = resources.getString(R.string.title_chart_dashboard, type, bulan, tahun)
 
         adapter = PerSektorAdapter(listPengajuan)
-        recycler_view.layoutManager = LinearLayoutManager(context)
-        recycler_view.adapter = adapter
+        rv_file.layoutManager = LinearLayoutManager(context)
+        rv_file.adapter = adapter
 
         val viewModel = ViewModelProviders.of(this).get(PerSektorViewModel::class.java)
 
@@ -57,18 +57,25 @@ class PerSektorFragment : Fragment() {
             listPengajuan.clear()
             listPengajuan.addAll(it)
 
-            val jumlahDana = listPengajuan.sumBy { pengajuan->
+            val jumlahDana = listPengajuan.sumBy { pengajuan ->
                 pengajuan.dana.toInt()
             }
 
-            listPengajuan.forEach {pengajuan ->
-                val percent = pengajuan.dana.toFloat() / jumlahDana  *  100
-                listPieEntry.add(PieEntry(percent ,pengajuan.sektor))
+            listPengajuan.forEach { pengajuan ->
+                val percent = pengajuan.dana.toFloat() / jumlahDana * 100
+                listPieEntry.add(PieEntry(percent, pengajuan.sektor))
             }
 
             adapter.notifyDataSetChanged()
             setData()
             progress_bar.visibility = View.INVISIBLE
+            if (listPengajuan.size < 1) {
+                tv_error.visibility = View.VISIBLE
+                layout_chart.visibility = View.INVISIBLE
+            } else {
+                tv_error.visibility = View.INVISIBLE
+                layout_chart.visibility = View.VISIBLE
+            }
         })
 
 

@@ -3,49 +3,38 @@ package id.agis.pkbl.ui.pendingjob.kemitraan
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import id.agis.pkbl.R
 import id.agis.pkbl.constant.Constant
-import id.agis.pkbl.model.Pemohon
 import id.agis.pkbl.model.Pengajuan
 import id.agis.pkbl.ui.pendingjob.PendingJobFragmentDirections
-import kotlinx.android.synthetic.main.fragment_program_kemitraan.*
+import id.agis.pkbl.ui.pendingjob.PendingJobViewModel
+import kotlinx.android.synthetic.main.fragment_type_pending_job.*
 
 /**
  * A simple [Fragment] subclass.
  */
-class ProgramKemitraanFragment : Fragment() {
-    private lateinit var viewModel: ProgramKemitraanViewModel
-    val listPenugasan = mutableListOf<Pengajuan>()
-    val listPenilaian = mutableListOf<Pengajuan>()
-    val listPersetujuan = mutableListOf<Pengajuan>()
-    val listPencairan = mutableListOf<Pengajuan>()
-    val listSelesai = mutableListOf<Pengajuan>()
-    val listDitolak = mutableListOf<Pengajuan>()
-
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_program_kemitraan, container, false)
-    }
+class ProgramKemitraanFragment : Fragment(R.layout.fragment_type_pending_job) {
+    private lateinit var viewModel: PendingJobViewModel
+    private val listPenugasan = mutableListOf<Pengajuan>()
+    private val listPenilaian = mutableListOf<Pengajuan>()
+    private val listPersetujuan = mutableListOf<Pengajuan>()
+    private val listPencairan = mutableListOf<Pengajuan>()
+    private val listSelesai = mutableListOf<Pengajuan>()
+    private val listDitolak = mutableListOf<Pengajuan>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val user = context!!.getSharedPreferences(Constant.USER, Context.MODE_PRIVATE).getString(Constant.USER_NAME, "")
+        val user = context!!.getSharedPreferences(Constant.USER, Context.MODE_PRIVATE).getString(Constant.USER_USERNAME, "")
 
-        viewModel = ViewModelProviders.of(this).get(ProgramKemitraanViewModel::class.java)
-        viewModel.getPenugasan()
-        viewModel.listPengajuan.observe(this, Observer {
+        viewModel = ViewModelProviders.of(this).get(PendingJobViewModel::class.java)
+        viewModel.getPenugasan("kemitraan")
+        viewModel.listPengajuan.observe(this, Observer { list ->
             listPenugasan.clear()
             listPenilaian.clear()
             listPersetujuan.clear()
@@ -53,22 +42,22 @@ class ProgramKemitraanFragment : Fragment() {
             listSelesai.clear()
             listDitolak.clear()
 
-            listPenugasan.addAll(it.filter { it.status == "Penugasan" && it.surveyor ==  user })
-            listPenilaian.addAll(it.filter { it.status == "Penilaian" })
-            listPersetujuan.addAll(it.filter { it.status == "Persetujuan" })
-            listPencairan.addAll(it.filter { it.status == "Pencairan" })
-            listSelesai.addAll(it.filter { it.status == "Selesai" })
-            listDitolak.addAll(it.filter { it.status == "Ditolak" })
-
-            println(listPenugasan.size.toString() + "aaaaaaaaaaaaaaaaaa")
+            listPenugasan.addAll(list.filter { it.status == "Penugasan" && it.surveyor ==  user })
+            listPenilaian.addAll(list.filter { it.status == "Penilaian" })
+            listPersetujuan.addAll(list.filter { it.status == "Persetujuan" })
+            listPencairan.addAll(list.filter { it.status == "Pencairan" })
+            listSelesai.addAll(list.filter { it.status == "Selesai" })
+            listDitolak.addAll(list.filter { it.status == "Ditolak" })
 
             tv_penugasan.text = resources.getString(R.string.penugasan_survey, listPenugasan.size)
             tv_penilaian.text = resources.getString(R.string.penilaian, listPenilaian.size)
             tv_persetujuan.text = resources.getString(R.string.persetujuan, listPersetujuan.size)
             tv_pencairan.text = resources.getString(R.string.pencairan, listPencairan.size)
-            tv_selesai.text = resources.getString(R.string.selesai, listPencairan.size)
+            tv_selesai.text = resources.getString(R.string.selesai, listSelesai.size)
             tv_ditolak.text = resources.getString(R.string.ditolak, listDitolak.size)
 
+            progress_bar.visibility = View.INVISIBLE
+            layout_button.visibility = View.VISIBLE
         })
 
         val title = "Program Kemitraan"

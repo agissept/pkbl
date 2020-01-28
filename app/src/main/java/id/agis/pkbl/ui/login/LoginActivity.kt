@@ -4,11 +4,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import id.agis.pkbl.R
-import id.agis.pkbl.main.MainActivity
-import id.agis.pkbl.viewmodel.ViewModelFactory
+import id.agis.pkbl.ui.main.MainActivity
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.toast
 
 class LoginActivity : AppCompatActivity() {
 
@@ -19,29 +20,25 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         supportActionBar?.hide()
-        viewModel = ViewModelFactory.getInstance().create(LoginViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
 
         btn_login.setOnClickListener {
             requestLogin(ed_username.text.toString(), ed_password.text.toString())
-        }
-        tv_forgot.setOnClickListener {
-            //            startActivity<ForgotPasswordActivity>()
         }
 
     }
 
     private fun requestLogin(username: String, password: String) {
-        tv_error.visibility = View.INVISIBLE
         progress_circular.visibility = View.VISIBLE
 
         viewModel.postLogin(username, password).observe(this, Observer {
             if (it.status) {
-                viewModel.saveToken(applicationContext, it.id, it.username, it.email, it.role)
+                viewModel.saveToken(applicationContext, it)
                 startActivity<MainActivity>()
                 finish()
             } else {
-                tv_error.visibility = View.VISIBLE
                 progress_circular.visibility = View.INVISIBLE
+                toast("Username atau password salah")
             }
         })
     }

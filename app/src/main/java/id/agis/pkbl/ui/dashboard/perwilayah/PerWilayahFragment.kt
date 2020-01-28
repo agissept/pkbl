@@ -19,9 +19,12 @@ import id.agis.pkbl.model.Pengajuan
 import id.agis.pkbl.util.CustomMarkerView
 import id.agis.pkbl.util.CustomPercentFormatter
 import kotlinx.android.synthetic.main.backdrop.*
+import kotlinx.android.synthetic.main.fragment_per_sektor.*
 import kotlinx.android.synthetic.main.fragment_per_wilayah.*
+import kotlinx.android.synthetic.main.fragment_per_wilayah.layout_chart
 import kotlinx.android.synthetic.main.fragment_per_wilayah.progress_bar
-import kotlinx.android.synthetic.main.fragment_per_wilayah.recycler_view
+import kotlinx.android.synthetic.main.fragment_per_wilayah.rv_file
+import kotlinx.android.synthetic.main.fragment_per_wilayah.tv_error
 import kotlinx.android.synthetic.main.fragment_per_wilayah.tv_nama
 import org.jetbrains.anko.collections.forEachWithIndex
 
@@ -58,8 +61,8 @@ class PerWilayahViewModel : Fragment() {
 
         adapter =
             PerWilayahAdapter(listPengajuan)
-        recycler_view.layoutManager = LinearLayoutManager(context)
-        recycler_view.adapter = adapter
+        rv_file.layoutManager = LinearLayoutManager(context)
+        rv_file.adapter = adapter
 
         val viewModel = ViewModelProviders.of(this).get(PerPropinsiViewModel::class.java)
 
@@ -82,7 +85,15 @@ class PerWilayahViewModel : Fragment() {
             adapter.notifyDataSetChanged()
             if(listPengajuan.size > 0){
                 setData()
-                progress_bar.visibility = View.INVISIBLE
+            }
+
+            progress_bar.visibility = View.INVISIBLE
+            if (listPengajuan.size < 1) {
+                tv_error.visibility = View.VISIBLE
+                layout_chart.visibility = View.INVISIBLE
+            } else {
+                tv_error.visibility = View.INVISIBLE
+                layout_chart.visibility = View.VISIBLE
             }
 
         })

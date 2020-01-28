@@ -1,17 +1,20 @@
 package id.agis.pkbl.util
 
 
-import android.content.ContentResolver
 import android.content.Context
+import android.content.Intent
 import android.database.Cursor
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.DocumentsContract
 import android.provider.MediaStore
-import android.provider.OpenableColumns
-import android.webkit.MimeTypeMap
-import java.io.File
+import android.util.Log
+import androidx.core.content.FileProvider
+import id.agis.pkbl.model.FileModel
+import id.agis.pkbl.ui.detail.LoadingInterface
+import okhttp3.ResponseBody
+import java.io.*
 
 
 object FileUtil {
@@ -138,64 +141,117 @@ object FileUtil {
 //    }
 
 
-    fun getFileName(uri: Uri, context: Context): String? {
-        val uriString = uri.toString()
-        val myFile = File(uriString)
-        var displayName: String? = null
-        if (uriString.startsWith("content://")) {
-            var cursor: Cursor? = null
-            try {
-                cursor = context.contentResolver.query(uri, null, null, null, null)
-                if (cursor != null && cursor.moveToFirst()) {
-                    displayName =
-                        cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
-                }
-            } finally {
-                cursor!!.close()
-            }
-        } else if (uriString.startsWith("file://")) {
-            displayName = myFile.name
-        }
-
-        return displayName
-    }
-
-    fun Uri.getMimeType(context: Context): String? {
-        val uri = this
-        return if (uri.scheme == ContentResolver.SCHEME_CONTENT) {
-            val mime = MimeTypeMap.getSingleton()
-            mime?.getExtensionFromMimeType(context.contentResolver.getType(uri))
-        } else {
-            MimeTypeMap.getFileExtensionFromUrl(Uri.fromFile(File(uri.path)).toString())
-        }
-    }
-
-    fun createFolder(
-        user: String,
-        typePemohon: String,
-        typeFolder: String,
-        fileName: String
-    ): File {
-        println("PKBL/$user/$typePemohon/$typeFolder/$fileName")
-        val folder = File(
-            Environment.getExternalStorageDirectory().toString(),
-            "PKBL/$user/$typePemohon/$typeFolder"
-        )
-        if(!folder.exists()){
+    fun createNewFolder(name: String, type: String): File {
+        val folder = File(Environment.getExternalStorageDirectory().toString(), "PKBL/$type/$name")
+        if (!folder.exists()) {
             folder.mkdirs()
         }
+        return folder
+    }
+
+    private fun createTempFile(folder: File, fileName: String): File {
         val tempFile = File(folder, fileName)
         tempFile.createNewFile()
-
 
         return tempFile
     }
 
-    fun copyFile(src: File, dst: File) {
-        src.inputStream().use { input ->
-            dst.outputStream().use { output ->
+    fun copyFile(path: String, idPengajuan: String) {
+        val file = File(path)
+        val folder = createNewFolder(idPengajuan, "Upload")
+        val tempFile = createTempFile(folder, file.name)
+
+        file.inputStream().use { input ->
+            tempFile.outputStream().use { output ->
                 input.copyTo(output)
             }
         }
+    }
+
+    fun deleteFile(path: String) {
+        val file = File(path)
+        if (file.isDirectory) {
+            file.deleteRecursively()
+        } else {
+            file.delete()
+        }
+    }
+
+    fun Intent?.getUri(): List<Uri> {
+        val listUri = mutableListOf<Uri>()
+        if (this?.clipData != null) {
+            this.clipData?.let { clipData ->
+                for (i in 0 until clipData.itemCount) {
+                    clipData.getItemAt(i)?.uri?.let {
+                        listUri.add(it)
+                    }
+                }
+            }
+        } else {
+            this?.data?.let {
+                listUri.add(it)
+            }
+        }
+
+        return listUri
+    }
+
+    fun Context.launchFileIntent(fileModel: FileModel) {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = FileProvider.getUriForFile(this, packageName, File(fileModel.path))
+        intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION.or(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+        startActivity(Intent.createChooser(intent, "Select Application"))
+    }
+
+     fun writeResponseBodyToDisk(
+        body: ResponseBody,
+        name: String,
+        idPengajuan: String,
+     loadingInterface: LoadingInterface
+    ): Boolean {
+        try {
+            val futureStudioIconFile =
+                File("storage/emulated/0/pkbl/Download/$idPengajuan/$name")
+
+            var inputStream: InputStream? = null
+            var outputStream: OutputStream? = null
+
+            try {
+                val fileReader = ByteArray(4096)
+
+                val fileSize = body.contentLength()
+                var fileSizeDownloaded: Long = 0
+
+                inputStream = body.byteStream()
+                outputStream = FileOutputStream(futureStudioIconFile)
+
+                while (true) {
+                    val read = inputStream.read(fileReader)
+
+                    if (read == -1) {
+                        break
+                    }
+
+                    outputStream.write(fileReader, 0, read)
+
+                    fileSizeDownloaded += read.toLong()
+                    loadingInterface.dowloandProgress(fileSize.toInt())
+                    Log.d("AAAA", "file download: $fileSizeDownloaded of $fileSize")
+                }
+
+                outputStream.flush()
+
+                return true
+            } catch (e: IOException) {
+                return false
+            } finally {
+                inputStream?.close()
+
+                outputStream?.close()
+            }
+        } catch (e: IOException) {
+            return false
+        }
+
     }
 }

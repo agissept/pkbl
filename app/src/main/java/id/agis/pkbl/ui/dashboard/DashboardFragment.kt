@@ -18,7 +18,6 @@ import id.agis.pkbl.R
 import id.agis.pkbl.ui.dashboard.persektor.PerSektorFragment
 import id.agis.pkbl.ui.dashboard.perwilayah.PerWilayahViewModel
 import kotlinx.android.synthetic.main.app_bar_main.*
-import kotlinx.android.synthetic.main.backdrop.*
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 
 
@@ -44,16 +43,16 @@ class DashboardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapterTahun = ArrayAdapter(context!!, android.R.layout.simple_spinner_item, listTahun)
+        adapterTahun = ArrayAdapter(context!!, R.layout.spinner_item, listTahun)
         adapterTahun.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        adapterBulan = ArrayAdapter(context!!, android.R.layout.simple_spinner_item, listBulan)
-        adapterBulan.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        adapterBulan = ArrayAdapter(context!!, R.layout.spinner_item, listBulan)
+        adapterBulan.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item)
         sp_tahun.adapter = adapterTahun
         sp_bulan.adapter = adapterBulan
 
         sp_tahun.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
             }
 
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
@@ -145,7 +144,7 @@ class DashboardFragment : Fragment() {
         animatorSet.end()
         animatorSet.cancel()
 
-        val translateY = backdrop.height
+        val translateY = backdrop.height - 6
 
         val animator = ObjectAnimator.ofFloat(
             product_grid,
@@ -162,7 +161,7 @@ class DashboardFragment : Fragment() {
 
     private fun updateIcon() {
         if (backdropShown) {
-            menu.findItem(R.id.filter).icon = context?.getDrawable(R.drawable.ic_close)
+            menu.findItem(R.id.filter).icon = context?.getDrawable(R.drawable.ic_close_black_24dp)
         } else {
             menu.findItem(R.id.filter).icon = context?.getDrawable(R.drawable.ic_filter)
         }

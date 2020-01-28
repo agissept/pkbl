@@ -6,12 +6,11 @@ import id.agis.pkbl.data.ApiInterface
 import id.agis.pkbl.data.RemoteRepository
 import id.agis.pkbl.model.Pengajuan
 
-class HomeViewModel(val apiInterface: ApiInterface) : ViewModel() {
+class HomeViewModel : ViewModel() {
     private var _listPengajuan = MutableLiveData<List<Pengajuan>>()
     val listPengajuan get() = _listPengajuan
 
     fun getPenugasan(){
-        _listPengajuan = RemoteRepository(apiInterface)
-            .getPenugasan("", "")
+        _listPengajuan = RemoteRepository().getPenugasan("", "")
     }
 }

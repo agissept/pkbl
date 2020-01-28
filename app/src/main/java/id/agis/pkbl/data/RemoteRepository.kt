@@ -4,11 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import id.agis.pkbl.model.*
 import okhttp3.MultipartBody
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RemoteRepository(private val apiInterface: ApiInterface) {
+class RemoteRepository {
+    private val apiInterface = ApiClient.retrofit().create(ApiInterface::class.java)
 
     fun postLogin(email: String, password: String): LiveData<User> {
         val loginStatus = MutableLiveData<User>()
@@ -28,22 +30,22 @@ class RemoteRepository(private val apiInterface: ApiInterface) {
         return loginStatus
     }
 
-    fun uploadFile(file: MultipartBody.Part, idPemohon: Int): MutableLiveData<UploadFileResponse> {
+    fun uploadFile(file: MultipartBody.Part, idPemohon: String): MutableLiveData<UploadFileResponse> {
         val uploadResponse = MutableLiveData<UploadFileResponse>()
 
-        val call = apiInterface.uploadFiles(file, idPemohon)
-        call.enqueue(object : Callback<UploadFileResponse> {
-            override fun onFailure(call: Call<UploadFileResponse>, t: Throwable) {
+        val call = apiInterface.uploadFiles(file, idPemohon.toInt())
+        call.enqueue(object : Callback<List<UploadFileResponse>> {
+            override fun onFailure(call: Call<List<UploadFileResponse>>, t: Throwable) {
+                println("$t aaaaaaaaaaaaaaaaaaaaaa")
             }
 
             override fun onResponse(
-                call: Call<UploadFileResponse>,
-                response: Response<UploadFileResponse>
+                call: Call<List<UploadFileResponse>>,
+                response: Response<List<UploadFileResponse>>
             ) {
-                uploadResponse.postValue(response.body())
+                uploadResponse.postValue(response.body()!![0])
             }
         })
-
         return uploadResponse
     }
 
@@ -100,11 +102,13 @@ class RemoteRepository(private val apiInterface: ApiInterface) {
     }
 
     fun getSearch(
-        query: String
+        query: String,
+        bulan: String,
+        tahun: String
     ): MutableLiveData<List<Pengajuan>> {
         val dataPenugasan = MutableLiveData<List<Pengajuan>>()
 
-        val call: Call<List<Pengajuan>> = apiInterface.getSearch(query)
+        val call: Call<List<Pengajuan>> = apiInterface.getSearch(query, bulan, tahun)
         call.enqueue(object : Callback<List<Pengajuan>> {
             override fun onFailure(call: Call<List<Pengajuan>>, t: Throwable) {
                 println("aaaaaaaaaaaaa $t")
@@ -122,7 +126,7 @@ class RemoteRepository(private val apiInterface: ApiInterface) {
         return dataPenugasan
     }
 
-    fun postPenugasan(id: Int, koordinat: String): MutableLiveData<Status> {
+    fun postPenugasan(id: String, koordinat: String): MutableLiveData<Status> {
         val status = MutableLiveData<Status>()
 
         val call: Call<Status> = apiInterface.postPenugasan(id, koordinat)
@@ -143,7 +147,7 @@ class RemoteRepository(private val apiInterface: ApiInterface) {
         return status
     }
 
-    fun postPenilaian(id: Int, user: String, penilaian: String): MutableLiveData<Status> {
+    fun postPenilaian(id: String, user: String, penilaian: String): MutableLiveData<Status> {
         val status = MutableLiveData<Status>()
 
         val call: Call<Status> = apiInterface.postPenilaian(id, user, penilaian)
@@ -164,7 +168,12 @@ class RemoteRepository(private val apiInterface: ApiInterface) {
         return status
     }
 
-    fun postPersetujuan(id: Int, user: String, statusPersetujuan: Boolean, alasan: String): MutableLiveData<Status> {
+    fun postPersetujuan(
+        id: String,
+        user: String,
+        statusPersetujuan: Boolean,
+        alasan: String
+    ): MutableLiveData<Status> {
         val status = MutableLiveData<Status>()
 
         val call: Call<Status> = apiInterface.postPersetujuan(id, user, statusPersetujuan, alasan)
@@ -185,7 +194,7 @@ class RemoteRepository(private val apiInterface: ApiInterface) {
         return status
     }
 
-    fun postPencairan(id: Int, user: String): MutableLiveData<Status> {
+    fun postPencairan(id: String, user: String): MutableLiveData<Status> {
         val status = MutableLiveData<Status>()
 
         val call: Call<Status> = apiInterface.postPencairan(id, user)
@@ -204,6 +213,62 @@ class RemoteRepository(private val apiInterface: ApiInterface) {
         })
 
         return status
+    }
+
+    fun getFiles(id: String): MutableLiveData<List<UploadFileResponse>> {
+        val listFile = MutableLiveData<List<UploadFileResponse>>()
+
+        val call: Call<List<UploadFileResponse>> = apiInterface.getFiles(id)
+        call.enqueue(object : Callback<List<UploadFileResponse>> {
+            override fun onFailure(call: Call<List<UploadFileResponse>>, t: Throwable) {
+                println("aaaaaaaaaaaaa $t")
+            }
+
+            override fun onResponse(
+                call: Call<List<UploadFileResponse>>,
+                response: Response<List<UploadFileResponse>>
+            ) {
+                listFile.postValue(response.body())
+            }
+
+        })
+
+        return listFile
+    }
+
+    fun downloadFile(id: String, name: String): MutableLiveData<ResponseBody> {
+        val responseBody = MutableLiveData<ResponseBody>()
+        val call = apiInterface.downloadFile(id,name)
+
+        call.enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                responseBody.postValue(response.body())
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                println("aaaaaaaaaaaaa $t")
+            }
+        })
+
+        return responseBody
+    }
+
+
+    fun getInfo(): MutableLiveData<List<Info>> {
+        val listInfo = MutableLiveData<List<Info>>()
+        val call = apiInterface.getInfo()
+
+        call.enqueue(object : Callback<List<Info>> {
+            override fun onResponse(call: Call<List<Info>>, response: Response<List<Info>>) {
+                listInfo.postValue(response.body())
+            }
+
+            override fun onFailure(call: Call<List<Info>>, t: Throwable) {
+                println("aaaaaaaaaaaaa $t")
+            }
+        })
+
+        return listInfo
     }
 
 }

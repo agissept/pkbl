@@ -42,7 +42,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Kemitraan"
-                    app:chipBackgroundColor="@color/bg_chip_state_list" />
+                />
 
             <com.google.android.material.chip.Chip
                     android:id="@+id/chip_bina_lingkungan"
@@ -50,7 +50,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Bina Lingkungan"
-                    app:chipBackgroundColor="@color/bg_chip_state_list" />
+                    />
 
             <com.google.android.material.chip.Chip
                     android:id="@+id/chip_bina_csr"
@@ -58,7 +58,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="CSR"
-                    app:chipBackgroundColor="@color/bg_chip_state_list" />
+                   />
 
         </com.google.android.material.chip.ChipGroup>
     </HorizontalScrollView>

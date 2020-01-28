@@ -1,11 +1,12 @@
 package id.agis.pkbl.model
 
 import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Pengajuan(
-    val id: Int,
+    val id: String,
     val nama: String,
     val nik: String,
     val dana: String,
@@ -23,5 +24,20 @@ data class Pengajuan(
     val tujuan: String,
     val alasan: String,
     val instansi: String,
-    val penilaian: String
-): Parcelable
+    val penilaian: String,
+    val penilai: String,
+    val penyetuju: String,
+    val bendahara: String,
+
+    @SerializedName("tanggal_survey")
+    val tanggalSurvey: String,
+
+    @SerializedName("tanggal_penilaian")
+    val tanggalPenilaian: String,
+
+    @SerializedName("tanggal_penyetujuan")
+    val tanggalPersetujuan: String,
+
+    @SerializedName("tanggal_pencairan")
+    val tanggalPencairan: String
+) : Parcelable

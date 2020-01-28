@@ -62,9 +62,8 @@
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_chart_dashboard">DATA PENYALURAN %1s PER %2s %3s</string>
+    <string name="title_chart_dashboard">Data Penyaluran %1s Per %2s %3s</string>
     <string name="penugasan_survey">Penugasan Survey %1d data</string>
     <string name="penilaian">Penilaian %1d data</string>
     <string name="persetujuan">Persetujuan %1d data</string>
@@ -74,8 +73,19 @@
     <string name="place_holder_alamat">Jl kencana barat no 26 Jakarta Selatan</string>
     <string name="place_holder_nama">Andi Sofyan</string>
     <string name="hello">Hello %1s!</string>
+    <string name="welcome_message">Welcome back to get started with your job</string>
+    <string name="role_placeholder">Petugas</string>
+    <string name="name_placeholder">John Doe</string>
+    <string name="email_placeholder">johndoe@gmail.com</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="pending_job">Pending Job</string>
+    <string name="document">Document</string>
+    <string name="info">Info</string>
+    <string name="uncompleted_job">Uncompleted Job</string>
+    <string name="view_all">View all</string>
+    <string name="masuk">Masuk</string>
 
-    <string-array name="array_tahun">
+    <string-array name="placeholder_year">
         <item>2019</item>
         <item>2018</item>
         <item>2017</item>
@@ -83,7 +93,7 @@
         <item>2015</item>
     </string-array>
 
-    <string-array name="array_bulan">
+    <string-array name="placeholder_month">
         <item>Januari</item>
         <item>Februari</item>
         <item>Maret</item>
@@ -98,19 +108,4 @@
         <item>Desember</item>
     </string-array>
 
-    <string-array name="array_cabang">
-        <item>Pusat</item>
-        <item>Cabang 1</item>
-        <item>Cabang 2</item>
-        <item>Cabang 3</item>
-        <item>Cabang 4</item>
-    </string-array>
-
-    <string-array name="array_sistem_jasa">
-        <item>Menurun Awal Tahun</item>
-        <item>item1</item>
-        <item>item2</item>
-        <item>item3</item>
-        <item>item4</item>
-    </string-array>
 </resources>
